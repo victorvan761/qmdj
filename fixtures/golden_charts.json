@@ -1,0 +1,5787 @@
+{
+ "meta": {
+  "description": "Golden charts for the 玄天排盘-compatible 奇门遁甲 app. R* = transcribed from reference screenshots; D* = computed with the spec's default rules (unconfirmed).",
+  "settings": {
+   "method": "转盘",
+   "dingJu": "拆补",
+   "kongWang": "时空",
+   "centerLodge": "寄坤二宫",
+   "ziHour": "23:00 starts the next day",
+   "termSwitch": "exact 节气 instant",
+   "clock": "input is Beijing wall-clock time (UTC+8), no DST or 真太阳时"
+  },
+  "palaceOrderOnScreen": [
+   4,
+   9,
+   2,
+   3,
+   5,
+   7,
+   8,
+   1,
+   6
+  ],
+  "stemOrderInSlot": "for two-stem slots, the 中5 stem comes first, then the 坤2 stem",
+  "stagesOrder": "per palace branch order: 1子 8寅丑 3卯 4辰巳 9午 2未申 7酉 6亥戌",
+  "calendarLibrary": "lunar_python 1.4.8 (same algorithm and output as lunar-typescript 1.8.6)"
+ },
+ "cases": [
+  {
+   "id": "R1",
+   "input": "1996-06-20T18:16",
+   "confirmedInReference": true,
+   "note": "Reference screenshot",
+   "openQuestion": null,
+   "header": {
+    "solar": "1996-06-20 18:16:00",
+    "lunar": "丙子年 五月初五",
+    "pillars": {
+     "year": "丙子",
+     "month": "甲午",
+     "day": "戊子",
+     "hour": "辛酉"
+    },
+    "ju": "阳遁3局",
+    "xunShou": "甲寅癸",
+    "zhiFu": "天任",
+    "zhiShi": "生门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "丙子",
+    "month": 5,
+    "leap": false,
+    "day": 5
+   },
+   "jieqi": {
+    "current": "芒种",
+    "currentStart": "1996-06-05 17:40:47",
+    "next": "夏至",
+    "nextStart": "1996-06-21 10:23:44",
+    "yuan": "中元",
+    "fuTou": "甲申"
+   },
+   "derived": {
+    "dun": "阳",
+    "juNumber": 3,
+    "zhiFuPalace": 6,
+    "zhiShiPalace": 6,
+    "kongWangBranches": [
+     "子",
+     "丑"
+    ],
+    "horseBranch": "亥"
+   },
+   "center": "庚",
+   "palaces": {
+    "4": {
+     "god": "白虎",
+     "star": "芮禽",
+     "door": "死门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      },
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "养长",
+      "冠沐"
+     ],
+     "earthStages": [
+      "衰旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "9": {
+     "god": "玄武",
+     "star": "天柱",
+     "door": "惊门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "胎"
+     ],
+     "earthStages": [
+      "临"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "2": {
+     "god": "九地",
+     "star": "天心",
+     "door": "开门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false
+      },
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "衰旺"
+     ],
+     "earthStages": [
+      "冠临",
+      "养胎"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "3": {
+     "god": "六合",
+     "star": "天英",
+     "door": "景门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": true,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "病"
+     ],
+     "earthStages": [
+      "沐"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "7": {
+     "god": "九天",
+     "star": "天蓬",
+     "door": "休门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "死"
+     ],
+     "earthStages": [
+      "沐"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "8": {
+     "god": "太阴",
+     "star": "天辅",
+     "door": "杜门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": true,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "死墓"
+     ],
+     "earthStages": [
+      "沐冠"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 12.5
+    },
+    "1": {
+     "god": "腾蛇",
+     "star": "天冲",
+     "door": "伤门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": true
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "胎"
+     ],
+     "earthStages": [
+      "胎"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 50.0
+    },
+    "6": {
+     "god": "值符",
+     "star": "天任",
+     "door": "生门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "旺衰"
+     ],
+     "earthStages": [
+      "沐冠"
+     ],
+     "kongWang": false,
+     "horse": true,
+     "score": 100.0
+    }
+   }
+  },
+  {
+   "id": "R2",
+   "input": "1960-08-29T06:05",
+   "confirmedInReference": true,
+   "note": "Reference screenshot",
+   "openQuestion": null,
+   "header": {
+    "solar": "1960-08-29 06:05:00",
+    "lunar": "庚子年 七月初八",
+    "pillars": {
+     "year": "庚子",
+     "month": "甲申",
+     "day": "己丑",
+     "hour": "丁卯"
+    },
+    "ju": "阴遁7局",
+    "xunShou": "甲子戊",
+    "zhiFu": "天柱",
+    "zhiShi": "惊门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "庚子",
+    "month": 7,
+    "leap": false,
+    "day": 8
+   },
+   "jieqi": {
+    "current": "处暑",
+    "currentStart": "1960-08-23 11:34:22",
+    "next": "白露",
+    "nextStart": "1960-09-07 23:45:22",
+    "yuan": "下元",
+    "fuTou": "己丑"
+   },
+   "derived": {
+    "dun": "阴",
+    "juNumber": 7,
+    "zhiFuPalace": 1,
+    "zhiShiPalace": 4,
+    "kongWangBranches": [
+     "戌",
+     "亥"
+    ],
+    "horseBranch": "巳"
+   },
+   "center": "庚",
+   "palaces": {
+    "4": {
+     "god": "玄武",
+     "star": "天任",
+     "door": "惊门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "冠沐"
+     ],
+     "earthStages": [
+      "墓死"
+     ],
+     "kongWang": false,
+     "horse": true,
+     "score": 50.0
+    },
+    "9": {
+     "god": "白虎",
+     "star": "天冲",
+     "door": "开门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "胎"
+     ],
+     "earthStages": [
+      "旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "2": {
+     "god": "六合",
+     "star": "天辅",
+     "door": "休门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false
+      },
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "衰旺"
+     ],
+     "earthStages": [
+      "冠临",
+      "墓死"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "3": {
+     "god": "九地",
+     "star": "天蓬",
+     "door": "死门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "病"
+     ],
+     "earthStages": [
+      "死"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "7": {
+     "god": "太阴",
+     "star": "天英",
+     "door": "生门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "死"
+     ],
+     "earthStages": [
+      "死"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "8": {
+     "god": "九天",
+     "star": "天心",
+     "door": "景门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": true,
+       "riGan": true
+      }
+     ],
+     "earth": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "死墓"
+     ],
+     "earthStages": [
+      "旺衰"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "1": {
+     "god": "值符",
+     "star": "天柱",
+     "door": "杜门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "胎"
+     ],
+     "earthStages": [
+      "绝"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "6": {
+     "god": "腾蛇",
+     "star": "芮禽",
+     "door": "伤门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      },
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "病衰",
+      "旺衰"
+     ],
+     "earthStages": [
+      "胎养"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 50.0
+    }
+   }
+  },
+  {
+   "id": "R3",
+   "input": "1960-07-19T07:32",
+   "confirmedInReference": true,
+   "note": "Reference screenshot (闰六月 year, regular 六月)",
+   "openQuestion": null,
+   "header": {
+    "solar": "1960-07-19 07:32:00",
+    "lunar": "庚子年 六月廿六",
+    "pillars": {
+     "year": "庚子",
+     "month": "癸未",
+     "day": "戊申",
+     "hour": "丙辰"
+    },
+    "ju": "阴遁5局",
+    "xunShou": "甲寅癸",
+    "zhiFu": "天英",
+    "zhiShi": "景门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "庚子",
+    "month": 6,
+    "leap": false,
+    "day": 26
+   },
+   "jieqi": {
+    "current": "小暑",
+    "currentStart": "1960-07-07 11:12:39",
+    "next": "大暑",
+    "nextStart": "1960-07-23 04:37:25",
+    "yuan": "下元",
+    "fuTou": "甲辰"
+   },
+   "derived": {
+    "dun": "阴",
+    "juNumber": 5,
+    "zhiFuPalace": 7,
+    "zhiShiPalace": 7,
+    "kongWangBranches": [
+     "子",
+     "丑"
+    ],
+    "horseBranch": "寅"
+   },
+   "center": "戊",
+   "palaces": {
+    "4": {
+     "god": "六合",
+     "star": "天任",
+     "door": "生门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "衰旺"
+     ],
+     "earthStages": [
+      "衰旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "9": {
+     "god": "太阴",
+     "star": "天冲",
+     "door": "伤门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "沐"
+     ],
+     "earthStages": [
+      "绝"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "2": {
+     "god": "腾蛇",
+     "star": "天辅",
+     "door": "杜门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "己",
+       "jiXing": true,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false
+      },
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "冠沐"
+     ],
+     "earthStages": [
+      "衰病",
+      "衰旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 25.0
+    },
+    "3": {
+     "god": "白虎",
+     "star": "天蓬",
+     "door": "休门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "死"
+     ],
+     "earthStages": [
+      "胎"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "7": {
+     "god": "值符",
+     "star": "天英",
+     "door": "景门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "病"
+     ],
+     "earthStages": [
+      "死"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "8": {
+     "god": "玄武",
+     "star": "天心",
+     "door": "开门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "旺衰"
+     ],
+     "earthStages": [
+      "死墓"
+     ],
+     "kongWang": true,
+     "horse": true,
+     "score": 50.0
+    },
+    "1": {
+     "god": "九地",
+     "star": "天柱",
+     "door": "惊门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "胎"
+     ],
+     "earthStages": [
+      "旺"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 50.0
+    },
+    "6": {
+     "god": "九天",
+     "star": "芮禽",
+     "door": "死门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": true,
+       "riGan": true
+      },
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "绝墓",
+      "沐冠"
+     ],
+     "earthStages": [
+      "死墓"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    }
+   }
+  },
+  {
+   "id": "R4",
+   "input": "1991-11-09T09:05",
+   "confirmedInReference": true,
+   "note": "Reference screenshot",
+   "openQuestion": null,
+   "header": {
+    "solar": "1991-11-09 09:05:00",
+    "lunar": "辛未年 十月初四",
+    "pillars": {
+     "year": "辛未",
+     "month": "己亥",
+     "day": "癸未",
+     "hour": "丁巳"
+    },
+    "ju": "阴遁6局",
+    "xunShou": "甲寅癸",
+    "zhiFu": "天蓬",
+    "zhiShi": "休门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "辛未",
+    "month": 10,
+    "leap": false,
+    "day": 4
+   },
+   "jieqi": {
+    "current": "立冬",
+    "currentStart": "1991-11-08 06:07:50",
+    "next": "小雪",
+    "nextStart": "1991-11-23 03:35:45",
+    "yuan": "上元",
+    "fuTou": "己卯"
+   },
+   "derived": {
+    "dun": "阴",
+    "juNumber": 6,
+    "zhiFuPalace": 9,
+    "zhiShiPalace": 7,
+    "kongWangBranches": [
+     "子",
+     "丑"
+    ],
+    "horseBranch": "亥"
+   },
+   "center": "己",
+   "palaces": {
+    "4": {
+     "god": "腾蛇",
+     "star": "天心",
+     "door": "死门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "冠临"
+     ],
+     "earthStages": [
+      "养长"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "9": {
+     "god": "值符",
+     "star": "天蓬",
+     "door": "惊门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": true
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "绝"
+     ],
+     "earthStages": [
+      "临"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "2": {
+     "god": "九天",
+     "star": "天任",
+     "door": "开门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "己",
+       "jiXing": true,
+       "ruMu": false
+      },
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "衰病"
+     ],
+     "earthStages": [
+      "冠沐",
+      "养长"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "3": {
+     "god": "太阴",
+     "star": "天柱",
+     "door": "景门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "临"
+     ],
+     "earthStages": [
+      "绝"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "7": {
+     "god": "九地",
+     "star": "天冲",
+     "door": "休门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "临"
+     ],
+     "earthStages": [
+      "绝"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "8": {
+     "god": "六合",
+     "star": "芮禽",
+     "door": "杜门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": true,
+       "riGan": false
+      },
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "死墓",
+      "病衰"
+     ],
+     "earthStages": [
+      "长养"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 12.5
+    },
+    "1": {
+     "god": "白虎",
+     "star": "天英",
+     "door": "伤门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "绝"
+     ],
+     "earthStages": [
+      "临"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 50.0
+    },
+    "6": {
+     "god": "玄武",
+     "star": "天辅",
+     "door": "生门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "病衰"
+     ],
+     "earthStages": [
+      "绝墓"
+     ],
+     "kongWang": false,
+     "horse": true,
+     "score": 100.0
+    }
+   }
+  },
+  {
+   "id": "R5",
+   "input": "1998-03-18T11:30",
+   "confirmedInReference": true,
+   "note": "Reference screenshot (甲 day: no 日干 square)",
+   "openQuestion": null,
+   "header": {
+    "solar": "1998-03-18 11:30:00",
+    "lunar": "戊寅年 二月二十",
+    "pillars": {
+     "year": "戊寅",
+     "month": "乙卯",
+     "day": "甲子",
+     "hour": "庚午"
+    },
+    "ju": "阳遁1局",
+    "xunShou": "甲子戊",
+    "zhiFu": "天蓬",
+    "zhiShi": "休门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "戊寅",
+    "month": 2,
+    "leap": false,
+    "day": 20
+   },
+   "jieqi": {
+    "current": "惊蛰",
+    "currentStart": "1998-03-06 02:57:15",
+    "next": "春分",
+    "nextStart": "1998-03-21 03:54:32",
+    "yuan": "上元",
+    "fuTou": "甲子"
+   },
+   "derived": {
+    "dun": "阳",
+    "juNumber": 1,
+    "zhiFuPalace": 3,
+    "zhiShiPalace": 7,
+    "kongWangBranches": [
+     "戌",
+     "亥"
+    ],
+    "horseBranch": "申"
+   },
+   "center": "壬",
+   "palaces": {
+    "4": {
+     "god": "腾蛇",
+     "star": "天任",
+     "door": "死门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "冠临"
+     ],
+     "earthStages": [
+      "墓死"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "9": {
+     "god": "太阴",
+     "star": "天冲",
+     "door": "惊门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "沐"
+     ],
+     "earthStages": [
+      "长"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "2": {
+     "god": "六合",
+     "star": "天辅",
+     "door": "开门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false
+      },
+      {
+       "stem": "己",
+       "jiXing": true,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "衰旺"
+     ],
+     "earthStages": [
+      "养长",
+      "冠沐"
+     ],
+     "kongWang": false,
+     "horse": true,
+     "score": 100.0
+    },
+    "3": {
+     "god": "值符",
+     "star": "天蓬",
+     "door": "景门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": true,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "沐"
+     ],
+     "earthStages": [
+      "胎"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "7": {
+     "god": "白虎",
+     "star": "天英",
+     "door": "休门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "绝"
+     ],
+     "earthStages": [
+      "长"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "8": {
+     "god": "九天",
+     "star": "天心",
+     "door": "杜门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "沐冠"
+     ],
+     "earthStages": [
+      "长养"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "1": {
+     "god": "九地",
+     "star": "天柱",
+     "door": "伤门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "绝"
+     ],
+     "earthStages": [
+      "胎"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "6": {
+     "god": "玄武",
+     "star": "芮禽",
+     "door": "生门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      },
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "临冠",
+      "胎养"
+     ],
+     "earthStages": [
+      "旺衰"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 50.0
+    }
+   }
+  },
+  {
+   "id": "R6",
+   "input": "1990-08-17T02:10",
+   "confirmedInReference": true,
+   "note": "Reference screenshot (旬首 in 中5: 值符 芮禽, 值使 死门)",
+   "openQuestion": null,
+   "header": {
+    "solar": "1990-08-17 02:10:00",
+    "lunar": "庚午年 六月廿七",
+    "pillars": {
+     "year": "庚午",
+     "month": "甲申",
+     "day": "甲寅",
+     "hour": "乙丑"
+    },
+    "ju": "阴遁5局",
+    "xunShou": "甲子戊",
+    "zhiFu": "芮禽",
+    "zhiShi": "死门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "庚午",
+    "month": 6,
+    "leap": false,
+    "day": 27
+   },
+   "jieqi": {
+    "current": "立秋",
+    "currentStart": "1990-08-08 02:45:32",
+    "next": "处暑",
+    "nextStart": "1990-08-23 17:20:49",
+    "yuan": "中元",
+    "fuTou": "甲寅"
+   },
+   "derived": {
+    "dun": "阴",
+    "juNumber": 5,
+    "zhiFuPalace": 6,
+    "zhiShiPalace": 4,
+    "kongWangBranches": [
+     "戌",
+     "亥"
+    ],
+    "horseBranch": "亥"
+   },
+   "center": "戊",
+   "palaces": {
+    "4": {
+     "god": "白虎",
+     "star": "天任",
+     "door": "死门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "衰旺"
+     ],
+     "earthStages": [
+      "衰旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "9": {
+     "god": "六合",
+     "star": "天冲",
+     "door": "惊门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "沐"
+     ],
+     "earthStages": [
+      "绝"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "2": {
+     "god": "太阴",
+     "star": "天辅",
+     "door": "开门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "己",
+       "jiXing": true,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false
+      },
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "冠沐"
+     ],
+     "earthStages": [
+      "衰病",
+      "衰旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "3": {
+     "god": "玄武",
+     "star": "天蓬",
+     "door": "景门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "死"
+     ],
+     "earthStages": [
+      "胎"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "7": {
+     "god": "腾蛇",
+     "star": "天英",
+     "door": "休门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "病"
+     ],
+     "earthStages": [
+      "死"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "8": {
+     "god": "九地",
+     "star": "天心",
+     "door": "杜门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "旺衰"
+     ],
+     "earthStages": [
+      "死墓"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "1": {
+     "god": "九天",
+     "star": "天柱",
+     "door": "伤门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "胎"
+     ],
+     "earthStages": [
+      "旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "6": {
+     "god": "值符",
+     "star": "芮禽",
+     "door": "生门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": true,
+       "riGan": false
+      },
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "绝墓",
+      "沐冠"
+     ],
+     "earthStages": [
+      "死墓"
+     ],
+     "kongWang": true,
+     "horse": true,
+     "score": 25.0
+    }
+   }
+  },
+  {
+   "id": "D1",
+   "input": "2026-11-04T08:00",
+   "confirmedInReference": false,
+   "note": "甲 hour → 伏吟: stars, 天盘 stems and doors all at home",
+   "openQuestion": null,
+   "header": {
+    "solar": "2026-11-04 08:00:00",
+    "lunar": "丙午年 九月廿六",
+    "pillars": {
+     "year": "丙午",
+     "month": "戊戌",
+     "day": "壬午",
+     "hour": "甲辰"
+    },
+    "ju": "阴遁5局",
+    "xunShou": "甲辰壬",
+    "zhiFu": "天蓬",
+    "zhiShi": "休门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "丙午",
+    "month": 9,
+    "leap": false,
+    "day": 26
+   },
+   "jieqi": {
+    "current": "霜降",
+    "currentStart": "2026-10-23 17:37:57",
+    "next": "立冬",
+    "nextStart": "2026-11-07 17:52:05",
+    "yuan": "上元",
+    "fuTou": "己卯"
+   },
+   "derived": {
+    "dun": "阴",
+    "juNumber": 5,
+    "zhiFuPalace": 1,
+    "zhiShiPalace": 1,
+    "kongWangBranches": [
+     "寅",
+     "卯"
+    ],
+    "horseBranch": "寅"
+   },
+   "center": "戊",
+   "palaces": {
+    "4": {
+     "god": "玄武",
+     "star": "天辅",
+     "door": "杜门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "衰旺"
+     ],
+     "earthStages": [
+      "衰旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "9": {
+     "god": "白虎",
+     "star": "天英",
+     "door": "景门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "绝"
+     ],
+     "earthStages": [
+      "绝"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "2": {
+     "god": "六合",
+     "star": "芮禽",
+     "door": "死门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      },
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false
+      },
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "衰病",
+      "衰旺"
+     ],
+     "earthStages": [
+      "衰病",
+      "衰旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "3": {
+     "god": "九地",
+     "star": "天冲",
+     "door": "伤门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "胎"
+     ],
+     "earthStages": [
+      "胎"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 50.0
+    },
+    "7": {
+     "god": "太阴",
+     "star": "天柱",
+     "door": "惊门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "死"
+     ],
+     "earthStages": [
+      "死"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "8": {
+     "god": "九天",
+     "star": "天任",
+     "door": "生门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": true,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "死墓"
+     ],
+     "earthStages": [
+      "死墓"
+     ],
+     "kongWang": true,
+     "horse": true,
+     "score": 25.0
+    },
+    "1": {
+     "god": "值符",
+     "star": "天蓬",
+     "door": "休门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": true
+      }
+     ],
+     "earth": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "旺"
+     ],
+     "earthStages": [
+      "旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "6": {
+     "god": "腾蛇",
+     "star": "天心",
+     "door": "开门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": true,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "死墓"
+     ],
+     "earthStages": [
+      "死墓"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    }
+   }
+  },
+  {
+   "id": "D2",
+   "input": "2026-11-04T16:00",
+   "confirmedInReference": false,
+   "note": "Hour stem 戊 sits in 中5 → 值符 天蓬 moves to 坤2",
+   "openQuestion": null,
+   "header": {
+    "solar": "2026-11-04 16:00:00",
+    "lunar": "丙午年 九月廿六",
+    "pillars": {
+     "year": "丙午",
+     "month": "戊戌",
+     "day": "壬午",
+     "hour": "戊申"
+    },
+    "ju": "阴遁5局",
+    "xunShou": "甲辰壬",
+    "zhiFu": "天蓬",
+    "zhiShi": "休门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "丙午",
+    "month": 9,
+    "leap": false,
+    "day": 26
+   },
+   "jieqi": {
+    "current": "霜降",
+    "currentStart": "2026-10-23 17:37:57",
+    "next": "立冬",
+    "nextStart": "2026-11-07 17:52:05",
+    "yuan": "上元",
+    "fuTou": "己卯"
+   },
+   "derived": {
+    "dun": "阴",
+    "juNumber": 5,
+    "zhiFuPalace": 2,
+    "zhiShiPalace": 6,
+    "kongWangBranches": [
+     "寅",
+     "卯"
+    ],
+    "horseBranch": "寅"
+   },
+   "center": "戊",
+   "palaces": {
+    "4": {
+     "god": "太阴",
+     "star": "天柱",
+     "door": "景门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "冠临"
+     ],
+     "earthStages": [
+      "衰旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "9": {
+     "god": "腾蛇",
+     "star": "天心",
+     "door": "死门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "长"
+     ],
+     "earthStages": [
+      "绝"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "2": {
+     "god": "值符",
+     "star": "天蓬",
+     "door": "惊门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": true
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false
+      },
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "养长"
+     ],
+     "earthStages": [
+      "衰病",
+      "衰旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "3": {
+     "god": "六合",
+     "star": "芮禽",
+     "door": "杜门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": true,
+       "ruMu": false,
+       "riGan": false
+      },
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "沐",
+      "绝"
+     ],
+     "earthStages": [
+      "胎"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 25.0
+    },
+    "7": {
+     "god": "九天",
+     "star": "天任",
+     "door": "开门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "长"
+     ],
+     "earthStages": [
+      "死"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "8": {
+     "god": "白虎",
+     "star": "天英",
+     "door": "伤门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "沐冠"
+     ],
+     "earthStages": [
+      "死墓"
+     ],
+     "kongWang": true,
+     "horse": true,
+     "score": 25.0
+    },
+    "1": {
+     "god": "玄武",
+     "star": "天辅",
+     "door": "生门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "绝"
+     ],
+     "earthStages": [
+      "旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "6": {
+     "god": "九地",
+     "star": "天冲",
+     "door": "休门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "病衰"
+     ],
+     "earthStages": [
+      "死墓"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    }
+   }
+  },
+  {
+   "id": "D3",
+   "input": "2026-11-04T00:00",
+   "confirmedInReference": false,
+   "note": "值使 count lands on 5 → 死门 stays in 坤2",
+   "openQuestion": null,
+   "header": {
+    "solar": "2026-11-04 00:00:00",
+    "lunar": "丙午年 九月廿六",
+    "pillars": {
+     "year": "丙午",
+     "month": "戊戌",
+     "day": "壬午",
+     "hour": "庚子"
+    },
+    "ju": "阴遁5局",
+    "xunShou": "甲午辛",
+    "zhiFu": "天芮",
+    "zhiShi": "死门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "丙午",
+    "month": 9,
+    "leap": false,
+    "day": 26
+   },
+   "jieqi": {
+    "current": "霜降",
+    "currentStart": "2026-10-23 17:37:57",
+    "next": "立冬",
+    "nextStart": "2026-11-07 17:52:05",
+    "yuan": "上元",
+    "fuTou": "己卯"
+   },
+   "derived": {
+    "dun": "阴",
+    "juNumber": 5,
+    "zhiFuPalace": 3,
+    "zhiShiPalace": 2,
+    "kongWangBranches": [
+     "辰",
+     "巳"
+    ],
+    "horseBranch": "寅"
+   },
+   "center": "戊",
+   "palaces": {
+    "4": {
+     "god": "九天",
+     "star": "天柱",
+     "door": "杜门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "冠临"
+     ],
+     "earthStages": [
+      "衰旺"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 50.0
+    },
+    "9": {
+     "god": "九地",
+     "star": "天心",
+     "door": "景门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "长"
+     ],
+     "earthStages": [
+      "绝"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "2": {
+     "god": "玄武",
+     "star": "天蓬",
+     "door": "死门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": true
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false
+      },
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "养长"
+     ],
+     "earthStages": [
+      "衰病",
+      "衰旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "3": {
+     "god": "值符",
+     "star": "芮禽",
+     "door": "伤门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": true,
+       "ruMu": false,
+       "riGan": false
+      },
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "沐",
+      "绝"
+     ],
+     "earthStages": [
+      "胎"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "7": {
+     "god": "白虎",
+     "star": "天任",
+     "door": "惊门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "长"
+     ],
+     "earthStages": [
+      "死"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "8": {
+     "god": "腾蛇",
+     "star": "天英",
+     "door": "生门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "沐冠"
+     ],
+     "earthStages": [
+      "死墓"
+     ],
+     "kongWang": false,
+     "horse": true,
+     "score": 100.0
+    },
+    "1": {
+     "god": "太阴",
+     "star": "天辅",
+     "door": "休门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "绝"
+     ],
+     "earthStages": [
+      "旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "6": {
+     "god": "六合",
+     "star": "天冲",
+     "door": "开门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "病衰"
+     ],
+     "earthStages": [
+      "死墓"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    }
+   }
+  },
+  {
+   "id": "D4",
+   "input": "2026-11-04T06:00",
+   "confirmedInReference": false,
+   "note": "天盘 庚 in 艮8 is both 击刑 and 入墓 → counted twice (score 25)",
+   "openQuestion": "Q6",
+   "header": {
+    "solar": "2026-11-04 06:00:00",
+    "lunar": "丙午年 九月廿六",
+    "pillars": {
+     "year": "丙午",
+     "month": "戊戌",
+     "day": "壬午",
+     "hour": "癸卯"
+    },
+    "ju": "阴遁5局",
+    "xunShou": "甲午辛",
+    "zhiFu": "天芮",
+    "zhiShi": "死门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "丙午",
+    "month": 9,
+    "leap": false,
+    "day": 26
+   },
+   "jieqi": {
+    "current": "霜降",
+    "currentStart": "2026-10-23 17:37:57",
+    "next": "立冬",
+    "nextStart": "2026-11-07 17:52:05",
+    "yuan": "上元",
+    "fuTou": "己卯"
+   },
+   "derived": {
+    "dun": "阴",
+    "juNumber": 5,
+    "zhiFuPalace": 9,
+    "zhiShiPalace": 2,
+    "kongWangBranches": [
+     "辰",
+     "巳"
+    ],
+    "horseBranch": "巳"
+   },
+   "center": "戊",
+   "palaces": {
+    "4": {
+     "god": "腾蛇",
+     "star": "天英",
+     "door": "杜门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "癸",
+       "jiXing": true,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "养胎"
+     ],
+     "earthStages": [
+      "衰旺"
+     ],
+     "kongWang": true,
+     "horse": true,
+     "score": 25.0
+    },
+    "9": {
+     "god": "值符",
+     "star": "芮禽",
+     "door": "景门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      },
+      {
+       "stem": "辛",
+       "jiXing": true,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "旺",
+      "病"
+     ],
+     "earthStages": [
+      "绝"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "2": {
+     "god": "九天",
+     "star": "天柱",
+     "door": "死门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false
+      },
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "衰病"
+     ],
+     "earthStages": [
+      "衰病",
+      "衰旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "3": {
+     "god": "太阴",
+     "star": "天辅",
+     "door": "伤门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "病"
+     ],
+     "earthStages": [
+      "胎"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "7": {
+     "god": "九地",
+     "star": "天心",
+     "door": "惊门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "绝"
+     ],
+     "earthStages": [
+      "死"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "8": {
+     "god": "六合",
+     "star": "天冲",
+     "door": "生门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "庚",
+       "jiXing": true,
+       "ruMu": true,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "绝墓"
+     ],
+     "earthStages": [
+      "死墓"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 25.0
+    },
+    "1": {
+     "god": "白虎",
+     "star": "天任",
+     "door": "休门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "绝"
+     ],
+     "earthStages": [
+      "旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "6": {
+     "god": "玄武",
+     "star": "天蓬",
+     "door": "开门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": true
+      }
+     ],
+     "earth": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "临冠"
+     ],
+     "earthStages": [
+      "死墓"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    }
+   }
+  },
+  {
+   "id": "D5",
+   "input": "2026-11-04T04:00",
+   "confirmedInReference": false,
+   "note": "巽4 stacks 空亡, 门迫, 击刑, 入墓 → score 6.25",
+   "openQuestion": "Q6",
+   "header": {
+    "solar": "2026-11-04 04:00:00",
+    "lunar": "丙午年 九月廿六",
+    "pillars": {
+     "year": "丙午",
+     "month": "戊戌",
+     "day": "壬午",
+     "hour": "壬寅"
+    },
+    "ju": "阴遁5局",
+    "xunShou": "甲午辛",
+    "zhiFu": "天芮",
+    "zhiShi": "死门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "丙午",
+    "month": 9,
+    "leap": false,
+    "day": 26
+   },
+   "jieqi": {
+    "current": "霜降",
+    "currentStart": "2026-10-23 17:37:57",
+    "next": "立冬",
+    "nextStart": "2026-11-07 17:52:05",
+    "yuan": "上元",
+    "fuTou": "己卯"
+   },
+   "derived": {
+    "dun": "阴",
+    "juNumber": 5,
+    "zhiFuPalace": 1,
+    "zhiShiPalace": 3,
+    "kongWangBranches": [
+     "辰",
+     "巳"
+    ],
+    "horseBranch": "申"
+   },
+   "center": "戊",
+   "palaces": {
+    "4": {
+     "god": "玄武",
+     "star": "天蓬",
+     "door": "惊门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "壬",
+       "jiXing": true,
+       "ruMu": true,
+       "riGan": true
+      }
+     ],
+     "earth": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "墓绝"
+     ],
+     "earthStages": [
+      "衰旺"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 6.25
+    },
+    "9": {
+     "god": "白虎",
+     "star": "天任",
+     "door": "开门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "临"
+     ],
+     "earthStages": [
+      "绝"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "2": {
+     "god": "六合",
+     "star": "天冲",
+     "door": "休门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false
+      },
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "冠临"
+     ],
+     "earthStages": [
+      "衰病",
+      "衰旺"
+     ],
+     "kongWang": false,
+     "horse": true,
+     "score": 100.0
+    },
+    "3": {
+     "god": "九地",
+     "star": "天心",
+     "door": "死门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "临"
+     ],
+     "earthStages": [
+      "胎"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "7": {
+     "god": "太阴",
+     "star": "天辅",
+     "door": "生门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "长"
+     ],
+     "earthStages": [
+      "死"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "8": {
+     "god": "九天",
+     "star": "天柱",
+     "door": "景门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "长养"
+     ],
+     "earthStages": [
+      "死墓"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "1": {
+     "god": "值符",
+     "star": "芮禽",
+     "door": "杜门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      },
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "胎",
+      "长"
+     ],
+     "earthStages": [
+      "旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "6": {
+     "god": "腾蛇",
+     "star": "天英",
+     "door": "伤门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "旺衰"
+     ],
+     "earthStages": [
+      "死墓"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    }
+   }
+  },
+  {
+   "id": "D6",
+   "input": "2025-08-01T12:00",
+   "confirmedInReference": false,
+   "note": "Leap month: 阴历 shows 闰六月",
+   "openQuestion": null,
+   "header": {
+    "solar": "2025-08-01 12:00:00",
+    "lunar": "乙巳年 闰六月初八",
+    "pillars": {
+     "year": "乙巳",
+     "month": "癸未",
+     "day": "壬寅",
+     "hour": "丙午"
+    },
+    "ju": "阴遁1局",
+    "xunShou": "甲辰壬",
+    "zhiFu": "天心",
+    "zhiShi": "开门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "乙巳",
+    "month": 6,
+    "leap": true,
+    "day": 8
+   },
+   "jieqi": {
+    "current": "大暑",
+    "currentStart": "2025-07-22 21:29:27",
+    "next": "立秋",
+    "nextStart": "2025-08-07 13:51:35",
+    "yuan": "中元",
+    "fuTou": "己亥"
+   },
+   "derived": {
+    "dun": "阴",
+    "juNumber": 1,
+    "zhiFuPalace": 3,
+    "zhiShiPalace": 4,
+    "kongWangBranches": [
+     "寅",
+     "卯"
+    ],
+    "horseBranch": "申"
+   },
+   "center": "癸",
+   "palaces": {
+    "4": {
+     "god": "九天",
+     "star": "天蓬",
+     "door": "开门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "冠临"
+     ],
+     "earthStages": [
+      "衰旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "9": {
+     "god": "九地",
+     "star": "天任",
+     "door": "休门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "沐"
+     ],
+     "earthStages": [
+      "临"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "2": {
+     "god": "玄武",
+     "star": "天冲",
+     "door": "生门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": true
+      },
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "衰病"
+     ],
+     "earthStages": [
+      "墓死",
+      "养胎"
+     ],
+     "kongWang": false,
+     "horse": true,
+     "score": 100.0
+    },
+    "3": {
+     "god": "值符",
+     "star": "天心",
+     "door": "惊门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": true
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "死"
+     ],
+     "earthStages": [
+      "沐"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 25.0
+    },
+    "7": {
+     "god": "白虎",
+     "star": "天辅",
+     "door": "伤门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "长"
+     ],
+     "earthStages": [
+      "临"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "8": {
+     "god": "腾蛇",
+     "star": "天柱",
+     "door": "死门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "庚",
+       "jiXing": true,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "胎养"
+     ],
+     "earthStages": [
+      "绝墓"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 50.0
+    },
+    "1": {
+     "god": "太阴",
+     "star": "芮禽",
+     "door": "景门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      },
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "临",
+      "病"
+     ],
+     "earthStages": [
+      "胎"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "6": {
+     "god": "六合",
+     "star": "天英",
+     "door": "杜门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "胎养"
+     ],
+     "earthStages": [
+      "临冠"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    }
+   }
+  },
+  {
+   "id": "D7",
+   "input": "2026-11-05T23:30",
+   "confirmedInReference": false,
+   "note": "23:00 starts the next day: 日柱 甲申, 阴遁8局",
+   "openQuestion": "Q1",
+   "header": {
+    "solar": "2026-11-05 23:30:00",
+    "lunar": "丙午年 九月廿七",
+    "pillars": {
+     "year": "丙午",
+     "month": "戊戌",
+     "day": "甲申",
+     "hour": "甲子"
+    },
+    "ju": "阴遁8局",
+    "xunShou": "甲子戊",
+    "zhiFu": "天任",
+    "zhiShi": "生门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "丙午",
+    "month": 9,
+    "leap": false,
+    "day": 27
+   },
+   "jieqi": {
+    "current": "霜降",
+    "currentStart": "2026-10-23 17:37:57",
+    "next": "立冬",
+    "nextStart": "2026-11-07 17:52:05",
+    "yuan": "中元",
+    "fuTou": "甲申"
+   },
+   "derived": {
+    "dun": "阴",
+    "juNumber": 8,
+    "zhiFuPalace": 8,
+    "zhiShiPalace": 8,
+    "kongWangBranches": [
+     "戌",
+     "亥"
+    ],
+    "horseBranch": "寅"
+   },
+   "center": "辛",
+   "palaces": {
+    "4": {
+     "god": "九地",
+     "star": "天辅",
+     "door": "杜门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "壬",
+       "jiXing": true,
+       "ruMu": true,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "壬",
+       "jiXing": true,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "墓绝"
+     ],
+     "earthStages": [
+      "墓绝"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 25.0
+    },
+    "9": {
+     "god": "玄武",
+     "star": "天英",
+     "door": "景门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "长"
+     ],
+     "earthStages": [
+      "长"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "2": {
+     "god": "白虎",
+     "star": "芮禽",
+     "door": "死门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      },
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false
+      },
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "衰旺",
+      "冠沐"
+     ],
+     "earthStages": [
+      "衰旺",
+      "冠沐"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "3": {
+     "god": "九天",
+     "star": "天冲",
+     "door": "伤门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "长"
+     ],
+     "earthStages": [
+      "长"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "7": {
+     "god": "六合",
+     "star": "天柱",
+     "door": "惊门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "长"
+     ],
+     "earthStages": [
+      "长"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "8": {
+     "god": "值符",
+     "star": "天任",
+     "door": "生门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "长养"
+     ],
+     "earthStages": [
+      "长养"
+     ],
+     "kongWang": false,
+     "horse": true,
+     "score": 100.0
+    },
+    "1": {
+     "god": "腾蛇",
+     "star": "天蓬",
+     "door": "休门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "胎"
+     ],
+     "earthStages": [
+      "胎"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "6": {
+     "god": "太阴",
+     "star": "天心",
+     "door": "开门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "病衰"
+     ],
+     "earthStages": [
+      "病衰"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 50.0
+    }
+   }
+  },
+  {
+   "id": "D8",
+   "input": "2026-11-07T16:30",
+   "confirmedInReference": false,
+   "note": "Before 立冬 (17:52): still 霜降, 月柱 戊戌",
+   "openQuestion": "Q2",
+   "header": {
+    "solar": "2026-11-07 16:30:00",
+    "lunar": "丙午年 九月廿九",
+    "pillars": {
+     "year": "丙午",
+     "month": "戊戌",
+     "day": "乙酉",
+     "hour": "甲申"
+    },
+    "ju": "阴遁8局",
+    "xunShou": "甲申庚",
+    "zhiFu": "天心",
+    "zhiShi": "开门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "丙午",
+    "month": 9,
+    "leap": false,
+    "day": 29
+   },
+   "jieqi": {
+    "current": "霜降",
+    "currentStart": "2026-10-23 17:37:57",
+    "next": "立冬",
+    "nextStart": "2026-11-07 17:52:05",
+    "yuan": "中元",
+    "fuTou": "甲申"
+   },
+   "derived": {
+    "dun": "阴",
+    "juNumber": 8,
+    "zhiFuPalace": 6,
+    "zhiShiPalace": 6,
+    "kongWangBranches": [
+     "午",
+     "未"
+    ],
+    "horseBranch": "寅"
+   },
+   "center": "辛",
+   "palaces": {
+    "4": {
+     "god": "白虎",
+     "star": "天辅",
+     "door": "杜门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "壬",
+       "jiXing": true,
+       "ruMu": true,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "壬",
+       "jiXing": true,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "墓绝"
+     ],
+     "earthStages": [
+      "墓绝"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 25.0
+    },
+    "9": {
+     "god": "六合",
+     "star": "天英",
+     "door": "景门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": true
+      }
+     ],
+     "earth": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "长"
+     ],
+     "earthStages": [
+      "长"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 50.0
+    },
+    "2": {
+     "god": "太阴",
+     "star": "芮禽",
+     "door": "死门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      },
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false
+      },
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "衰旺",
+      "冠沐"
+     ],
+     "earthStages": [
+      "衰旺",
+      "冠沐"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 50.0
+    },
+    "3": {
+     "god": "玄武",
+     "star": "天冲",
+     "door": "伤门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "长"
+     ],
+     "earthStages": [
+      "长"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "7": {
+     "god": "腾蛇",
+     "star": "天柱",
+     "door": "惊门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "长"
+     ],
+     "earthStages": [
+      "长"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "8": {
+     "god": "九地",
+     "star": "天任",
+     "door": "生门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "长养"
+     ],
+     "earthStages": [
+      "长养"
+     ],
+     "kongWang": false,
+     "horse": true,
+     "score": 100.0
+    },
+    "1": {
+     "god": "九天",
+     "star": "天蓬",
+     "door": "休门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "胎"
+     ],
+     "earthStages": [
+      "胎"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "6": {
+     "god": "值符",
+     "star": "天心",
+     "door": "开门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "病衰"
+     ],
+     "earthStages": [
+      "病衰"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    }
+   }
+  },
+  {
+   "id": "D9",
+   "input": "2026-11-07T19:30",
+   "confirmedInReference": false,
+   "note": "After 立冬: 月柱 己亥, 阴遁9局",
+   "openQuestion": "Q2",
+   "header": {
+    "solar": "2026-11-07 19:30:00",
+    "lunar": "丙午年 九月廿九",
+    "pillars": {
+     "year": "丙午",
+     "month": "己亥",
+     "day": "乙酉",
+     "hour": "丙戌"
+    },
+    "ju": "阴遁9局",
+    "xunShou": "甲申庚",
+    "zhiFu": "天柱",
+    "zhiShi": "惊门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "丙午",
+    "month": 9,
+    "leap": false,
+    "day": 29
+   },
+   "jieqi": {
+    "current": "立冬",
+    "currentStart": "2026-11-07 17:52:05",
+    "next": "小雪",
+    "nextStart": "2026-11-22 15:23:21",
+    "yuan": "中元",
+    "fuTou": "甲申"
+   },
+   "derived": {
+    "dun": "阴",
+    "juNumber": 9,
+    "zhiFuPalace": 2,
+    "zhiShiPalace": 2,
+    "kongWangBranches": [
+     "午",
+     "未"
+    ],
+    "horseBranch": "申"
+   },
+   "center": "壬",
+   "palaces": {
+    "4": {
+     "god": "太阴",
+     "star": "天英",
+     "door": "景门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "癸",
+       "jiXing": true,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "冠临"
+     ],
+     "earthStages": [
+      "养胎"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "9": {
+     "god": "腾蛇",
+     "star": "芮禽",
+     "door": "死门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      },
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "胎",
+      "旺"
+     ],
+     "earthStages": [
+      "旺"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 50.0
+    },
+    "2": {
+     "god": "值符",
+     "star": "天柱",
+     "door": "惊门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false
+      },
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "冠临"
+     ],
+     "earthStages": [
+      "养长",
+      "衰病"
+     ],
+     "kongWang": true,
+     "horse": true,
+     "score": 50.0
+    },
+    "3": {
+     "god": "六合",
+     "star": "天辅",
+     "door": "杜门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "长"
+     ],
+     "earthStages": [
+      "病"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "7": {
+     "god": "九天",
+     "star": "天心",
+     "door": "开门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "临"
+     ],
+     "earthStages": [
+      "旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "8": {
+     "god": "白虎",
+     "star": "天冲",
+     "door": "伤门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": true,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "死墓"
+     ],
+     "earthStages": [
+      "死墓"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 25.0
+    },
+    "1": {
+     "god": "玄武",
+     "star": "天任",
+     "door": "生门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "绝"
+     ],
+     "earthStages": [
+      "病"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "6": {
+     "god": "九地",
+     "star": "天蓬",
+     "door": "休门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": true,
+       "riGan": true
+      }
+     ],
+     "earth": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "死墓"
+     ],
+     "earthStages": [
+      "沐冠"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    }
+   }
+  },
+  {
+   "id": "D10",
+   "input": "2027-02-04T08:30",
+   "confirmedInReference": false,
+   "note": "Before 立春 (09:46): 年柱 丙午, 大寒",
+   "openQuestion": "Q3",
+   "header": {
+    "solar": "2027-02-04 08:30:00",
+    "lunar": "丙午年 腊月廿八",
+    "pillars": {
+     "year": "丙午",
+     "month": "辛丑",
+     "day": "甲寅",
+     "hour": "戊辰"
+    },
+    "ju": "阳遁9局",
+    "xunShou": "甲子戊",
+    "zhiFu": "天英",
+    "zhiShi": "景门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "丙午",
+    "month": 12,
+    "leap": false,
+    "day": 28
+   },
+   "jieqi": {
+    "current": "大寒",
+    "currentStart": "2027-01-20 15:29:50",
+    "next": "立春",
+    "nextStart": "2027-02-04 09:46:18",
+    "yuan": "中元",
+    "fuTou": "甲寅"
+   },
+   "derived": {
+    "dun": "阳",
+    "juNumber": 9,
+    "zhiFuPalace": 9,
+    "zhiShiPalace": 4,
+    "kongWangBranches": [
+     "戌",
+     "亥"
+    ],
+    "horseBranch": "寅"
+   },
+   "center": "癸",
+   "palaces": {
+    "4": {
+     "god": "九天",
+     "star": "天辅",
+     "door": "景门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "壬",
+       "jiXing": true,
+       "ruMu": true,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "壬",
+       "jiXing": true,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "墓绝"
+     ],
+     "earthStages": [
+      "墓绝"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 25.0
+    },
+    "9": {
+     "god": "值符",
+     "star": "天英",
+     "door": "死门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "旺"
+     ],
+     "earthStages": [
+      "旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "2": {
+     "god": "腾蛇",
+     "star": "芮禽",
+     "door": "惊门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": true,
+       "riGan": false
+      },
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": true
+      },
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "墓死",
+      "冠临"
+     ],
+     "earthStages": [
+      "墓死",
+      "冠临"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "3": {
+     "god": "九地",
+     "star": "天冲",
+     "door": "杜门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "绝"
+     ],
+     "earthStages": [
+      "绝"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "7": {
+     "god": "太阴",
+     "star": "天柱",
+     "door": "开门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "死"
+     ],
+     "earthStages": [
+      "死"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "8": {
+     "god": "玄武",
+     "star": "天任",
+     "door": "伤门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "旺衰"
+     ],
+     "earthStages": [
+      "旺衰"
+     ],
+     "kongWang": false,
+     "horse": true,
+     "score": 50.0
+    },
+    "1": {
+     "god": "白虎",
+     "star": "天蓬",
+     "door": "生门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "绝"
+     ],
+     "earthStages": [
+      "绝"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "6": {
+     "god": "六合",
+     "star": "天心",
+     "door": "休门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "胎养"
+     ],
+     "earthStages": [
+      "胎养"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 50.0
+    }
+   }
+  },
+  {
+   "id": "D11",
+   "input": "2027-02-04T10:30",
+   "confirmedInReference": false,
+   "note": "After 立春: 年柱 丁未, 阳遁5局; 阴历 still 丙午年 腊月",
+   "openQuestion": "Q3",
+   "header": {
+    "solar": "2027-02-04 10:30:00",
+    "lunar": "丙午年 腊月廿八",
+    "pillars": {
+     "year": "丁未",
+     "month": "壬寅",
+     "day": "甲寅",
+     "hour": "己巳"
+    },
+    "ju": "阳遁5局",
+    "xunShou": "甲子戊",
+    "zhiFu": "芮禽",
+    "zhiShi": "死门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "丙午",
+    "month": 12,
+    "leap": false,
+    "day": 28
+   },
+   "jieqi": {
+    "current": "立春",
+    "currentStart": "2027-02-04 09:46:18",
+    "next": "雨水",
+    "nextStart": "2027-02-19 05:33:29",
+    "yuan": "中元",
+    "fuTou": "甲寅"
+   },
+   "derived": {
+    "dun": "阳",
+    "juNumber": 5,
+    "zhiFuPalace": 6,
+    "zhiShiPalace": 1,
+    "kongWangBranches": [
+     "戌",
+     "亥"
+    ],
+    "horseBranch": "亥"
+   },
+   "center": "戊",
+   "palaces": {
+    "4": {
+     "god": "白虎",
+     "star": "天任",
+     "door": "休门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": true,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "墓死"
+     ],
+     "earthStages": [
+      "冠沐"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "9": {
+     "god": "玄武",
+     "star": "天冲",
+     "door": "生门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "旺"
+     ],
+     "earthStages": [
+      "胎"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "2": {
+     "god": "九地",
+     "star": "天辅",
+     "door": "伤门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false
+      },
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "养胎"
+     ],
+     "earthStages": [
+      "衰病",
+      "冠沐"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "3": {
+     "god": "六合",
+     "star": "天蓬",
+     "door": "开门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "长"
+     ],
+     "earthStages": [
+      "沐"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "7": {
+     "god": "九天",
+     "star": "天英",
+     "door": "杜门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "沐"
+     ],
+     "earthStages": [
+      "旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "8": {
+     "god": "太阴",
+     "star": "天心",
+     "door": "惊门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": true,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "死墓"
+     ],
+     "earthStages": [
+      "胎养"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "1": {
+     "god": "腾蛇",
+     "star": "天柱",
+     "door": "死门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "死"
+     ],
+     "earthStages": [
+      "临"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "6": {
+     "god": "值符",
+     "star": "芮禽",
+     "door": "景门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": true,
+       "riGan": false
+      },
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "绝墓",
+      "胎养"
+     ],
+     "earthStages": [
+      "胎养"
+     ],
+     "kongWang": true,
+     "horse": true,
+     "score": 12.5
+    }
+   }
+  },
+  {
+   "id": "D12",
+   "input": "2027-02-03T20:00",
+   "confirmedInReference": false,
+   "note": "Input read as Beijing time: 大寒, 阳遁3局",
+   "openQuestion": "Q4",
+   "header": {
+    "solar": "2027-02-03 20:00:00",
+    "lunar": "丙午年 腊月廿七",
+    "pillars": {
+     "year": "丙午",
+     "month": "辛丑",
+     "day": "癸丑",
+     "hour": "壬戌"
+    },
+    "ju": "阳遁3局",
+    "xunShou": "甲寅癸",
+    "zhiFu": "天任",
+    "zhiShi": "生门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "丙午",
+    "month": 12,
+    "leap": false,
+    "day": 27
+   },
+   "jieqi": {
+    "current": "大寒",
+    "currentStart": "2027-01-20 15:29:50",
+    "next": "立春",
+    "nextStart": "2027-02-04 09:46:18",
+    "yuan": "上元",
+    "fuTou": "己酉"
+   },
+   "derived": {
+    "dun": "阳",
+    "juNumber": 3,
+    "zhiFuPalace": 7,
+    "zhiShiPalace": 7,
+    "kongWangBranches": [
+     "子",
+     "丑"
+    ],
+    "horseBranch": "申"
+   },
+   "center": "庚",
+   "palaces": {
+    "4": {
+     "god": "玄武",
+     "star": "天柱",
+     "door": "惊门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "壬",
+       "jiXing": true,
+       "ruMu": true,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "墓绝"
+     ],
+     "earthStages": [
+      "衰旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 12.5
+    },
+    "9": {
+     "god": "九地",
+     "star": "天心",
+     "door": "开门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "辛",
+       "jiXing": true,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "病"
+     ],
+     "earthStages": [
+      "临"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "2": {
+     "god": "九天",
+     "star": "天蓬",
+     "door": "休门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false
+      },
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "衰病"
+     ],
+     "earthStages": [
+      "冠临",
+      "养胎"
+     ],
+     "kongWang": false,
+     "horse": true,
+     "score": 100.0
+    },
+    "3": {
+     "god": "白虎",
+     "star": "芮禽",
+     "door": "死门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      },
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": true,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "胎",
+      "临"
+     ],
+     "earthStages": [
+      "沐"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "7": {
+     "god": "值符",
+     "star": "天任",
+     "door": "生门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": true
+      }
+     ],
+     "earth": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "病"
+     ],
+     "earthStages": [
+      "沐"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "8": {
+     "god": "六合",
+     "star": "天英",
+     "door": "景门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": true,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "死墓"
+     ],
+     "earthStages": [
+      "沐冠"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 25.0
+    },
+    "1": {
+     "god": "太阴",
+     "star": "天辅",
+     "door": "杜门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "绝"
+     ],
+     "earthStages": [
+      "胎"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 50.0
+    },
+    "6": {
+     "god": "腾蛇",
+     "star": "天冲",
+     "door": "伤门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": true,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "绝墓"
+     ],
+     "earthStages": [
+      "沐冠"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    }
+   }
+  },
+  {
+   "id": "D13",
+   "input": "1990-08-17T03:30",
+   "confirmedInReference": false,
+   "note": "No DST adjustment: 时柱 丙寅",
+   "openQuestion": "Q5",
+   "header": {
+    "solar": "1990-08-17 03:30:00",
+    "lunar": "庚午年 六月廿七",
+    "pillars": {
+     "year": "庚午",
+     "month": "甲申",
+     "day": "甲寅",
+     "hour": "丙寅"
+    },
+    "ju": "阴遁5局",
+    "xunShou": "甲子戊",
+    "zhiFu": "芮禽",
+    "zhiShi": "死门",
+    "juShi": "转盘-拆补-寄坤二宫"
+   },
+   "lunarParts": {
+    "yearGanZhi": "庚午",
+    "month": 6,
+    "leap": false,
+    "day": 27
+   },
+   "jieqi": {
+    "current": "立秋",
+    "currentStart": "1990-08-08 02:45:32",
+    "next": "处暑",
+    "nextStart": "1990-08-23 17:20:49",
+    "yuan": "中元",
+    "fuTou": "甲寅"
+   },
+   "derived": {
+    "dun": "阴",
+    "juNumber": 5,
+    "zhiFuPalace": 7,
+    "zhiShiPalace": 3,
+    "kongWangBranches": [
+     "戌",
+     "亥"
+    ],
+    "horseBranch": "申"
+   },
+   "center": "戊",
+   "palaces": {
+    "4": {
+     "god": "六合",
+     "star": "天冲",
+     "door": "惊门",
+     "menPo": true,
+     "heaven": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "养长"
+     ],
+     "earthStages": [
+      "衰旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 50.0
+    },
+    "9": {
+     "god": "太阴",
+     "star": "天辅",
+     "door": "开门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "己",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "临"
+     ],
+     "earthStages": [
+      "绝"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "2": {
+     "god": "腾蛇",
+     "star": "天英",
+     "door": "休门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "癸",
+       "jiXing": false,
+       "ruMu": true,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false
+      },
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "墓死"
+     ],
+     "earthStages": [
+      "衰病",
+      "衰旺"
+     ],
+     "kongWang": false,
+     "horse": true,
+     "score": 50.0
+    },
+    "3": {
+     "god": "白虎",
+     "star": "天任",
+     "door": "死门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "庚",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "病"
+     ],
+     "earthStages": [
+      "胎"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "7": {
+     "god": "值符",
+     "star": "芮禽",
+     "door": "生门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "戊",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      },
+      {
+       "stem": "辛",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "死",
+      "临"
+     ],
+     "earthStages": [
+      "死"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "8": {
+     "god": "玄武",
+     "star": "天蓬",
+     "door": "景门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "丁",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "病衰"
+     ],
+     "earthStages": [
+      "死墓"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "1": {
+     "god": "九地",
+     "star": "天心",
+     "door": "杜门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": false,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "壬",
+       "jiXing": false,
+       "ruMu": false
+      }
+     ],
+     "heavenStages": [
+      "病"
+     ],
+     "earthStages": [
+      "旺"
+     ],
+     "kongWang": false,
+     "horse": false,
+     "score": 100.0
+    },
+    "6": {
+     "god": "九天",
+     "star": "天柱",
+     "door": "伤门",
+     "menPo": false,
+     "heaven": [
+      {
+       "stem": "丙",
+       "jiXing": false,
+       "ruMu": true,
+       "riGan": false
+      }
+     ],
+     "earth": [
+      {
+       "stem": "乙",
+       "jiXing": false,
+       "ruMu": true
+      }
+     ],
+     "heavenStages": [
+      "绝墓"
+     ],
+     "earthStages": [
+      "死墓"
+     ],
+     "kongWang": true,
+     "horse": false,
+     "score": 25.0
+    }
+   }
+  }
+ ]
+}
