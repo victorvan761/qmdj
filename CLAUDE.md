@@ -16,3 +16,14 @@ A static web app that reproduces 玄天排盘's hour chart exactly, plus an Engl
 - Run the full test suite before calling anything done.
 - When an open question in SPEC §9 is answered, update SPEC.md, flip the setting, and regenerate the fixtures.
 - Add the build and test commands here once they exist.
+
+## Commands
+
+Node 24 lives at `~/.local/node/bin`, which isn't on the PATH. Run `export PATH="$HOME/.local/node/bin:$PATH"` first.
+
+- `npm test`: the whole Vitest suite.
+- `npm run typecheck`: strict TypeScript over `src` and `tests`.
+- `node tools/reference/check_lunar_typescript.mjs`: lunar-typescript against the fixtures' calendar fields. Expect 0 mismatches.
+- The reference engine runs from the `.venv` virtualenv (gitignored; `python3 -m venv .venv && .venv/bin/pip install lunar_python==1.4.8`):
+  - `.venv/bin/python tools/reference/verify.py`: the engine against the screenshots. Expect 0 mismatches.
+  - `.venv/bin/python tools/reference/gen_fixtures.py`: rewrites `fixtures/golden_charts.json`.
