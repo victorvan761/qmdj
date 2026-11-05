@@ -116,7 +116,13 @@ Rendering rules in English:
 | Date picker | 1996年/06月/20日 18:20 | 1996-06-20 18:20 |
 | 节气 | 芒种 | Grain in Ear |
 
-English labels run longer, so in English the cell's middle column widens to about 45% of the cell, and a label that still overflows shrinks to fit, down to 10 px. English mode renders no CJK characters except in the 十二长生 labels.
+English labels run longer, so in English the cell's middle column widens to about 45% of the cell, and a label that still overflows shrinks to fit, down to 10 px. English mode renders no CJK characters except in the 十二长生 labels and the toggle's own 中.
+
+Settled while building (not visible in 玄天排盘, which has no English):
+
+- **Two-stem slots stack their stems in English.** "Geng·Gui" needs about 48 px at 10 px, more than the stems column leaves beside a 45% middle column at 390 px. So in English the two stems sit one above the other. The slot's text still reads Geng·Gui.
+- **The English header summary puts one pair per line.** "Chief Symbol: Tian Rui (with Tian Qin)" would wrap to three lines in a half-width column.
+- **The English date row spans the card**, so the widest label below it ("Structure method:") doesn't squeeze the picker.
 
 UI strings:
 
@@ -270,6 +276,8 @@ Branches: 子 Zi · 丑 Chou · 寅 Yin · 卯 Mao · 辰 Chen · 巳 Si · 午 
 | Deity | 九地 | 9 Earth | Nine Earth |
 | Deity | 九天 | 9 Heaven | Nine Heaven |
 
+玄天排盘 prints the serpent as **螣蛇** (R1 坎1, R3 坤2). The ID stays 腾蛇 in the engine and the fixtures; the 中文 glossary displays 螣蛇.
+
 ## 7 · Data model
 
 The engine returns one `Chart` whose shape matches each case in `golden_charts.json`, so tests compare it directly and the UI only reads it. Values are the Chinese terms, which double as IDs; the UI translates them.
@@ -352,7 +360,7 @@ Tests to write:
 
 ## 9 · Open questions
 
-Eight behaviors can't be settled from the six screenshots. Enter each input in 玄天排盘: a match with the default column changes nothing; a match with the last column means flipping that setting (§7) and regenerating the D cases.
+Nine behaviors can't be settled from the six screenshots. Enter each input in 玄天排盘: a match with the default column changes nothing; a match with the last column means flipping that setting (§7) and regenerating the D cases.
 
 | # | Question | Enter in 玄天排盘 | Default shows | Otherwise it means |
 | --- | --- | --- | --- | --- |
@@ -364,6 +372,7 @@ Eight behaviors can't be settled from the six screenshots. Enter each input in �
 | Q6 | Color and score for a stem that is both 击刑 and 入墓 | 2026-11-04 04:00 (壬 in 巽4) | Purple; 巽4 score 6.25 | Green, or 12.5: each stem counts once |
 | Q7 | Lunar month names and year near 春节 | 2027-02-04 10:30 | 阴历 丙午年 腊月廿八 | 十二月: numeric month names; 丁未年: year by 立春 |
 | Q8 | What does 点击显示节气 reveal? | Any chart, tap it | Current and next 节气 with times, 元, 符头 | Copy whatever it shows |
+| Q9 | Header 值符 when the 旬首 sits in 坤2 | 2026-11-04 04:00 (same input as Q6) | 值符 天芮 (the grid shows 芮禽) | 芮禽: print 芮禽 whenever 天芮 is the 值符 |
 
 ## 10 · Build notes for Claude Code
 
