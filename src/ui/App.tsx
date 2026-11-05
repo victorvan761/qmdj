@@ -26,6 +26,9 @@ export function App({ initial, now, onLangChange }: AppProps) {
   }, [lang]);
 
   useEffect(() => {
+    // A reload keeps the current entry's state: if it was a chart entry, mark it as the input screen we now show,
+    // or the next back would land on it and reopen the chart.
+    if (window.history.state?.[CHART_ENTRY]) window.history.replaceState(null, '');
     const onPop = (e: PopStateEvent) =>
       dispatch({ type: 'show', screen: e.state?.[CHART_ENTRY] ? 'chart' : 'input' });
     window.addEventListener('popstate', onPop);

@@ -126,27 +126,42 @@ dd {
 }
 
 .title {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   color: var(--teal);
   font-size: 21px;
   font-weight: 800;
   line-height: 1.3;
 }
 
-.field {
+/* One grid for all rows, so values line up after the widest label (in both languages). */
+.fields {
   display: grid;
-  grid-template-columns: 81px minmax(0, 1fr);
+  grid-template-columns: max-content minmax(0, 1fr);
+  grid-auto-rows: minmax(24px, auto);
   align-items: center;
-  min-height: 32px;
+  gap: 5px 1px;
   font-size: 16px;
 }
 
-.field:first-of-type {
-  margin-bottom: 8px;
+.lang-en .fields {
+  column-gap: 10px;
 }
 
-.field + .field {
-  margin-top: 5px;
+.field {
+  display: contents;
+}
+
+/* The picker row spans both columns, so a wide English label below can't squeeze the picker. */
+.field.date {
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: center;
+  gap: inherit;
+}
+
+.field.date .picker {
+  flex: 1;
+  min-width: 0;
 }
 
 .label {
@@ -331,7 +346,7 @@ dd {
 .cell {
   position: relative;
   display: grid;
-  grid-template-columns: 25fr 41fr 25fr;
+  grid-template-columns: 26fr 40fr 25fr; /* the score column fits 6.25 */
   grid-template-rows: repeat(5, minmax(0, 1fr));
   align-items: center;
   min-width: 0;
@@ -396,10 +411,11 @@ dd {
   grid-area: 5 / 3;
 }
 
-/* 长生 labels: centered over the right column, growing leftward when two groups need more room (R1 巽4). */
+/* 长生 labels: centered over the right column, growing leftward when two groups need more room (R1 巽4).
+   min-width is that column's width; cqi is 1% of the cell's content box, so 25fr of 91fr is 27.5cqi. */
 .cell .stages {
   justify-self: end;
-  min-width: 25cqi;
+  min-width: 27.5cqi;
   color: var(--label-gray);
   font-size: 8.8cqi;
   font-weight: 400;
@@ -434,6 +450,41 @@ dd {
 
 .marks .kong + .horse {
   margin-left: 0.15em;
+}
+
+/* English: the middle column widens to ~45% of the cell (SPEC §4); FitText shrinks what still overflows. */
+.lang-en .cell {
+  grid-template-columns: 19fr 45fr 30fr; /* with the gaps and padding, the middle column is 45% of the cell */
+  column-gap: 1.5%; /* not cqi: on the cell itself, container units resolve against the viewport */
+  padding-right: 1.5%;
+  padding-left: 1.5%;
+}
+
+.lang-en .cell .stages {
+  min-width: 31cqi; /* 30fr of 94fr, less the two gaps */
+}
+
+/* A two-stem slot (Geng·Gui) can't fit one line of the stems column at 10 px, so English stacks the two stems. */
+.lang-en .cell .stems.two {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 9cqi;
+  line-height: 0.95;
+}
+
+.lang-en .stems.two .joiner {
+  display: none;
+}
+
+.lang-en .pair {
+  gap: 0.35em; /* "Structure: Yang Dun 3" needs the space 中文's full-width colon carries */
+}
+
+/* English values run long ("Chief Symbol: Tian Rui (with Tian Qin)"): one pair per line. */
+.lang-en .summary {
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 7px;
 }
 
 .watermark {

@@ -46,7 +46,7 @@ function TermsPanel({ lang, chart }: { lang: Lang; chart: Chart }) {
 export function ChartScreen({ lang, chart, termsOpen, onBack, onToggleTerms, onLang }: ChartScreenProps) {
   const h = chart.header;
   return (
-    <div className="screen chart-screen">
+    <div className={`screen chart-screen lang-${lang}`}>
       <header className="band">
         <button type="button" className="back" onClick={onBack} aria-label={t(lang, 'chart.back')}>
           <BackIcon />

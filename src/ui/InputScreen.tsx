@@ -72,7 +72,7 @@ function DatePicker({ lang, value, onChange }: { lang: Lang; value: string; onCh
 export function InputScreen({ lang, value, onChange, onCast, onReset, onLang }: InputScreenProps) {
   const colon = t(lang, 'colon');
   return (
-    <div className="screen input-screen">
+    <div className={`screen input-screen lang-${lang}`}>
       <header className="band">
         <span />
         <LangToggle lang={lang} onLang={onLang} />
@@ -80,16 +80,18 @@ export function InputScreen({ lang, value, onChange, onCast, onReset, onLang }: 
       <main className="input-main">
         <section className="card input-card">
           <h1 className="title">{t(lang, 'app.title')}</h1>
-          <div className="field">
-            <span className="label">{`${t(lang, 'input.date')}${colon}`}</span>
-            <DatePicker lang={lang} value={value} onChange={onChange} />
-          </div>
-          {FIXED_ROWS.map(([label, val]) => (
-            <div className="field" key={label}>
-              <span className="label">{`${t(lang, label)}${colon}`}</span>
-              <span className="value">{t(lang, val)}</span>
+          <div className="fields">
+            <div className="field date">
+              <span className="label">{`${t(lang, 'input.date')}${colon}`}</span>
+              <DatePicker lang={lang} value={value} onChange={onChange} />
             </div>
-          ))}
+            {FIXED_ROWS.map(([label, val]) => (
+              <div className="field" key={label}>
+                <span className="label">{`${t(lang, label)}${colon}`}</span>
+                <span className="value">{t(lang, val)}</span>
+              </div>
+            ))}
+          </div>
         </section>
         <button type="button" className="btn primary" onClick={onCast}>{t(lang, 'input.cast')}</button>
         <button type="button" className="btn secondary" onClick={onReset}>{t(lang, 'input.reset')}</button>

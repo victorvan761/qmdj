@@ -1,6 +1,9 @@
 // A small parser for react-dom/server's static markup, so UI tests can query rendered text and classes without a
 // DOM. React's output is well-formed: every element closed, attributes double-quoted, text and attributes escaped.
 
+/** CJK ideographs, radicals, kana, bopomofo, CJK symbols and punctuation, and full-width forms. */
+export const CJK = /[⺀-⿿　-〿぀-ヿ㄀-ㄯ㈀-㋿㐀-䶿一-鿿豈-﫿︰-﹏＀-￯]/;
+
 export interface El {
   tag: string;
   attrs: Record<string, string>;

@@ -7,7 +7,7 @@ import { TRIGRAM, castChart, parseInput, type PalaceNo } from '../src/engine';
 import type { Lang } from '../src/i18n';
 import { ChartScreen } from '../src/ui/ChartScreen';
 import { InputScreen } from '../src/ui/InputScreen';
-import { field, find, findAll, hasClass, parseHtml, text, textRuns, type El } from './html';
+import { CJK, field, find, findAll, hasClass, parseHtml, text, textRuns, type El } from './html';
 
 const noop = () => {};
 const render = (el: ReactElement) => parseHtml(renderToStaticMarkup(el));
@@ -122,6 +122,84 @@ describe('chart screen in 中文 renders R1–R6 as in the screenshots', () => {
 
   it('the footer carries the disclaimer', () => {
     expect(text(field(chartScreen(caseById('R1').input), 'footer'))).toBe('排盘内容仅供娱乐，请客观科学看待，抵制封建迷信');
+  });
+});
+
+describe('English mode', () => {
+  /** Text and labels with CJK, outside elements marked data-cjk-ok (the 十二长生 labels and the toggle's 中). */
+  function cjkLeaks(n: El): string[] {
+    if ('data-cjk-ok' in n.attrs) return [];
+    const own = ['aria-label', 'title', 'alt', 'placeholder'].map((a) => n.attrs[a]).filter((v): v is string => !!v);
+    return [
+      ...own.filter((v) => CJK.test(v)),
+      ...n.children.flatMap((c) => (typeof c === 'string' ? (CJK.test(c) ? [c] : []) : cjkLeaks(c))),
+    ];
+  }
+
+  for (const c of fixtures.cases) {
+    it(`${c.id}: no CJK outside the 十二长生 labels, 节气 panel closed and open`, () => {
+      expect(cjkLeaks(chartScreen(c.input, 'en'))).toEqual([]);
+      expect(cjkLeaks(chartScreen(c.input, 'en', true))).toEqual([]);
+    });
+  }
+
+  it('the input screen has no CJK outside the toggle', () => {
+    expect(cjkLeaks(inputScreen('1996-06-20T18:20', 'en'))).toEqual([]);
+  });
+
+  it('R1 header reads as SPEC §4 renders it', () => {
+    const doc = chartScreen(caseById('R1').input, 'en');
+    expect(textRuns(field(doc, 'info'))).toEqual([
+      'Solar', '1996-06-20 18:16:00', 'Lunar', 'Bing Zi year · month 5 · day 5',
+      'Year', 'Month', 'Day', 'Hour', 'Bing', 'Jia', 'Wu', 'Xin', 'Zi', 'Wu', 'Zi', 'You',
+      'Structure:', 'Yang Dun 3', 'Xun Head:', 'Jia Yin · Gui', 'Chief Symbol:', 'Tian Ren', 'Chief Gate:', 'Life Gate',
+      'Method:', 'Rotating · Chai Bu · Center in Kun 2',
+    ]);
+  });
+
+  it('R1 grid uses the short labels, two-stem slots read Geng·Yi, 长生 labels stay Chinese', () => {
+    const xun4 = cell(chartScreen(caseById('R1').input, 'en'), 4);
+    expect(['god', 'star', 'door', 'heaven', 'earth', 'heavenStages', 'watermark'].map((k) => text(field(xun4, k))))
+      .toEqual(['Tiger', 'Rui·Qin', 'Death', 'Geng·Yi', 'Ji', '养长 冠沐', '☴']);
+  });
+
+  it('a leap month reads "leap month" (D6) and 旬首 in 中5 reads Tian Rui (with Tian Qin) (R6)', () => {
+    expect(text(field(chartScreen(caseById('D6').input, 'en'), 'lunar'))).toBe('Yi Si year · leap month 6 · day 8');
+    const r6 = chartScreen(caseById('R6').input, 'en');
+    expect([text(field(r6, 'zhiFu')), text(field(r6, 'zhiShi'))]).toEqual(['Tian Rui (with Tian Qin)', 'Death Gate']);
+  });
+
+  it('the 节气 panel names the terms in English', () => {
+    const open = chartScreen(caseById('R1').input, 'en', true);
+    expect(text(field(open, 'termsToggle'))).toBe('Hide solar terms');
+    expect(textRuns(field(open, 'terms'))).toEqual([
+      'Current term:', 'Grain in Ear 1996-06-05 17:40:47', 'Next term:', 'Summer Solstice 1996-06-21 10:23:44',
+      'Yuan:', 'Middle', 'Fu Tou:', 'Jia Shen',
+    ]);
+  });
+
+  it('the input screen and footer read in English', () => {
+    const doc = inputScreen('1996-06-20T18:20', 'en');
+    expect(text(find(doc, (e) => e.tag === 'h1'))).toBe('Qi Men Chart');
+    expect(findAll(doc, (e) => hasClass(e, 'field')).map(text)).toEqual([
+      'Date & time:1996-06-20 18:20', 'Plate:Rotating', 'Structure method:Chai Bu', 'Void marking:Hour void',
+      'Center lodging:Kun 2',
+    ]);
+    expect(findAll(doc, (e) => e.tag === 'button' && hasClass(e, 'btn')).map(text)).toEqual(['Cast chart', 'Reset to now']);
+    expect(text(field(chartScreen(caseById('R1').input, 'en'), 'footer'))).toBe(
+      'For entertainment only. Please view it objectively and scientifically, and reject superstition.',
+    );
+  });
+
+  it('the toggle shows 中 | EN on both screens and marks the current language', () => {
+    for (const lang of ['zh', 'en'] as const) {
+      for (const doc of [inputScreen('1996-06-20T18:20', lang), chartScreen(caseById('R1').input, lang)]) {
+        const buttons = findAll(find(doc, (e) => hasClass(e, 'lang-toggle')), (e) => e.tag === 'button');
+        expect(buttons.map((b) => [text(b), b.attrs['aria-pressed']])).toEqual([
+          ['中', String(lang === 'zh')], ['EN', String(lang === 'en')],
+        ]);
+      }
+    }
   });
 });
 
