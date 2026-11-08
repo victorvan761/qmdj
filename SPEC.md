@@ -25,7 +25,7 @@ Two screens, mobile-first (designed at 390 px wide), copying 玄天排盘's layo
 | Element | Behavior |
 | --- | --- |
 | Title | Your app's name, e.g. 奇门排盘 / Qi Men Chart (玄天排盘 is the reference app's name) |
-| 日期选择 | Date-time picker, minute precision, shown as `1996年/06月/20日 18:20`; opens at the current time; range 1900–2100 |
+| 日期选择 | Date-time picker, minute precision, shown as `1996年/06月/20日 18:20`; opens at the current time and keeps up with the clock until changed; range 1900–2100; on screens narrower than 390 px the text shrinks to fit |
 | 排盘方式 · 定局 · 标记旬空 · 中宫寄宫 | Read-only rows: 转盘 · 拆补法 · 时空 · 寄坤二宫 |
 | 点击起局 | Primary button (teal fill, white text): casts the chart and opens the chart screen |
 | 重置时间 | Secondary button (white, black text): resets the picker to now |
@@ -35,7 +35,7 @@ Two screens, mobile-first (designed at 390 px wide), copying 玄天排盘's layo
 
 ![Reference chart R1 (玄天排盘, 1996-06-20 18:16)](docs/reference/R1_1996-06-20_1816.jpg)
 
-- Back arrow returns to the input screen with the entered time kept.
+- Back arrow returns to the input screen with the entered time kept, as does the browser's or system's back. Forward, or a reload on the chart screen, shows the chart again.
 - Header card: a bordered table with rows 阳历 (`YYYY-MM-DD HH:mm:ss`, seconds always 00) and 阴历 (`丙子年 五月初五`), then a 4-column 年 / 月 / 日 / 时 table (stems row, branches row). Under it, label–value pairs in two columns: 选局 · 旬首, 值符 · 值使, then 局式 `转盘-拆补-寄坤二宫` on its own line.
 - `⌄ 点击显示节气 ⌄` toggles a 节气 panel, collapsed by default: current 节气 and its start time, next 节气 and its start time, 元 and 符头 (inferred, see Q8).
 - 3×3 grid, south up: 巽4 离9 坤2 / 震3 中5 兑7 / 艮8 坎1 乾6.
@@ -116,7 +116,14 @@ Rendering rules in English:
 | Date picker | 1996年/06月/20日 18:20 | 1996-06-20 18:20 |
 | 节气 | 芒种 | Grain in Ear |
 
-English labels run longer, so in English the cell's middle column widens to about 45% of the cell, and a label that still overflows shrinks to fit, down to 10 px. English mode renders no CJK characters except in the 十二长生 labels.
+English labels run longer, so in English the cell's middle column widens to about 45% of the cell, and a label that still overflows shrinks to fit, down to 10 px. English mode renders no CJK characters except in the 十二长生 labels and the toggle's own 中.
+
+Settled while building (not visible in 玄天排盘, which has no English):
+
+- **Two-stem slots stack their stems in English.** "Geng·Gui" needs about 48 px at 10 px, more than the stems column leaves beside a 45% middle column at 390 px. So in English the two stems sit one above the other. The slot's text still reads Geng·Gui.
+- **The English header summary puts one pair per line.** "Chief Symbol: Tian Rui (with Tian Qin)" would wrap to three lines in a half-width column.
+- **The English date row spans the card**, so the widest label below it ("Structure method:") doesn't squeeze the picker.
+- **English scores share one size.** The 45% middle column leaves a narrow score column, and shrinking each score to fit on its own made 50 look bigger than 100. So all scores use one size, and the score column takes a little width from the stems column so that 6.25, the widest score, fits.
 
 UI strings:
 
@@ -135,6 +142,7 @@ UI strings:
 | chart.ju / chart.xun | 选局 / 旬首 | Structure / Xun Head |
 | chart.zhifu / chart.zhishi | 值符 / 值使 | Chief Symbol / Chief Gate |
 | chart.jushi | 局式 | Method |
+| chart.title (chart screen heading, for screen readers only) | 排盘结果 | Chart |
 | chart.terms.show / hide | 点击显示节气 / 点击隐藏节气 | Show solar terms / Hide solar terms |
 | terms.current / next | 当前节气 / 下一节气 | Current term / Next term |
 | terms.yuan / futou | 元 / 符头 | Yuan / Fu Tou |
@@ -270,6 +278,8 @@ Branches: 子 Zi · 丑 Chou · 寅 Yin · 卯 Mao · 辰 Chen · 巳 Si · 午 
 | Deity | 九地 | 9 Earth | Nine Earth |
 | Deity | 九天 | 9 Heaven | Nine Heaven |
 
+玄天排盘 prints the serpent as **螣蛇** (R1 坎1, R3 坤2). The ID stays 腾蛇 in the engine and the fixtures; the 中文 glossary displays 螣蛇.
+
 ## 7 · Data model
 
 The engine returns one `Chart` whose shape matches each case in `golden_charts.json`, so tests compare it directly and the UI only reads it. Values are the Chinese terms, which double as IDs; the UI translates them.
@@ -352,7 +362,7 @@ Tests to write:
 
 ## 9 · Open questions
 
-Eight behaviors can't be settled from the six screenshots. Enter each input in 玄天排盘: a match with the default column changes nothing; a match with the last column means flipping that setting (§7) and regenerating the D cases.
+Nine behaviors can't be settled from the six screenshots. Enter each input in 玄天排盘: a match with the default column changes nothing; a match with the last column means flipping that setting (§7) and regenerating the D cases.
 
 | # | Question | Enter in 玄天排盘 | Default shows | Otherwise it means |
 | --- | --- | --- | --- | --- |
@@ -364,6 +374,7 @@ Eight behaviors can't be settled from the six screenshots. Enter each input in �
 | Q6 | Color and score for a stem that is both 击刑 and 入墓 | 2026-11-04 04:00 (壬 in 巽4) | Purple; 巽4 score 6.25 | Green, or 12.5: each stem counts once |
 | Q7 | Lunar month names and year near 春节 | 2027-02-04 10:30 | 阴历 丙午年 腊月廿八 | 十二月: numeric month names; 丁未年: year by 立春 |
 | Q8 | What does 点击显示节气 reveal? | Any chart, tap it | Current and next 节气 with times, 元, 符头 | Copy whatever it shows |
+| Q9 | Header 值符 when the 旬首 sits in 坤2 | 2026-11-04 04:00 (same input as Q6) | 值符 天芮 (the grid shows 芮禽) | 芮禽: print 芮禽 whenever 天芮 is the 值符 |
 
 ## 10 · Build notes for Claude Code
 
