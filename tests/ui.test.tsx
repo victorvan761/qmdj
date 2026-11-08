@@ -123,6 +123,13 @@ describe('chart screen in 中文 renders R1–R6 as in the screenshots', () => {
   it('the footer carries the disclaimer', () => {
     expect(text(field(chartScreen(caseById('R1').input), 'footer'))).toBe('排盘内容仅供娱乐，请客观科学看待，抵制封建迷信');
   });
+
+  it('has a heading for focus to land on after a cast, hidden as 玄天排盘 shows none', () => {
+    for (const [lang, title] of [['zh', '排盘结果'], ['en', 'Chart']] as const) {
+      const h1 = find(chartScreen(caseById('R1').input, lang), (e) => e.tag === 'h1');
+      expect([text(h1), h1.attrs.tabindex, hasClass(h1, 'visually-hidden')], lang).toEqual([title, '-1', true]);
+    }
+  });
 });
 
 describe('English mode', () => {
@@ -218,5 +225,11 @@ describe('input screen in 中文', () => {
     expect(input.attrs).toMatchObject({
       type: 'datetime-local', value: '1996-06-20T18:20', min: '1900-01-01T00:00', max: '2100-12-31T23:59', step: '60',
     });
+  });
+
+  it('the picker text shrinks to fit its box, so a narrow phone shows the whole time', () => {
+    for (const lang of ['zh', 'en'] as const) {
+      expect('data-fit' in field(inputScreen('1996-06-20T18:20', lang), 'picker').attrs, lang).toBe(true);
+    }
   });
 });

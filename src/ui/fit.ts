@@ -1,4 +1,5 @@
-// English labels run longer than 中文: one that still overflows its column shrinks to fit, down to 10 px (SPEC §4).
+// Text that overflows its box shrinks to fit, down to 10 px: English grid labels, which run longer than 中文
+// (SPEC §4), and the date picker on narrow phones.
 import { useLayoutEffect, type RefObject } from 'react';
 
 export const MIN_FONT_PX = 10;

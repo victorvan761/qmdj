@@ -16,6 +16,7 @@ export const en: Readonly<Record<UiKey, string>> = {
   'input.cast': 'Cast chart',
   'input.reset': 'Reset to now',
   'chart.back': 'Back',
+  'chart.title': 'Chart',
   'chart.solar': 'Solar',
   'chart.lunar': 'Lunar',
   'chart.year': 'Year',

@@ -52,6 +52,16 @@ dd {
   margin: 0;
 }
 
+/* Read by screen readers, not shown */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* ── teal band, back arrow, language toggle ── */
 .band {
   display: flex;
@@ -454,14 +464,20 @@ dd {
 
 /* English: the middle column widens to ~45% of the cell (SPEC §4); FitText shrinks what still overflows. */
 .lang-en .cell {
-  grid-template-columns: 19fr 45fr 30fr; /* with the gaps and padding, the middle column is 45% of the cell */
+  grid-template-columns: 21fr 45fr 28fr; /* with the gaps and padding, the middle column is 45% of the cell */
   column-gap: 1.5%; /* not cqi: on the cell itself, container units resolve against the viewport */
   padding-right: 1.5%;
   padding-left: 1.5%;
 }
 
 .lang-en .cell .stages {
-  min-width: 31cqi; /* 30fr of 94fr, less the two gaps */
+  min-width: 29cqi; /* 28fr of 94fr, less the two gaps */
+}
+
+/* One size for every English score, as fitting each on its own made 50 look bigger than 100. The 21fr score column
+   fits the widest, 6.25, at 9cqi, and at 10 px (SPEC §4's floor) on screens down to 360 px. */
+.lang-en .cell .score {
+  font-size: max(10px, 9cqi);
 }
 
 /* A two-stem slot (Geng·Gui) can't fit one line of the stems column at 10 px, so English stacks the two stems. */

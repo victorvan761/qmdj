@@ -14,6 +14,7 @@ export const zh = {
   'input.cast': '点击起局',
   'input.reset': '重置时间',
   'chart.back': '返回',
+  'chart.title': '排盘结果',
   'chart.solar': '阳历',
   'chart.lunar': '阴历',
   'chart.year': '年',

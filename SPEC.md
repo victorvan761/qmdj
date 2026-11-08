@@ -25,7 +25,7 @@ Two screens, mobile-first (designed at 390 px wide), copying 玄天排盘's layo
 | Element | Behavior |
 | --- | --- |
 | Title | Your app's name, e.g. 奇门排盘 / Qi Men Chart (玄天排盘 is the reference app's name) |
-| 日期选择 | Date-time picker, minute precision, shown as `1996年/06月/20日 18:20`; opens at the current time; range 1900–2100 |
+| 日期选择 | Date-time picker, minute precision, shown as `1996年/06月/20日 18:20`; opens at the current time and keeps up with the clock until changed; range 1900–2100; on screens narrower than 390 px the text shrinks to fit |
 | 排盘方式 · 定局 · 标记旬空 · 中宫寄宫 | Read-only rows: 转盘 · 拆补法 · 时空 · 寄坤二宫 |
 | 点击起局 | Primary button (teal fill, white text): casts the chart and opens the chart screen |
 | 重置时间 | Secondary button (white, black text): resets the picker to now |
@@ -35,7 +35,7 @@ Two screens, mobile-first (designed at 390 px wide), copying 玄天排盘's layo
 
 ![Reference chart R1 (玄天排盘, 1996-06-20 18:16)](docs/reference/R1_1996-06-20_1816.jpg)
 
-- Back arrow returns to the input screen with the entered time kept.
+- Back arrow returns to the input screen with the entered time kept, as does the browser's or system's back. Forward, or a reload on the chart screen, shows the chart again.
 - Header card: a bordered table with rows 阳历 (`YYYY-MM-DD HH:mm:ss`, seconds always 00) and 阴历 (`丙子年 五月初五`), then a 4-column 年 / 月 / 日 / 时 table (stems row, branches row). Under it, label–value pairs in two columns: 选局 · 旬首, 值符 · 值使, then 局式 `转盘-拆补-寄坤二宫` on its own line.
 - `⌄ 点击显示节气 ⌄` toggles a 节气 panel, collapsed by default: current 节气 and its start time, next 节气 and its start time, 元 and 符头 (inferred, see Q8).
 - 3×3 grid, south up: 巽4 离9 坤2 / 震3 中5 兑7 / 艮8 坎1 乾6.
@@ -123,6 +123,7 @@ Settled while building (not visible in 玄天排盘, which has no English):
 - **Two-stem slots stack their stems in English.** "Geng·Gui" needs about 48 px at 10 px, more than the stems column leaves beside a 45% middle column at 390 px. So in English the two stems sit one above the other. The slot's text still reads Geng·Gui.
 - **The English header summary puts one pair per line.** "Chief Symbol: Tian Rui (with Tian Qin)" would wrap to three lines in a half-width column.
 - **The English date row spans the card**, so the widest label below it ("Structure method:") doesn't squeeze the picker.
+- **English scores share one size.** The 45% middle column leaves a narrow score column, and shrinking each score to fit on its own made 50 look bigger than 100. So all scores use one size, and the score column takes a little width from the stems column so that 6.25, the widest score, fits.
 
 UI strings:
 
@@ -141,6 +142,7 @@ UI strings:
 | chart.ju / chart.xun | 选局 / 旬首 | Structure / Xun Head |
 | chart.zhifu / chart.zhishi | 值符 / 值使 | Chief Symbol / Chief Gate |
 | chart.jushi | 局式 | Method |
+| chart.title (chart screen heading, for screen readers only) | 排盘结果 | Chart |
 | chart.terms.show / hide | 点击显示节气 / 点击隐藏节气 | Show solar terms / Hide solar terms |
 | terms.current / next | 当前节气 / 下一节气 | Current term / Next term |
 | terms.yuan / futou | 元 / 符头 | Yuan / Fu Tou |

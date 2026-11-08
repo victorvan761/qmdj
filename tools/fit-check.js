@@ -2,7 +2,8 @@
 // With `npm run dev` running and the page at 390 px wide, in the language to check, run in the page's console:
 //   const { fitCheck } = await import('/tools/fit-check.js'); console.table((await fitCheck()).problems);
 // It casts every golden chart through the real UI and reports any label that overflows its column after
-// shrinking, is below 10 px, is clipped by its palace, or overlaps another label. No problems means it passes.
+// shrinking, is below 10 px, is clipped by its palace, or overlaps another label. It also checks that the date
+// picker shows the whole time and that a chart's scores share one size. No problems means it passes.
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -56,6 +57,22 @@ function checkCell(id, cell, problems) {
   return smallest;
 }
 
+/** The picker's text shrinks to fit (fit.ts), so the whole time shows, at 10 px or more. */
+function checkPicker(id, problems) {
+  const el = document.querySelector('.picker-text');
+  const size = parseFloat(getComputedStyle(el).fontSize);
+  if (el.scrollWidth > el.clientWidth + 0.5) {
+    problems.push(`${id} picker "${el.textContent}" overflows ${el.scrollWidth}>${el.clientWidth} at ${size}px`);
+  }
+  if (size < 10) problems.push(`${id} picker "${el.textContent}" is ${size}px`);
+}
+
+/** Scores differ only in value: one font size for all of them. */
+function checkScores(id, problems) {
+  const sizes = new Set([...document.querySelectorAll('.cell .score')].map((e) => getComputedStyle(e).fontSize));
+  if (sizes.size > 1) problems.push(`${id} scores render at ${[...sizes].join(', ')}`);
+}
+
 export async function fitCheck() {
   const { cases } = await (await fetch('/fixtures/golden_charts.json')).json();
   const problems = [];
@@ -64,12 +81,14 @@ export async function fitCheck() {
   for (const c of cases) {
     setInput(await waitFor('input[type="datetime-local"]'), c.input);
     await sleep(30);
+    checkPicker(c.id, problems);
     (await waitFor('.btn.primary')).click();
     await waitFor('.grid');
     await sleep(80);
     if (!document.querySelector('[data-k="solar"]').textContent.startsWith(c.input.replace('T', ' '))) {
       problems.push(`${c.id} did not cast`);
     }
+    checkScores(c.id, problems);
     for (const cell of document.querySelectorAll('.cell')) smallestPx = Math.min(smallestPx, checkCell(c.id, cell, problems));
     document.querySelector('.back').click();
     await waitFor('.btn.primary');

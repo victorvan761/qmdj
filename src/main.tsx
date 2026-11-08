@@ -1,9 +1,8 @@
 // The only place that touches the clock, the device language and localStorage.
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { formatInput } from './engine';
 import { App } from './ui/App';
-import { initialLang, initialState } from './ui/state';
+import { clockInput, initialLang, initialState } from './ui/state';
 import './ui/styles.css';
 
 const LANG_KEY = 'qimen.lang';
@@ -24,10 +23,13 @@ function saveLang(lang: string): void {
   }
 }
 
-/** The device clock's wall time to the minute. The engine reads it as Beijing time, unconverted (SPEC §5 step 1). */
+/**
+ * The device clock's wall time to the minute, held to 1900–2100. The engine reads it as Beijing time, unconverted
+ * (SPEC §5 step 1).
+ */
 function now(): string {
   const d = new Date();
-  return formatInput({
+  return clockInput({
     year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate(), hour: d.getHours(), minute: d.getMinutes(),
   });
 }

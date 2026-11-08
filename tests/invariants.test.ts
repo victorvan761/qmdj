@@ -49,28 +49,43 @@ function violations(c: Chart): string[] {
   return out;
 }
 
-describe(`invariants over every hour of ${YEAR}`, () => {
-  let charts = 0;
-  let jiaHours = 0;
+interface MonthResult {
+  charts: number;
+  jiaHours: number;
+  bad: string[];
+}
 
-  for (let month = 1; month <= 12; month++) {
+const MONTHS = Array.from({ length: 12 }, (_, i) => i + 1);
+const months = new Map<number, MonthResult>();
+
+/** Every hour of the month, cast once however many tests ask, so no test depends on another having run first. */
+function castMonth(month: number): MonthResult {
+  const done = months.get(month);
+  if (done) return done;
+  const result: MonthResult = { charts: 0, jiaHours: 0, bad: [] };
+  const days = new Date(Date.UTC(YEAR, month, 0)).getUTCDate();
+  for (let day = 1; day <= days; day++) {
+    for (let hour = 0; hour < 24; hour++) {
+      const c = castChart({ year: YEAR, month, day, hour, minute: 0 });
+      result.charts++;
+      if (c.header.pillars.hour[0] === '甲') result.jiaHours++;
+      for (const v of violations(c)) result.bad.push(`${c.header.solar}: ${v}`);
+    }
+  }
+  months.set(month, result);
+  return result;
+}
+
+describe(`invariants over every hour of ${YEAR}`, () => {
+  for (const month of MONTHS) {
     it(`month ${month}`, () => {
-      const days = new Date(Date.UTC(YEAR, month, 0)).getUTCDate();
-      const bad: string[] = [];
-      for (let day = 1; day <= days; day++) {
-        for (let hour = 0; hour < 24; hour++) {
-          const c = castChart({ year: YEAR, month, day, hour, minute: 0 });
-          charts++;
-          if (c.header.pillars.hour[0] === '甲') jiaHours++;
-          for (const v of violations(c)) bad.push(`${c.header.solar}: ${v}`);
-        }
-      }
-      expect(bad).toEqual([]);
+      expect(castMonth(month).bad).toEqual([]);
     });
   }
 
   it('covered 8,760 charts, about a tenth of them 甲 hours checked for 伏吟', () => {
-    expect(charts).toBe(8760);
-    expect(jiaHours).toBeGreaterThan(800);
+    const all = MONTHS.map(castMonth);
+    expect(all.reduce((n, m) => n + m.charts, 0)).toBe(8760);
+    expect(all.reduce((n, m) => n + m.jiaHours, 0)).toBeGreaterThan(800);
   });
 });

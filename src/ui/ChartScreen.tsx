@@ -1,5 +1,5 @@
 // The chart screen (SPEC §2): header card, 节气 panel, the nine palaces and the disclaimer.
-import type { ReactNode } from 'react';
+import type { ReactNode, Ref } from 'react';
 import { GRID, type Branch, type Chart, type Stem } from '../engine';
 import {
   branch, door, ganZhi, jieqi, juShiText, juText, lunarText, star, stem, t, xunText, yuan, type Lang, type UiKey,
@@ -12,6 +12,8 @@ export interface ChartScreenProps {
   lang: Lang;
   chart: Chart;
   termsOpen: boolean;
+  /** The screen's heading, for focus to move to after a cast */
+  headingRef?: Ref<HTMLHeadingElement>;
   onBack(): void;
   onToggleTerms(): void;
   onLang(lang: Lang): void;
@@ -43,7 +45,7 @@ function TermsPanel({ lang, chart }: { lang: Lang; chart: Chart }) {
   );
 }
 
-export function ChartScreen({ lang, chart, termsOpen, onBack, onToggleTerms, onLang }: ChartScreenProps) {
+export function ChartScreen({ lang, chart, termsOpen, headingRef, onBack, onToggleTerms, onLang }: ChartScreenProps) {
   const h = chart.header;
   return (
     <div className={`screen chart-screen lang-${lang}`}>
@@ -55,6 +57,8 @@ export function ChartScreen({ lang, chart, termsOpen, onBack, onToggleTerms, onL
       </header>
 
       <main className="chart-main">
+        {/* For screen readers only: 玄天排盘 shows no title here */}
+        <h1 className="visually-hidden" tabIndex={-1} ref={headingRef}>{t(lang, 'chart.title')}</h1>
         <section className="card info-card" data-k="info">
           <table className="info">
             <tbody>
