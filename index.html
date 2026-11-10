@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light" />
     <meta name="theme-color" content="#22535A" />
-    <!-- Empty icon: the app makes no network requests. -->
-    <link rel="icon" href="data:," />
+    <!-- Home-screen install (SPEC §11). Every file is served with the app and kept offline by sw.js. -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/png" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="奇门排盘" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <title>奇门排盘</title>
   </head>
   <body>
