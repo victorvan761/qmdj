@@ -11,6 +11,7 @@ The app reproduces 玄天排盘's hour chart (时家奇门) exactly — 转盘, 
 | Input screen | Date-time picker (defaults to now), four fixed setting rows, 点击起局, 重置时间 |
 | Chart screen | Header card (阳历, 阴历, 四柱, 选局, 旬首, 值符, 值使, 局式), collapsible 节气 panel, 3×3 palace grid with every color and marker, disclaimer footer |
 | Language | EN / 简体中文 toggle on both screens, remembered between visits |
+| Offline | Installs to the iPhone home screen and opens with no network (§11) |
 
 Out of scope for v1: 飞盘, 置闰 or 茅山 定局, 真太阳时 or a time-zone input, 日空 marking, other 寄宫 rules, saved charts and interpretation text. The engine still takes each fixed setting as a parameter, so any of these can be added later without rework.
 
@@ -390,9 +391,20 @@ Build a static TypeScript web app, engine first and test-driven, with `qimen-spe
     - `src/ui/InputScreen.tsx`, `ChartScreen.tsx`, `PalaceCell.tsx`
     - `tests/golden.test.ts`, `tests/invariants.test.ts`
     - From the kit: `fixtures/golden_charts.json`, `docs/reference/` (screenshots), `tools/reference/` (Python engine)
+    - `src/sw.js`, `tools/offline.ts`, `public/` — the offline copy and home-screen install (§11)
 - Order: tables → calendar → `castChart` until R1–R6 pass → D1–D13 → 中文 UI checked against the screenshots → English → open questions as you confirm them.
 - Coming from the qimen-kit draft: keep its stack and test harness, take this spec's settings as the defaults, and leave 双语 mode, 置闰/茅山 and the time-zone input out of v1.
 - To regenerate fixtures after a Q answer: `pip install lunar_python==1.4.8`, flip the matching parameter in `tools/reference/engine.py`, then run `verify.py` and `gen_fixtures.py`.
+
+## 11 · Hosting & offline
+
+The app's user is on an iPhone in mainland China. It must open with no network, and never depend on a server staying reachable from there. There is no App Store app, WeChat mini program or ICP filing.
+
+- Hosting: GitHub Pages. `.github/workflows/deploy.yml` runs typecheck, tests and build on every push and pull request, and publishes `main` only when they pass.
+- Install: open the site in Safari, then Share → 添加到主屏幕. `public/manifest.webmanifest` and `public/apple-touch-icon.png` give it the name 奇门排盘, the nine-palace icon (drawn by `tools/make-icons.mjs`) and a full-screen window.
+- Offline: the built `sw.js` (`src/sw.js` plus the file list `tools/offline.ts` writes at build time) keeps every built file on the device and answers the app's own requests from that copy, online or not.
+- Updates: every build changes `sw.js`, since its version hashes every file. The phone downloads a new build in the background when it can reach the site, and switches to it on the next launch. If any file fails to download, it keeps the old copy. If the site is blocked, the installed app keeps working at its last version.
+- The site needs to be reachable from mainland China only for a first install or a reinstall: a new phone, a deleted icon, or iOS clearing the copy.
 
 ## Sources
 
