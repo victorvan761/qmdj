@@ -1,5 +1,5 @@
 // SPEC §5 steps 1–3: the time basis, the calendar (lunar-typescript) and the 节气 / 符头 / 元.
-import { Solar } from 'lunar-typescript';
+import { Lunar, LunarUtil, LunarYear, Solar } from 'lunar-typescript';
 import { JIEQI, YUAN_BY_BRANCH, ganZhiAt, ganZhiIndex } from './tables';
 import type { Branch, ChartInput, JieQiInfo, JieQiName, Pillars, Settings } from './types';
 
@@ -8,7 +8,55 @@ export const MAX_YEAR = 2100;
 
 const DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 const isLeapYear = (y: number) => (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0;
-const daysInMonth = (y: number, m: number) => (m === 2 && isLeapYear(y) ? 29 : DAYS_IN_MONTH[m - 1]);
+/** Days in a 公历 month. */
+export const daysInMonth = (y: number, m: number) => (m === 2 && isLeapYear(y) ? 29 : DAYS_IN_MONTH[m - 1]);
+
+/** A calendar date. As a 农历 date, `month` is negative for a leap month (闰六月 is -6), as lunar-typescript counts. */
+export interface Ymd {
+  year: number;
+  month: number;
+  day: number;
+}
+
+/** The 农历 date of a 公历 date. The date changes at midnight, as the chart's 阴历 row does. */
+export function solarToLunar({ year, month, day }: Ymd): Ymd {
+  const lunar = Solar.fromYmd(year, month, day).getLunar();
+  return { year: lunar.getYear(), month: lunar.getMonth(), day: lunar.getDay() };
+}
+
+/** The 公历 date of a 农历 date. */
+export function lunarToSolar({ year, month, day }: Ymd): Ymd {
+  const solar = Lunar.fromYmd(year, month, day).getSolar();
+  return { year: solar.getYear(), month: solar.getMonth(), day: solar.getDay() };
+}
+
+/** One month of a 农历 year, with the first and last of its days that fall in 1900–2100. */
+export interface LunarMonthSpan {
+  month: number;
+  first: number;
+  last: number;
+}
+
+/**
+ * The months of a 农历 year in order, a leap month after its regular one. Months wholly outside 1900–2100 are left
+ * out: 农历 1899 keeps only 腊月 (1900-01-01 is its 初一), and 农历 2100's 腊月 ends at 初一 (2100-12-31).
+ */
+export function lunarMonths(year: number): LunarMonthSpan[] {
+  const min = Solar.fromYmd(MIN_YEAR, 1, 1);
+  const max = Solar.fromYmd(MAX_YEAR, 12, 31);
+  return LunarYear.fromYear(year).getMonthsInYear().flatMap((m) => {
+    const start = Lunar.fromYmd(year, m.getMonth(), 1).getSolar();
+    const first = Math.max(1, min.subtract(start) + 1);
+    const last = Math.min(m.getDayCount(), max.subtract(start) + 1);
+    return first <= last ? [{ month: m.getMonth(), first, last }] : [];
+  });
+}
+
+/** 正月 … 腊月, 闰六月: the names the chart's 阴历 row uses. */
+export const lunarMonthName = (month: number): string => `${month < 0 ? '闰' : ''}${LunarUtil.MONTH[Math.abs(month)]}月`;
+
+/** 初一 … 三十. */
+export const lunarDayName = (day: number): string => LunarUtil.DAY[day];
 
 const pad = (n: number, width = 2) => String(n).padStart(width, '0');
 

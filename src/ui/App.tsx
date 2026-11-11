@@ -40,14 +40,12 @@ export function App({ initial, now }: AppProps) {
   }, []);
 
   // An untouched picker keeps up with the clock (SPEC §2: it defaults to now): every second, and at once when the page
-  // is shown again from another tab or the back-forward cache. Not while the picker has focus, so the time the user
-  // is choosing doesn't change under them.
+  // is shown again from another tab or the back-forward cache. Open wheels hold the time they opened on, so the time
+  // the user is choosing doesn't change under them.
   useEffect(() => {
     if (!state.followsClock) return;
     const tick = () => {
-      if (document.visibilityState === 'visible' && !(document.activeElement instanceof HTMLInputElement)) {
-        dispatch({ type: 'tick', now: now() });
-      }
+      if (document.visibilityState === 'visible') dispatch({ type: 'tick', now: now() });
     };
     const timer = window.setInterval(tick, 1000);
     document.addEventListener('visibilitychange', tick);

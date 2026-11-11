@@ -49,43 +49,46 @@ export function ChartScreen({ chart, termsOpen, headingRef, onBack, onToggleTerm
       <main className="chart-main">
         {/* For screen readers only: 玄天排盘 shows no title here */}
         <h1 className="visually-hidden" tabIndex={-1} ref={headingRef}>排盘结果</h1>
-        <section className="card info-card" data-k="info">
-          <table className="info">
-            <tbody>
-              <tr>
-                <th scope="row">阳历</th>
-                <td colSpan={3} data-k="solar">{h.solar}</td>
-              </tr>
-              <tr>
-                <th scope="row">阴历</th>
-                <td colSpan={3} data-k="lunar">{h.lunar}</td>
-              </tr>
-              <tr className="pillar-head">
-                {PILLARS.map(([k, label]) => <th key={k} scope="col">{label}</th>)}
-              </tr>
-              <tr className="pillar">
-                {PILLARS.map(([k]) => <td key={k} data-k={`${k}Stem`}>{h.pillars[k][0]}</td>)}
-              </tr>
-              <tr className="pillar">
-                {PILLARS.map(([k]) => <td key={k} data-k={`${k}Branch`}>{h.pillars[k][1]}</td>)}
-              </tr>
-            </tbody>
-          </table>
-          <dl className="summary">
-            <Pair label="选局：" k="ju">{h.ju}</Pair>
-            <Pair label="旬首：" k="xun">{h.xunShou}</Pair>
-            <Pair label="值符：" k="zhiFu">{h.zhiFu}</Pair>
-            <Pair label="值使：" k="zhiShi">{h.zhiShi}</Pair>
-            <Pair label="局式：" k="juShi" wide>{h.juShi}</Pair>
-          </dl>
-        </section>
+        {/* On a wide screen held sideways this column sits beside the grid; otherwise above it. */}
+        <div className="chart-side">
+          <section className="card info-card" data-k="info">
+            <table className="info">
+              <tbody>
+                <tr>
+                  <th scope="row">阳历</th>
+                  <td colSpan={3} data-k="solar">{h.solar}</td>
+                </tr>
+                <tr>
+                  <th scope="row">阴历</th>
+                  <td colSpan={3} data-k="lunar">{h.lunar}</td>
+                </tr>
+                <tr className="pillar-head">
+                  {PILLARS.map(([k, label]) => <th key={k} scope="col">{label}</th>)}
+                </tr>
+                <tr className="pillar">
+                  {PILLARS.map(([k]) => <td key={k} data-k={`${k}Stem`}>{h.pillars[k][0]}</td>)}
+                </tr>
+                <tr className="pillar">
+                  {PILLARS.map(([k]) => <td key={k} data-k={`${k}Branch`}>{h.pillars[k][1]}</td>)}
+                </tr>
+              </tbody>
+            </table>
+            <dl className="summary">
+              <Pair label="选局：" k="ju">{h.ju}</Pair>
+              <Pair label="旬首：" k="xun">{h.xunShou}</Pair>
+              <Pair label="值符：" k="zhiFu">{h.zhiFu}</Pair>
+              <Pair label="值使：" k="zhiShi">{h.zhiShi}</Pair>
+              <Pair label="局式：" k="juShi" wide>{h.juShi}</Pair>
+            </dl>
+          </section>
 
-        <button type="button" className="terms-toggle" aria-expanded={termsOpen} onClick={onToggleTerms}>
-          <DoubleChevron up={termsOpen} />
-          <span data-k="termsToggle">{termsOpen ? '点击隐藏节气' : '点击显示节气'}</span>
-          <DoubleChevron up={termsOpen} />
-        </button>
-        {termsOpen && <TermsPanel chart={chart} />}
+          <button type="button" className="terms-toggle" aria-expanded={termsOpen} onClick={onToggleTerms}>
+            <DoubleChevron up={termsOpen} />
+            <span data-k="termsToggle">{termsOpen ? '点击隐藏节气' : '点击显示节气'}</span>
+            <DoubleChevron up={termsOpen} />
+          </button>
+          {termsOpen && <TermsPanel chart={chart} />}
+        </div>
 
         <div className="grid">
           {GRID.flat().map((p) =>
