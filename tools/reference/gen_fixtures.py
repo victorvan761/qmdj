@@ -57,7 +57,6 @@ for cid, dt, confirmed, note, q in CASES:
             "ju": c["ju"], "xunShou": c["xunShou"], "zhiFu": c["zhiFu"], "zhiShi": c["zhiShi"],
             "juShi": "转盘-拆补-寄坤二宫",
         },
-        "lunarParts": c["lunarParts"],
         "jieqi": {"current": c["term"]["name"], "currentStart": c["term"]["start"],
                   "next": c["term"]["next"], "nextStart": c["term"]["nextStart"],
                   "yuan": c["yuan"], "fuTou": c["futou"]},

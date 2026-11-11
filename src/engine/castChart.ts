@@ -125,7 +125,6 @@ export function castChart(input: ChartInput, settings: Settings = DEFAULTS): Cha
       zhiShi: zhiShiDoor,
       juShi: `${settings.method}-${settings.dingJu}-${settings.centerLodge}`,
     },
-    lunarParts: cal.lunarParts,
     jieqi: cal.jieqi,
     derived: {
       dun,

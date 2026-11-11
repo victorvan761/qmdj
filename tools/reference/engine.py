@@ -158,11 +158,9 @@ def chart(y, mo, d, h, mi, s=0, zi_rollover_23=True, term_rule="exact"):
         }
 
     lunar_str = f"{lunar.getYearInGanZhi()}年 {lunar.getMonthInChinese()}月{lunar.getDayInChinese()}"
-    lunar_parts = {"yearGanZhi": lunar.getYearInGanZhi(), "month": abs(lunar.getMonth()),
-                   "leap": lunar.getMonth() < 0, "day": lunar.getDay()}
     return {
         "input": f"{y:04d}-{mo:02d}-{d:02d} {h:02d}:{mi:02d}:{s:02d}",
-        "lunar": lunar_str, "lunarParts": lunar_parts,
+        "lunar": lunar_str,
         "pillars": pillars,
         "term": {"name": term, "start": jq.getSolar().toYmdHms(), "next": nxt.getName(), "nextStart": nxt.getSolar().toYmdHms()},
         "futou": futou, "yuan": YUAN_NAMES[yuan],

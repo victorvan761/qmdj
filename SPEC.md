@@ -4,16 +4,15 @@ Exported from the spec doc on 2026-11-04. This file is the copy Claude Code buil
 
 ## 1 · Overview & scope
 
-The app reproduces 玄天排盘's hour chart (时家奇门) exactly — 转盘, 拆补法, 时空 marking, 中五寄坤二宫 — and adds one feature: a toggle between 简体中文 and English.
+The app reproduces 玄天排盘's hour chart (时家奇门) exactly — 转盘, 拆补法, 时空 marking, 中五寄坤二宫 — in 简体中文 only (§4).
 
 | Area | What ships in v1 |
 | --- | --- |
 | Input screen | Date-time picker (defaults to now), four fixed setting rows, 点击起局, 重置时间 |
 | Chart screen | Header card (阳历, 阴历, 四柱, 选局, 旬首, 值符, 值使, 局式), collapsible 节气 panel, 3×3 palace grid with every color and marker, disclaimer footer |
-| Language | EN / 简体中文 toggle on both screens, remembered between visits |
 | Offline | Installs to the iPhone home screen and opens with no network (§11) |
 
-Out of scope for v1: 飞盘, 置闰 or 茅山 定局, 真太阳时 or a time-zone input, 日空 marking, other 寄宫 rules, saved charts and interpretation text. The engine still takes each fixed setting as a parameter, so any of these can be added later without rework.
+Out of scope for v1: 飞盘, 置闰 or 茅山 定局, 真太阳时 or a time-zone input, 日空 marking, other 寄宫 rules, saved charts, interpretation text and a second language. The engine still takes each fixed setting as a parameter, so any of these can be added later without rework.
 
 ## 2 · Screens
 
@@ -25,12 +24,11 @@ Two screens, mobile-first (designed at 390 px wide), copying 玄天排盘's layo
 
 | Element | Behavior |
 | --- | --- |
-| Title | Your app's name, e.g. 奇门排盘 / Qi Men Chart (玄天排盘 is the reference app's name) |
+| Title | The app's name, 奇门排盘 (玄天排盘 is the reference app's name) |
 | 日期选择 | Date-time picker, minute precision, shown as `1996年/06月/20日 18:20`; opens at the current time and keeps up with the clock until changed; range 1900–2100; on screens narrower than 390 px the text shrinks to fit |
 | 排盘方式 · 定局 · 标记旬空 · 中宫寄宫 | Read-only rows: 转盘 · 拆补法 · 时空 · 寄坤二宫 |
 | 点击起局 | Primary button (teal fill, white text): casts the chart and opens the chart screen |
 | 重置时间 | Secondary button (white, black text): resets the picker to now |
-| Language toggle | Top-right of the teal band, on both screens (§4) |
 
 ### Chart screen
 
@@ -92,63 +90,21 @@ Colors sampled from the screenshots; red, purple and green look like the CSS nam
 | metal | #FEF5D9 | 兑7, 乾6 watermark |
 | water | #D8F2FA | 坎1 watermark |
 
-## 4 · Language toggle
+## 4 · Language
 
-A two-state toggle (中 | EN) switches every label and term between 简体中文 and English; the chart itself never changes.
+The app is in 简体中文 only, like 玄天排盘. The first build also had an English mode behind a 中 | EN toggle; it was removed in November 2026 to keep the app simple.
 
-- Placement: top-right of the teal band, on both screens.
-- Default: the device language (zh-* → 中文, anything else → English). The choice is saved in localStorage under `qimen.lang` and wins on the next visit.
-- Switching re-renders in place; the entered time and the cast chart stay.
-- The engine returns language-neutral values (the Chinese terms act as IDs, §7). The UI translates at render time through two tables: the UI strings below and the term glossary in §6.
+- Every label is the 中文 text §2 shows, written in the UI where it appears. There is no string table.
+- The engine's values are the Chinese terms the chart shows (§7), and the UI prints them as they are. The one exception is 腾蛇, which 玄天排盘 prints as 螣蛇 (§6).
 
-Rendering rules in English:
+Text that the screenshots don't show:
 
-| Element | 中文 | English |
-| --- | --- | --- |
-| Stems, branches | 甲 子 | Pinyin: Jia, Zi (§6) |
-| Two-stem slot | 庚乙 | Geng·Yi |
-| 阴历 line | 丙子年 五月初五 | Bing Zi year · month 5 · day 5 (leap: leap month 6) |
-| 选局 | 阳遁3局 | Yang Dun 3 |
-| 旬首 | 甲寅癸 | Jia Yin · Gui |
-| 局式 | 转盘-拆补-寄坤二宫 | Rotating · Chai Bu · Center in Kun 2 |
-| Deity, star, gate in the grid | 白虎, 天柱, 死门 | Short labels from §6: Tiger, Zhu, Death |
-| 十二长生 labels | 养长 冠沐 | Chinese characters from §6, unchanged: 养长 冠沐 |
-| Watermark | 巽 | Trigram symbol ☴ (☰☱☲☳☴☵☶☷), same tint |
-| Date picker | 1996年/06月/20日 18:20 | 1996-06-20 18:20 |
-| 节气 | 芒种 | Grain in Ear |
-
-English labels run longer, so in English the cell's middle column widens to about 45% of the cell, and a label that still overflows shrinks to fit, down to 10 px. English mode renders no CJK characters except in the 十二长生 labels and the toggle's own 中.
-
-Settled while building (not visible in 玄天排盘, which has no English):
-
-- **Two-stem slots stack their stems in English.** "Geng·Gui" needs about 48 px at 10 px, more than the stems column leaves beside a 45% middle column at 390 px. So in English the two stems sit one above the other. The slot's text still reads Geng·Gui.
-- **The English header summary puts one pair per line.** "Chief Symbol: Tian Rui (with Tian Qin)" would wrap to three lines in a half-width column.
-- **The English date row spans the card**, so the widest label below it ("Structure method:") doesn't squeeze the picker.
-- **English scores share one size.** The 45% middle column leaves a narrow score column, and shrinking each score to fit on its own made 50 look bigger than 100. So all scores use one size, and the score column takes a little width from the stems column so that 6.25, the widest score, fits.
-
-UI strings:
-
-| Key | 中文 | English |
-| --- | --- | --- |
-| app.title | 奇门排盘 | Qi Men Chart |
-| input.date | 日期选择 | Date & time |
-| input.method / value | 排盘方式 / 转盘 | Plate / Rotating |
-| input.dingju / value | 定局 / 拆补法 | Structure method / Chai Bu |
-| input.void / value | 标记旬空 / 时空 | Void marking / Hour void |
-| input.lodge / value | 中宫寄宫 / 寄坤二宫 | Center lodging / Kun 2 |
-| input.cast | 点击起局 | Cast chart |
-| input.reset | 重置时间 | Reset to now |
-| chart.solar / chart.lunar | 阳历 / 阴历 | Solar / Lunar |
-| chart.year, month, day, hour | 年 月 日 时 | Year, Month, Day, Hour |
-| chart.ju / chart.xun | 选局 / 旬首 | Structure / Xun Head |
-| chart.zhifu / chart.zhishi | 值符 / 值使 | Chief Symbol / Chief Gate |
-| chart.jushi | 局式 | Method |
-| chart.title (chart screen heading, for screen readers only) | 排盘结果 | Chart |
-| chart.terms.show / hide | 点击显示节气 / 点击隐藏节气 | Show solar terms / Hide solar terms |
-| terms.current / next | 当前节气 / 下一节气 | Current term / Next term |
-| terms.yuan / futou | 元 / 符头 | Yuan / Fu Tou |
-| yuan values | 上元 中元 下元 | Upper, Middle, Lower |
-| footer | 排盘内容仅供娱乐，请客观科学看待，抵制封建迷信 | For entertainment only. Please view it objectively and scientifically, and reject superstition. |
+| Where | Text |
+| --- | --- |
+| Chart screen heading, for screen readers only | 排盘结果 |
+| Back arrow's label, for screen readers only | 返回 |
+| 节气 toggle while the panel is open | 点击隐藏节气 |
+| 节气 panel labels | 当前节气 · 下一节气 · 元 · 符头 |
 
 ## 5 · Calculation engine
 
@@ -171,7 +127,7 @@ Worked check, R1 艮8 = 12.5: ○ (丑 is void) + 杜门 (wood) in 艮 (earth) +
 
 ## 6 · Reference tables
 
-Every constant the engine needs, with the English names the toggle uses.
+Every constant the engine needs. The English names are glosses for readers of this spec; the app doesn't show them.
 
 **Palaces**, in ring order (clockwise), the order every rotation follows. Corner branches are listed left to right as they sit on the grid, which is also the order of the 长生 labels.
 
@@ -249,41 +205,41 @@ Branches: 子 Zi · 丑 Chou · 寅 Yin · 卯 Mao · 辰 Chen · 巳 Si · 午 
 | 甲辰 | 壬 | 寅 卯 | 艮8, 震3 |
 | 甲寅 | 癸 | 子 丑 | 坎1, 艮8 |
 
-**Stars, gates and deities.** Gates carry their element for 门迫. Grid labels are the short English forms used inside a palace.
+**Stars, gates and deities.** Gates carry their element for 门迫.
 
-| Kind | 中文 | Grid label | Full English |
-| --- | --- | --- | --- |
-| Star | 天蓬 | Peng | Tian Peng |
-| Star | 天任 | Ren | Tian Ren |
-| Star | 天冲 | Chong | Tian Chong |
-| Star | 天辅 | Fu | Tian Fu |
-| Star | 天英 | Ying | Tian Ying |
-| Star | 天芮 / 芮禽 | Rui / Rui·Qin | Tian Rui (with Tian Qin) |
-| Star | 天柱 | Zhu | Tian Zhu |
-| Star | 天心 | Xin | Tian Xin |
-| Star | 天禽 | Qin | Tian Qin |
-| Gate | 休门 (水) | Rest | Rest Gate |
-| Gate | 生门 (土) | Life | Life Gate |
-| Gate | 伤门 (木) | Harm | Harm Gate |
-| Gate | 杜门 (木) | Block | Block Gate |
-| Gate | 景门 (火) | Scenery | Scenery Gate |
-| Gate | 死门 (土) | Death | Death Gate |
-| Gate | 惊门 (金) | Shock | Shock Gate |
-| Gate | 开门 (金) | Open | Open Gate |
-| Deity | 值符 | Chief | Chief Symbol |
-| Deity | 腾蛇 | Serpent | Serpent |
-| Deity | 太阴 | Grand Yin | Grand Yin |
-| Deity | 六合 | Harmony | Six Harmony |
-| Deity | 白虎 | Tiger | White Tiger |
-| Deity | 玄武 | Tortoise | Black Tortoise |
-| Deity | 九地 | 9 Earth | Nine Earth |
-| Deity | 九天 | 9 Heaven | Nine Heaven |
+| Kind | 中文 | English |
+| --- | --- | --- |
+| Star | 天蓬 | Tian Peng |
+| Star | 天任 | Tian Ren |
+| Star | 天冲 | Tian Chong |
+| Star | 天辅 | Tian Fu |
+| Star | 天英 | Tian Ying |
+| Star | 天芮 / 芮禽 | Tian Rui (with Tian Qin) |
+| Star | 天柱 | Tian Zhu |
+| Star | 天心 | Tian Xin |
+| Star | 天禽 | Tian Qin |
+| Gate | 休门 (水) | Rest Gate |
+| Gate | 生门 (土) | Life Gate |
+| Gate | 伤门 (木) | Harm Gate |
+| Gate | 杜门 (木) | Block Gate |
+| Gate | 景门 (火) | Scenery Gate |
+| Gate | 死门 (土) | Death Gate |
+| Gate | 惊门 (金) | Shock Gate |
+| Gate | 开门 (金) | Open Gate |
+| Deity | 值符 | Chief Symbol |
+| Deity | 腾蛇 | Serpent |
+| Deity | 太阴 | Grand Yin |
+| Deity | 六合 | Six Harmony |
+| Deity | 白虎 | White Tiger |
+| Deity | 玄武 | Black Tortoise |
+| Deity | 九地 | Nine Earth |
+| Deity | 九天 | Nine Heaven |
 
-玄天排盘 prints the serpent as **螣蛇** (R1 坎1, R3 坤2). The ID stays 腾蛇 in the engine and the fixtures; the 中文 glossary displays 螣蛇.
+玄天排盘 prints the serpent as **螣蛇** (R1 坎1, R3 坤2). The engine and the fixtures say 腾蛇; the UI displays 螣蛇.
 
 ## 7 · Data model
 
-The engine returns one `Chart` whose shape matches each case in `golden_charts.json`, so tests compare it directly and the UI only reads it. Values are the Chinese terms, which double as IDs; the UI translates them.
+The engine returns one `Chart` whose shape matches each case in `golden_charts.json`, so tests compare it directly and the UI only reads it. Values are the Chinese terms the chart shows; the UI prints them as they are (§4).
 
 ```ts
 type Stem = '甲' | '乙' | '丙' | '丁' | '戊' | '己' | '庚' | '辛' | '壬' | '癸';
@@ -319,7 +275,6 @@ interface Chart {
     zhiShi: string;       // '生门'
     juShi: string;        // '转盘-拆补-寄坤二宫'
   };
-  lunarParts: { yearGanZhi: string; month: number; leap: boolean; day: number }; // for the English 阴历 line
   jieqi: { current: string; currentStart: string; next: string; nextStart: string;
            yuan: '上元' | '中元' | '下元'; fuTou: string };
   derived: { dun: '阳' | '阴'; juNumber: number; zhiFuPalace: number; zhiShiPalace: number;
@@ -357,9 +312,9 @@ interface Chart {
 
 Tests to write:
 
-- One parametrized test per case: `castChart(case.input)` deep-equals the case's `header`, `lunarParts`, `jieqi`, `derived`, `center` and `palaces`.
+- One parametrized test per case: `castChart(case.input)` deep-equals the case's `header`, `jieqi`, `derived`, `center` and `palaces`.
 - Invariants over every hour of a year (8,760 charts): each star, door and deity appears once in the outer palaces; the 天盘 stems are a permutation of the 地盘 stems; every 甲 hour is 伏吟; scores fall in {100, 50, 25, 12.5, 6.25}. The reference implementation passes all of these for 2026.
-- UI: in 中文, R1–R6 render the same text as the screenshots in `docs/reference/`. In English, no CJK character appears outside the 十二长生 labels, and every label fits its cell at 390 px wide.
+- UI: R1–R6 render the same text as the screenshots in `docs/reference/`, and every label fits its cell at 390 px wide.
 
 ## 9 · Open questions
 
@@ -387,12 +342,11 @@ Build a static TypeScript web app, engine first and test-driven, with `qimen-spe
     - `src/engine/tables.ts` — every constant in §6
     - `src/engine/calendar.ts` — wraps lunar-typescript (steps 1–3)
     - `src/engine/castChart.ts` — steps 4–12, pure
-    - `src/i18n/zh.ts`, `src/i18n/en.ts` — UI strings (§4) and glossary (§6)
     - `src/ui/InputScreen.tsx`, `ChartScreen.tsx`, `PalaceCell.tsx`
     - `tests/golden.test.ts`, `tests/invariants.test.ts`
     - From the kit: `fixtures/golden_charts.json`, `docs/reference/` (screenshots), `tools/reference/` (Python engine)
     - `src/sw.js`, `tools/offline.ts`, `public/` — the offline copy and home-screen install (§11)
-- Order: tables → calendar → `castChart` until R1–R6 pass → D1–D13 → 中文 UI checked against the screenshots → English → open questions as you confirm them.
+- Order: tables → calendar → `castChart` until R1–R6 pass → D1–D13 → UI checked against the screenshots → open questions as you confirm them.
 - Coming from the qimen-kit draft: keep its stack and test harness, take this spec's settings as the defaults, and leave 双语 mode, 置闰/茅山 and the time-zone input out of v1.
 - To regenerate fixtures after a Q answer: `pip install lunar_python==1.4.8`, flip the matching parameter in `tools/reference/engine.py`, then run `verify.py` and `gen_fixtures.py`.
 

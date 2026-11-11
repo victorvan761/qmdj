@@ -1,25 +1,21 @@
-// SPEC §8 UI tests: in 中文, R1–R6 render the same text, colors and markers as 玄天排盘's screenshots.
+// SPEC §8 UI tests: R1–R6 render the same text, colors and markers as 玄天排盘's screenshots.
 import type { ReactElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import fixtures from '../fixtures/golden_charts.json';
 import { TRIGRAM, castChart, parseInput, type PalaceNo } from '../src/engine';
-import type { Lang } from '../src/i18n';
 import { ChartScreen } from '../src/ui/ChartScreen';
 import { InputScreen } from '../src/ui/InputScreen';
-import { CJK, field, find, findAll, hasClass, parseHtml, text, textRuns, type El } from './html';
+import { field, find, findAll, hasClass, parseHtml, text, textRuns, type El } from './html';
 
 const noop = () => {};
 const render = (el: ReactElement) => parseHtml(renderToStaticMarkup(el));
 
-const chartScreen = (input: string, lang: Lang = 'zh', termsOpen = false) =>
-  render(
-    <ChartScreen lang={lang} chart={castChart(parseInput(input))} termsOpen={termsOpen}
-      onBack={noop} onToggleTerms={noop} onLang={noop} />,
-  );
+const chartScreen = (input: string, termsOpen = false) =>
+  render(<ChartScreen chart={castChart(parseInput(input))} termsOpen={termsOpen} onBack={noop} onToggleTerms={noop} />);
 
-const inputScreen = (value: string, lang: Lang = 'zh') =>
-  render(<InputScreen lang={lang} value={value} onChange={noop} onCast={noop} onReset={noop} onLang={noop} />);
+const inputScreen = (value: string) =>
+  render(<InputScreen value={value} onChange={noop} onCast={noop} onReset={noop} />);
 
 const cell = (doc: El, p: number | string) => find(doc, (e) => e.attrs['data-palace'] === String(p), `palace ${p}`);
 const stems = (scope: El, k: 'heaven' | 'earth') => findAll(field(scope, k), (e) => hasClass(e, 'stem'));
@@ -29,7 +25,7 @@ const ZH_GOD = (g: string) => (g === '腾蛇' ? '螣蛇' : g);
 const reference = fixtures.cases.filter((c) => c.confirmedInReference);
 const caseById = (id: string) => fixtures.cases.find((c) => c.id === id)!;
 
-describe('chart screen in 中文 renders R1–R6 as in the screenshots', () => {
+describe('chart screen renders R1–R6 as in the screenshots', () => {
   for (const c of reference) {
     it(`${c.id} header card`, () => {
       const card = field(chartScreen(c.input), 'info');
@@ -112,7 +108,7 @@ describe('chart screen in 中文 renders R1–R6 as in the screenshots', () => {
     expect(text(field(closed, 'termsToggle'))).toBe('点击显示节气');
     expect(findAll(closed, (e) => e.attrs['data-k'] === 'terms')).toEqual([]);
 
-    const open = chartScreen(r1.input, 'zh', true);
+    const open = chartScreen(r1.input, true);
     expect(text(field(open, 'termsToggle'))).toBe('点击隐藏节气');
     const j = r1.jieqi;
     expect(textRuns(field(open, 'terms'))).toEqual([
@@ -125,92 +121,12 @@ describe('chart screen in 中文 renders R1–R6 as in the screenshots', () => {
   });
 
   it('has a heading for focus to land on after a cast, hidden as 玄天排盘 shows none', () => {
-    for (const [lang, title] of [['zh', '排盘结果'], ['en', 'Chart']] as const) {
-      const h1 = find(chartScreen(caseById('R1').input, lang), (e) => e.tag === 'h1');
-      expect([text(h1), h1.attrs.tabindex, hasClass(h1, 'visually-hidden')], lang).toEqual([title, '-1', true]);
-    }
+    const h1 = find(chartScreen(caseById('R1').input), (e) => e.tag === 'h1');
+    expect([text(h1), h1.attrs.tabindex, hasClass(h1, 'visually-hidden')]).toEqual(['排盘结果', '-1', true]);
   });
 });
 
-describe('English mode', () => {
-  /** Text and labels with CJK, outside elements marked data-cjk-ok (the 十二长生 labels and the toggle's 中). */
-  function cjkLeaks(n: El): string[] {
-    if ('data-cjk-ok' in n.attrs) return [];
-    const own = ['aria-label', 'title', 'alt', 'placeholder'].map((a) => n.attrs[a]).filter((v): v is string => !!v);
-    return [
-      ...own.filter((v) => CJK.test(v)),
-      ...n.children.flatMap((c) => (typeof c === 'string' ? (CJK.test(c) ? [c] : []) : cjkLeaks(c))),
-    ];
-  }
-
-  for (const c of fixtures.cases) {
-    it(`${c.id}: no CJK outside the 十二长生 labels, 节气 panel closed and open`, () => {
-      expect(cjkLeaks(chartScreen(c.input, 'en'))).toEqual([]);
-      expect(cjkLeaks(chartScreen(c.input, 'en', true))).toEqual([]);
-    });
-  }
-
-  it('the input screen has no CJK outside the toggle', () => {
-    expect(cjkLeaks(inputScreen('1996-06-20T18:20', 'en'))).toEqual([]);
-  });
-
-  it('R1 header reads as SPEC §4 renders it', () => {
-    const doc = chartScreen(caseById('R1').input, 'en');
-    expect(textRuns(field(doc, 'info'))).toEqual([
-      'Solar', '1996-06-20 18:16:00', 'Lunar', 'Bing Zi year · month 5 · day 5',
-      'Year', 'Month', 'Day', 'Hour', 'Bing', 'Jia', 'Wu', 'Xin', 'Zi', 'Wu', 'Zi', 'You',
-      'Structure:', 'Yang Dun 3', 'Xun Head:', 'Jia Yin · Gui', 'Chief Symbol:', 'Tian Ren', 'Chief Gate:', 'Life Gate',
-      'Method:', 'Rotating · Chai Bu · Center in Kun 2',
-    ]);
-  });
-
-  it('R1 grid uses the short labels, two-stem slots read Geng·Yi, 长生 labels stay Chinese', () => {
-    const xun4 = cell(chartScreen(caseById('R1').input, 'en'), 4);
-    expect(['god', 'star', 'door', 'heaven', 'earth', 'heavenStages', 'watermark'].map((k) => text(field(xun4, k))))
-      .toEqual(['Tiger', 'Rui·Qin', 'Death', 'Geng·Yi', 'Ji', '养长 冠沐', '☴']);
-  });
-
-  it('a leap month reads "leap month" (D6) and 旬首 in 中5 reads Tian Rui (with Tian Qin) (R6)', () => {
-    expect(text(field(chartScreen(caseById('D6').input, 'en'), 'lunar'))).toBe('Yi Si year · leap month 6 · day 8');
-    const r6 = chartScreen(caseById('R6').input, 'en');
-    expect([text(field(r6, 'zhiFu')), text(field(r6, 'zhiShi'))]).toEqual(['Tian Rui (with Tian Qin)', 'Death Gate']);
-  });
-
-  it('the 节气 panel names the terms in English', () => {
-    const open = chartScreen(caseById('R1').input, 'en', true);
-    expect(text(field(open, 'termsToggle'))).toBe('Hide solar terms');
-    expect(textRuns(field(open, 'terms'))).toEqual([
-      'Current term:', 'Grain in Ear 1996-06-05 17:40:47', 'Next term:', 'Summer Solstice 1996-06-21 10:23:44',
-      'Yuan:', 'Middle', 'Fu Tou:', 'Jia Shen',
-    ]);
-  });
-
-  it('the input screen and footer read in English', () => {
-    const doc = inputScreen('1996-06-20T18:20', 'en');
-    expect(text(find(doc, (e) => e.tag === 'h1'))).toBe('Qi Men Chart');
-    expect(findAll(doc, (e) => hasClass(e, 'field')).map(text)).toEqual([
-      'Date & time:1996-06-20 18:20', 'Plate:Rotating', 'Structure method:Chai Bu', 'Void marking:Hour void',
-      'Center lodging:Kun 2',
-    ]);
-    expect(findAll(doc, (e) => e.tag === 'button' && hasClass(e, 'btn')).map(text)).toEqual(['Cast chart', 'Reset to now']);
-    expect(text(field(chartScreen(caseById('R1').input, 'en'), 'footer'))).toBe(
-      'For entertainment only. Please view it objectively and scientifically, and reject superstition.',
-    );
-  });
-
-  it('the toggle shows 中 | EN on both screens and marks the current language', () => {
-    for (const lang of ['zh', 'en'] as const) {
-      for (const doc of [inputScreen('1996-06-20T18:20', lang), chartScreen(caseById('R1').input, lang)]) {
-        const buttons = findAll(find(doc, (e) => hasClass(e, 'lang-toggle')), (e) => e.tag === 'button');
-        expect(buttons.map((b) => [text(b), b.attrs['aria-pressed']])).toEqual([
-          ['中', String(lang === 'zh')], ['EN', String(lang === 'en')],
-        ]);
-      }
-    }
-  });
-});
-
-describe('input screen in 中文', () => {
+describe('input screen', () => {
   it('shows the title, the picker in 玄天 format, the four fixed rows and both buttons', () => {
     const doc = inputScreen('1996-06-20T18:20');
     expect(text(find(doc, (e) => e.tag === 'h1'))).toBe('奇门排盘');
@@ -228,8 +144,6 @@ describe('input screen in 中文', () => {
   });
 
   it('the picker text shrinks to fit its box, so a narrow phone shows the whole time', () => {
-    for (const lang of ['zh', 'en'] as const) {
-      expect('data-fit' in field(inputScreen('1996-06-20T18:20', lang), 'picker').attrs, lang).toBe(true);
-    }
+    expect('data-fit' in field(inputScreen('1996-06-20T18:20'), 'picker').attrs).toBe(true);
   });
 });

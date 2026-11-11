@@ -1,4 +1,4 @@
-// Every constant from SPEC §6, as Chinese IDs. English names live in src/i18n.
+// Every constant from SPEC §6.
 import type {
   Branch, Door, Dun, Element, God, JieQiName, LuoShuNo, PalaceNo, Star, Stem, Trigram, Yuan,
 } from './types';

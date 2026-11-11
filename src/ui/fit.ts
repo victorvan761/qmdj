@@ -1,5 +1,5 @@
-// Text that overflows its box shrinks to fit, down to 10 px: English grid labels, which run longer than 中文
-// (SPEC §4), and the date picker on narrow phones.
+// Text that overflows its box shrinks to fit, down to 10 px: the date picker on phones narrower than 390 px
+// (SPEC §2).
 import { useLayoutEffect, type RefObject } from 'react';
 
 export const MIN_FONT_PX = 10;
@@ -18,20 +18,15 @@ export function fit(el: HTMLElement): void {
   }
 }
 
-/** Fits every [data-fit] element inside root while active, and again whenever root changes size. */
-export function useFitText(root: RefObject<HTMLElement | null>, active: boolean, key: unknown): void {
+/** Fits every [data-fit] element inside root: when key changes, and again whenever root changes size. */
+export function useFitText(root: RefObject<HTMLElement | null>, key: unknown): void {
   useLayoutEffect(() => {
     const el = root.current;
     if (!el) return;
-    const targets = () => el.querySelectorAll<HTMLElement>('[data-fit]');
-    if (!active) {
-      targets().forEach((t) => t.style.removeProperty('font-size'));
-      return;
-    }
-    const run = () => targets().forEach(fit);
+    const run = () => el.querySelectorAll<HTMLElement>('[data-fit]').forEach(fit);
     run();
     const observer = new ResizeObserver(run);
     observer.observe(el);
     return () => observer.disconnect();
-  }, [root, active, key]);
+  }, [root, key]);
 }

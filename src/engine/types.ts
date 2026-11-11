@@ -1,5 +1,4 @@
-// Types shared by the engine and the UI (SPEC §7). Every value is a Chinese term, which doubles as an ID;
-// the UI translates IDs at render time.
+// Types shared by the engine and the UI (SPEC §7). Every value is the Chinese term the chart shows.
 
 export type Stem = '甲' | '乙' | '丙' | '丁' | '戊' | '己' | '庚' | '辛' | '壬' | '癸';
 export type Branch = '子' | '丑' | '寅' | '卯' | '辰' | '巳' | '午' | '未' | '申' | '酉' | '戌' | '亥';
@@ -92,13 +91,6 @@ export interface Pillars {
   hour: string;
 }
 
-export interface LunarParts {
-  yearGanZhi: string;
-  month: number;
-  leap: boolean;
-  day: number;
-}
-
 export interface JieQiInfo {
   current: JieQiName;
   /** 'YYYY-MM-DD HH:mm:ss', Beijing time */
@@ -126,7 +118,6 @@ export interface Chart {
     /** '转盘-拆补-寄坤二宫' */
     juShi: string;
   };
-  lunarParts: LunarParts;
   jieqi: JieQiInfo;
   derived: {
     dun: Dun;

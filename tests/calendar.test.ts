@@ -11,7 +11,6 @@ describe('calendar matches every golden case', () => {
       expect(cal.solar).toBe(c.header.solar);
       expect(cal.lunar).toBe(c.header.lunar);
       expect(cal.pillars).toEqual(c.header.pillars);
-      expect(cal.lunarParts).toEqual(c.lunarParts);
       expect(cal.jieqi).toEqual(c.jieqi);
     });
   }

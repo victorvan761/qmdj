@@ -1,23 +1,6 @@
-// App state: what each action keeps and changes, the clock and history inputs, and the starting language
-// (SPEC §2, §4).
+// App state: what each action keeps and changes, and the clock and history inputs (SPEC §2).
 import { describe, expect, it } from 'vitest';
-import { clockInput, initialLang, initialState, readInput, reducer } from '../src/ui/state';
-
-describe('initialLang', () => {
-  it('a saved choice wins over the device language', () => {
-    expect(initialLang('en', 'zh-CN')).toBe('en');
-    expect(initialLang('zh', 'en-US')).toBe('zh');
-  });
-
-  it('otherwise zh-* means 中文 and anything else English', () => {
-    for (const l of ['zh', 'zh-CN', 'zh-Hans', 'zh-TW', 'ZH-HK']) expect(initialLang(null, l), l).toBe('zh');
-    for (const l of ['en-US', 'fr-FR', 'ja', '', undefined]) expect(initialLang(null, l), String(l)).toBe('en');
-  });
-
-  it('ignores a saved value that is not a language', () => {
-    expect(initialLang('klingon', 'zh-CN')).toBe('zh');
-  });
-});
+import { clockInput, initialState, readInput, reducer } from '../src/ui/state';
 
 describe('clockInput', () => {
   it('is the clock reading as a picker value', () => {
@@ -40,7 +23,7 @@ describe('readInput', () => {
 });
 
 describe('reducer', () => {
-  const start = initialState('zh', '1996-06-20T18:16');
+  const start = initialState('1996-06-20T18:16');
   const cast = reducer(start, { type: 'cast', input: start.input });
 
   it('starts on the input screen with no chart, the picker on the clock', () => {
@@ -54,10 +37,6 @@ describe('reducer', () => {
     expect(s.screen).toBe('chart');
     expect(s.chart?.header.solar).toBe('1996-06-20 18:16:00');
     expect(s.termsOpen).toBe(false);
-  });
-
-  it('switching language keeps the entered time and the cast chart', () => {
-    expect(reducer(cast, { type: 'setLang', lang: 'en' })).toEqual({ ...cast, lang: 'en' });
   });
 
   it('back returns to the input screen with the cast time kept', () => {
@@ -94,7 +73,7 @@ describe('reducer', () => {
   });
 
   it("open, after a reload, casts a chart history entry's time again", () => {
-    const reloaded = initialState('zh', '2026-11-07T10:00');
+    const reloaded = initialState('2026-11-07T10:00');
     expect(reducer(reloaded, { type: 'open', input: '1996-06-20T18:16' })).toEqual(cast);
   });
 

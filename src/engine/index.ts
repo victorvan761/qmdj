@@ -1,4 +1,4 @@
-// The engine's public API. Pure: no clock reads, no DOM, no React, no English.
+// The engine's public API. Pure: no clock reads, no DOM, no React.
 export * from './types';
 export * from './tables';
 export { DEFAULTS } from './settings';

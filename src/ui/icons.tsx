@@ -1,4 +1,4 @@
-// Inline SVG icons, so the UI needs no icon font and English mode no CJK glyphs.
+// Inline SVG icons, so the UI needs no icon font.
 
 const stroke = { fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' } as const;
 

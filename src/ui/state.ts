@@ -1,17 +1,15 @@
 // App state as a pure reducer, so what each action keeps is testable without a DOM.
 import { MAX_YEAR, MIN_YEAR, castChart, formatInput, parseInput, type Chart, type ChartInput } from '../engine';
-import { isLang, type Lang } from '../i18n';
 
 export type Screen = 'input' | 'chart';
 
 export interface AppState {
-  lang: Lang;
   screen: Screen;
   /** The picker's value, 'YYYY-MM-DDTHH:mm': always a real minute from 1900 to 2100, as the reducer checks */
   input: string;
   /** True while the picker shows the clock's time untouched (on load and after 重置时间), so it keeps up with it. */
   followsClock: boolean;
-  /** The last cast chart; it stays when the language changes or the user goes back. */
+  /** The last cast chart; it stays when the user goes back. */
   chart: Chart | null;
   termsOpen: boolean;
 }
@@ -26,24 +24,16 @@ export type Action =
   /** A chart's history entry, on Forward or after a reload: the time it was cast for */
   | { type: 'open'; input: string }
   | { type: 'back' }
-  | { type: 'setLang'; lang: Lang }
   | { type: 'toggleTerms' };
 
 /** `now` must be a valid input, as clockInput gives. */
-export const initialState = (lang: Lang, now: string): AppState => ({
-  lang,
+export const initialState = (now: string): AppState => ({
   screen: 'input',
   input: now,
   followsClock: true,
   chart: null,
   termsOpen: false,
 });
-
-/** A saved choice wins; otherwise zh-* → 中文, anything else → English (SPEC §4). */
-export function initialLang(stored: string | null, deviceLang: string | undefined): Lang {
-  if (isLang(stored)) return stored;
-  return deviceLang?.toLowerCase().startsWith('zh') ? 'zh' : 'en';
-}
 
 /** The picker value for a clock reading. A clock set outside 1900–2100 gets the nearest minute the picker allows. */
 export function clockInput(clock: ChartInput): string {
@@ -90,8 +80,6 @@ export function reducer(state: AppState, action: Action): AppState {
       return cast(state, action.input) ?? { ...state, screen: 'input' };
     case 'back':
       return { ...state, screen: 'input' };
-    case 'setLang':
-      return { ...state, lang: action.lang };
     case 'toggleTerms':
       return { ...state, termsOpen: !state.termsOpen };
   }
