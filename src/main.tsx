@@ -1,27 +1,9 @@
-// The only place that touches the clock, the device language, localStorage and the service worker.
+// The only place that touches the clock and the service worker.
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './ui/App';
-import { clockInput, initialLang, initialState } from './ui/state';
+import { clockInput, initialState } from './ui/state';
 import './ui/styles.css';
-
-const LANG_KEY = 'qimen.lang';
-
-function storedLang(): string | null {
-  try {
-    return window.localStorage.getItem(LANG_KEY);
-  } catch {
-    return null; // storage blocked: fall back to the device language
-  }
-}
-
-function saveLang(lang: string): void {
-  try {
-    window.localStorage.setItem(LANG_KEY, lang);
-  } catch {
-    // storage blocked: the choice lasts for this visit only
-  }
-}
 
 /**
  * The device clock's wall time to the minute, held to 1900–2100. The engine reads it as Beijing time, unconverted
@@ -42,10 +24,8 @@ if (import.meta.env.PROD && 'serviceWorker' in navigator) {
   });
 }
 
-const lang = initialLang(storedLang(), navigator.language);
-
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App initial={initialState(lang, now())} now={now} onLangChange={saveLang} />
+    <App initial={initialState(now())} now={now} />
   </StrictMode>,
 );

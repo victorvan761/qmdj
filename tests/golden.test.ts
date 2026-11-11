@@ -11,7 +11,6 @@ type Case = (typeof fixtures.cases)[number];
 function expectChart(c: Case) {
   const chart = castChart(parseInput(c.input));
   expect(chart.header, 'header').toEqual(c.header);
-  expect(chart.lunarParts, 'lunarParts').toEqual(c.lunarParts);
   expect(chart.jieqi, 'jieqi').toEqual(c.jieqi);
   expect(chart.derived, 'derived').toEqual(c.derived);
   expect(chart.center, 'center').toBe(c.center);

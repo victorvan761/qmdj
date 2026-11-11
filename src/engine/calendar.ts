@@ -1,7 +1,7 @@
 // SPEC §5 steps 1–3: the time basis, the calendar (lunar-typescript) and the 节气 / 符头 / 元.
 import { Solar } from 'lunar-typescript';
 import { JIEQI, YUAN_BY_BRANCH, ganZhiAt, ganZhiIndex } from './tables';
-import type { Branch, ChartInput, JieQiInfo, JieQiName, LunarParts, Pillars, Settings } from './types';
+import type { Branch, ChartInput, JieQiInfo, JieQiName, Pillars, Settings } from './types';
 
 export const MIN_YEAR = 1900;
 export const MAX_YEAR = 2100;
@@ -45,7 +45,6 @@ export interface CalendarInfo {
   solar: string;
   /** '丙子年 五月初五' */
   lunar: string;
-  lunarParts: LunarParts;
   pillars: Pillars;
   jieqi: JieQiInfo;
 }
@@ -77,11 +76,9 @@ export function readCalendar(input: ChartInput, settings: Settings): CalendarInf
   const dn = ganZhiIndex(pillars.day);
   const fuTou = ganZhiAt(dn - ((dn % 10) % 5));
 
-  const lunarMonth = lunar.getMonth(); // negative for a leap month
   return {
     solar: `${pad(year, 4)}-${pad(month)}-${pad(day)} ${pad(hour)}:${pad(minute)}:00`,
     lunar: `${lunar.getYearInGanZhi()}年 ${lunar.getMonthInChinese()}月${lunar.getDayInChinese()}`,
-    lunarParts: { yearGanZhi: lunar.getYearInGanZhi(), month: Math.abs(lunarMonth), leap: lunarMonth < 0, day: lunar.getDay() },
     pillars,
     jieqi: {
       current: asJieQi(prev.getName()),

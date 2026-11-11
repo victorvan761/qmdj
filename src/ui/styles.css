@@ -62,21 +62,17 @@ dd {
   white-space: nowrap;
 }
 
-/* ── teal band, back arrow, language toggle ── */
+/* ── teal band and back arrow ── */
 .band {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   min-height: calc(48px + env(safe-area-inset-top));
   padding: env(safe-area-inset-top) 12px 0;
   background: var(--teal);
-  color: #ffffff;
 }
 
 .input-screen .band {
-  align-items: flex-start;
   height: calc(260px + env(safe-area-inset-top));
-  padding-top: calc(10px + env(safe-area-inset-top));
 }
 
 .back {
@@ -89,33 +85,6 @@ dd {
   border: 0;
   background: none;
   color: #ffffff;
-}
-
-.lang-toggle {
-  display: inline-flex;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.75);
-  border-radius: 15px;
-}
-
-.lang-toggle button {
-  min-width: 42px;
-  height: 28px;
-  padding: 0 10px;
-  border: 0;
-  background: none;
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.lang-toggle button + button {
-  border-left: 1px solid rgba(255, 255, 255, 0.75);
-}
-
-.lang-toggle button[aria-pressed="true"] {
-  background: #ffffff;
-  color: var(--teal);
 }
 
 .card {
@@ -143,7 +112,7 @@ dd {
   line-height: 1.3;
 }
 
-/* One grid for all rows, so values line up after the widest label (in both languages). */
+/* One grid for all rows, so the picker and the values line up after the widest label. */
 .fields {
   display: grid;
   grid-template-columns: max-content minmax(0, 1fr);
@@ -153,25 +122,8 @@ dd {
   font-size: 16px;
 }
 
-.lang-en .fields {
-  column-gap: 10px;
-}
-
 .field {
   display: contents;
-}
-
-/* The picker row spans both columns, so a wide English label below can't squeeze the picker. */
-.field.date {
-  display: flex;
-  grid-column: 1 / -1;
-  align-items: center;
-  gap: inherit;
-}
-
-.field.date .picker {
-  flex: 1;
-  min-width: 0;
 }
 
 .label {
@@ -460,47 +412,6 @@ dd {
 
 .marks .kong + .horse {
   margin-left: 0.15em;
-}
-
-/* English: the middle column widens to ~45% of the cell (SPEC §4); FitText shrinks what still overflows. */
-.lang-en .cell {
-  grid-template-columns: 21fr 45fr 28fr; /* with the gaps and padding, the middle column is 45% of the cell */
-  column-gap: 1.5%; /* not cqi: on the cell itself, container units resolve against the viewport */
-  padding-right: 1.5%;
-  padding-left: 1.5%;
-}
-
-.lang-en .cell .stages {
-  min-width: 29cqi; /* 28fr of 94fr, less the two gaps */
-}
-
-/* One size for every English score, as fitting each on its own made 50 look bigger than 100. The 21fr score column
-   fits the widest, 6.25, at 9cqi, and at 10 px (SPEC §4's floor) on screens down to 360 px. */
-.lang-en .cell .score {
-  font-size: max(10px, 9cqi);
-}
-
-/* A two-stem slot (Geng·Gui) can't fit one line of the stems column at 10 px, so English stacks the two stems. */
-.lang-en .cell .stems.two {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 9cqi;
-  line-height: 0.95;
-}
-
-.lang-en .stems.two .joiner {
-  display: none;
-}
-
-.lang-en .pair {
-  gap: 0.35em; /* "Structure: Yang Dun 3" needs the space 中文's full-width colon carries */
-}
-
-/* English values run long ("Chief Symbol: Tian Rui (with Tian Qin)"): one pair per line. */
-.lang-en .summary {
-  grid-template-columns: minmax(0, 1fr);
-  row-gap: 7px;
 }
 
 .watermark {

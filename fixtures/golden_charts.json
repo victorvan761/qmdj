@@ -47,12 +47,6 @@
     "zhiShi": "生门",
     "juShi": "转盘-拆补-寄坤二宫"
    },
-   "lunarParts": {
-    "yearGanZhi": "丙子",
-    "month": 5,
-    "leap": false,
-    "day": 5
-   },
    "jieqi": {
     "current": "芒种",
     "currentStart": "1996-06-05 17:40:47",
@@ -349,12 +343,6 @@
     "zhiFu": "天柱",
     "zhiShi": "惊门",
     "juShi": "转盘-拆补-寄坤二宫"
-   },
-   "lunarParts": {
-    "yearGanZhi": "庚子",
-    "month": 7,
-    "leap": false,
-    "day": 8
    },
    "jieqi": {
     "current": "处暑",
@@ -653,12 +641,6 @@
     "zhiShi": "景门",
     "juShi": "转盘-拆补-寄坤二宫"
    },
-   "lunarParts": {
-    "yearGanZhi": "庚子",
-    "month": 6,
-    "leap": false,
-    "day": 26
-   },
    "jieqi": {
     "current": "小暑",
     "currentStart": "1960-07-07 11:12:39",
@@ -955,12 +937,6 @@
     "zhiFu": "天蓬",
     "zhiShi": "休门",
     "juShi": "转盘-拆补-寄坤二宫"
-   },
-   "lunarParts": {
-    "yearGanZhi": "辛未",
-    "month": 10,
-    "leap": false,
-    "day": 4
    },
    "jieqi": {
     "current": "立冬",
@@ -1259,12 +1235,6 @@
     "zhiShi": "休门",
     "juShi": "转盘-拆补-寄坤二宫"
    },
-   "lunarParts": {
-    "yearGanZhi": "戊寅",
-    "month": 2,
-    "leap": false,
-    "day": 20
-   },
    "jieqi": {
     "current": "惊蛰",
     "currentStart": "1998-03-06 02:57:15",
@@ -1561,12 +1531,6 @@
     "zhiFu": "芮禽",
     "zhiShi": "死门",
     "juShi": "转盘-拆补-寄坤二宫"
-   },
-   "lunarParts": {
-    "yearGanZhi": "庚午",
-    "month": 6,
-    "leap": false,
-    "day": 27
    },
    "jieqi": {
     "current": "立秋",
@@ -1865,12 +1829,6 @@
     "zhiShi": "休门",
     "juShi": "转盘-拆补-寄坤二宫"
    },
-   "lunarParts": {
-    "yearGanZhi": "丙午",
-    "month": 9,
-    "leap": false,
-    "day": 26
-   },
    "jieqi": {
     "current": "霜降",
     "currentStart": "2026-10-23 17:37:57",
@@ -2167,12 +2125,6 @@
     "zhiFu": "天蓬",
     "zhiShi": "休门",
     "juShi": "转盘-拆补-寄坤二宫"
-   },
-   "lunarParts": {
-    "yearGanZhi": "丙午",
-    "month": 9,
-    "leap": false,
-    "day": 26
    },
    "jieqi": {
     "current": "霜降",
@@ -2471,12 +2423,6 @@
     "zhiShi": "死门",
     "juShi": "转盘-拆补-寄坤二宫"
    },
-   "lunarParts": {
-    "yearGanZhi": "丙午",
-    "month": 9,
-    "leap": false,
-    "day": 26
-   },
    "jieqi": {
     "current": "霜降",
     "currentStart": "2026-10-23 17:37:57",
@@ -2773,12 +2719,6 @@
     "zhiFu": "天芮",
     "zhiShi": "死门",
     "juShi": "转盘-拆补-寄坤二宫"
-   },
-   "lunarParts": {
-    "yearGanZhi": "丙午",
-    "month": 9,
-    "leap": false,
-    "day": 26
    },
    "jieqi": {
     "current": "霜降",
@@ -3077,12 +3017,6 @@
     "zhiShi": "死门",
     "juShi": "转盘-拆补-寄坤二宫"
    },
-   "lunarParts": {
-    "yearGanZhi": "丙午",
-    "month": 9,
-    "leap": false,
-    "day": 26
-   },
    "jieqi": {
     "current": "霜降",
     "currentStart": "2026-10-23 17:37:57",
@@ -3379,12 +3313,6 @@
     "zhiFu": "天心",
     "zhiShi": "开门",
     "juShi": "转盘-拆补-寄坤二宫"
-   },
-   "lunarParts": {
-    "yearGanZhi": "乙巳",
-    "month": 6,
-    "leap": true,
-    "day": 8
    },
    "jieqi": {
     "current": "大暑",
@@ -3683,12 +3611,6 @@
     "zhiShi": "生门",
     "juShi": "转盘-拆补-寄坤二宫"
    },
-   "lunarParts": {
-    "yearGanZhi": "丙午",
-    "month": 9,
-    "leap": false,
-    "day": 27
-   },
    "jieqi": {
     "current": "霜降",
     "currentStart": "2026-10-23 17:37:57",
@@ -3985,12 +3907,6 @@
     "zhiFu": "天心",
     "zhiShi": "开门",
     "juShi": "转盘-拆补-寄坤二宫"
-   },
-   "lunarParts": {
-    "yearGanZhi": "丙午",
-    "month": 9,
-    "leap": false,
-    "day": 29
    },
    "jieqi": {
     "current": "霜降",
@@ -4289,12 +4205,6 @@
     "zhiShi": "惊门",
     "juShi": "转盘-拆补-寄坤二宫"
    },
-   "lunarParts": {
-    "yearGanZhi": "丙午",
-    "month": 9,
-    "leap": false,
-    "day": 29
-   },
    "jieqi": {
     "current": "立冬",
     "currentStart": "2026-11-07 17:52:05",
@@ -4591,12 +4501,6 @@
     "zhiFu": "天英",
     "zhiShi": "景门",
     "juShi": "转盘-拆补-寄坤二宫"
-   },
-   "lunarParts": {
-    "yearGanZhi": "丙午",
-    "month": 12,
-    "leap": false,
-    "day": 28
    },
    "jieqi": {
     "current": "大寒",
@@ -4895,12 +4799,6 @@
     "zhiShi": "死门",
     "juShi": "转盘-拆补-寄坤二宫"
    },
-   "lunarParts": {
-    "yearGanZhi": "丙午",
-    "month": 12,
-    "leap": false,
-    "day": 28
-   },
    "jieqi": {
     "current": "立春",
     "currentStart": "2027-02-04 09:46:18",
@@ -5198,12 +5096,6 @@
     "zhiShi": "生门",
     "juShi": "转盘-拆补-寄坤二宫"
    },
-   "lunarParts": {
-    "yearGanZhi": "丙午",
-    "month": 12,
-    "leap": false,
-    "day": 27
-   },
    "jieqi": {
     "current": "大寒",
     "currentStart": "2027-01-20 15:29:50",
@@ -5500,12 +5392,6 @@
     "zhiFu": "芮禽",
     "zhiShi": "死门",
     "juShi": "转盘-拆补-寄坤二宫"
-   },
-   "lunarParts": {
-    "yearGanZhi": "庚午",
-    "month": 6,
-    "leap": false,
-    "day": 27
    },
    "jieqi": {
     "current": "立秋",
