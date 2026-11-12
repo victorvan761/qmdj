@@ -10,13 +10,13 @@ The app reproduces 玄天排盘's hour chart (时家奇门) exactly — 转盘, 
 | --- | --- |
 | Input screen | Date field (defaults to now) with a wheel picker in 公历 or 农历, four fixed setting rows, 点击起局, 重置时间 |
 | Chart screen | Header card (阳历, 阴历, 四柱, 选局, 旬首, 值符, 值使, 局式), collapsible 节气 panel, 3×3 palace grid with every color and marker, disclaimer footer |
-| Offline | Installs to the iPhone home screen and opens with no network (§11) |
+| Offline | Installs to the iPhone or iPad home screen and opens with no network (§11) |
 
 Out of scope for v1: 飞盘, 置闰 or 茅山 定局, 真太阳时 or a time-zone input, 日空 marking, other 寄宫 rules, saved charts, interpretation text and a second language. The engine still takes each fixed setting as a parameter, so any of these can be added later without rework.
 
 ## 2 · Screens
 
-Two screens, mobile-first (designed at 390 px wide), copying 玄天排盘's layout; the screenshots below are the visual reference.
+Two screens, mobile-first (designed at 390 px wide), copying 玄天排盘's layout; the screenshots below are the visual reference. "iPhone and iPad", at the end of this section, says how the screens are sized on each.
 
 ### Input screen
 
@@ -75,6 +75,18 @@ Each outer palace is a 5-row × 3-column layout:
 - Behind the text sits the palace's trigram character (巽 离 坤 震 兑 艮 坎 乾), about 70% of the cell height, in a pale 五行 tint (§3).
 - Two-stem slots: wherever 天芮 lands, the star reads 芮禽 and the 天盘 shows two stems; 坤2's 地盘 always shows two. In both, the 中5 stem comes first (R1: 巽4 天盘 庚乙, 坤2 地盘 庚乙). Their 长生 labels are two groups split by a space, in the same order.
 - 中5 shows only the number 5 (bottom-left) and its 地盘 stem (bottom-right): no score, deity, star, door, labels or watermark.
+
+### iPhone and iPad
+
+The layout is drawn once, 390 units wide, and the size of a unit sets how large it shows.
+
+- One unit is never less than 1 px, and never more than 2 px. It grows until the chart screen (390 × 802 units) fills the screen's width or its height.
+- On an iPhone that makes it 1 px, or up to about 1.07 px on the largest ones opened from the home screen. The content is as wide as the screen, and the chart screen is taller than the screen and scrolls.
+- On an upright iPad it makes the unit about 1.25 to 1.66 px. The whole chart shows at once while the 节气 panel is closed, as large as it can, in a column in the middle of the screen. With the panel open the page scrolls.
+- An iPad on its side (wider than tall, at least 900 px wide and 600 px tall) shows the chart screen in two columns: the header card with the 节气 toggle and panel on the left, the grid on the right, the footer under both. That layout is 770 × 524 units, and the unit grows until it fills the width or the height, so the whole chart shows with the 节气 panel open or closed. The input screen keeps its layout, closed up under a shorter teal band, and fits the screen too.
+- Every other window follows the upright rule. A phone on its side, or an iPad sharing its screen with another app, usually comes out at 1 px a unit, in a column up to 480 px wide in the middle, and scrolls where the chart is taller than the window.
+- The height counted leaves out the status bar and the home indicator. In Safari it is the height with Safari's bars showing, so the layout keeps its size as they hide.
+- A double tap is two taps, not a zoom; pinching still zooms. The page doesn't bounce when pulled past its end, and a long press on a button doesn't select its text.
 
 ## 3 · Colors & markers
 
@@ -375,7 +387,7 @@ Build a static TypeScript web app, engine first and test-driven, with `qimen-spe
 
 ## 11 · Hosting & offline
 
-The app's user is on an iPhone in mainland China. It must open with no network, and never depend on a server staying reachable from there. There is no App Store app, WeChat mini program or ICP filing.
+The app's user is on an iPhone and an iPad in mainland China. It must open with no network, and never depend on a server staying reachable from there. There is no App Store app, WeChat mini program or ICP filing.
 
 - Hosting: GitHub Pages. `.github/workflows/deploy.yml` runs typecheck, tests and build on every push and pull request, and publishes `main` only when they pass.
 - Install: open the site in Safari, then Share → 添加到主屏幕. `public/manifest.webmanifest` and `public/apple-touch-icon.png` give it the name 奇门排盘, the nine-palace icon (drawn by `tools/make-icons.mjs`) and a full-screen window.
