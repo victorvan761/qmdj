@@ -8,15 +8,15 @@ The app reproduces 玄天排盘's hour chart (时家奇门) exactly — 转盘, 
 
 | Area | What ships in v1 |
 | --- | --- |
-| Input screen | Date-time picker (defaults to now), four fixed setting rows, 点击起局, 重置时间 |
+| Input screen | Date field (defaults to now) with a wheel picker in 公历 or 农历, four fixed setting rows, 点击起局, 重置时间 |
 | Chart screen | Header card (阳历, 阴历, 四柱, 选局, 旬首, 值符, 值使, 局式), collapsible 节气 panel, 3×3 palace grid with every color and marker, disclaimer footer |
-| Offline | Installs to the iPhone home screen and opens with no network (§11) |
+| Offline | Installs to the iPhone or iPad home screen and opens with no network (§11) |
 
 Out of scope for v1: 飞盘, 置闰 or 茅山 定局, 真太阳时 or a time-zone input, 日空 marking, other 寄宫 rules, saved charts, interpretation text and a second language. The engine still takes each fixed setting as a parameter, so any of these can be added later without rework.
 
 ## 2 · Screens
 
-Two screens, mobile-first (designed at 390 px wide), copying 玄天排盘's layout; the screenshots below are the visual reference.
+Two screens, mobile-first (designed at 390 px wide), copying 玄天排盘's layout; the screenshots below are the visual reference. "iPhone and iPad", at the end of this section, says how the screens are sized on each.
 
 ### Input screen
 
@@ -25,10 +25,30 @@ Two screens, mobile-first (designed at 390 px wide), copying 玄天排盘's layo
 | Element | Behavior |
 | --- | --- |
 | Title | The app's name, 奇门排盘 (玄天排盘 is the reference app's name) |
-| 日期选择 | Date-time picker, minute precision, shown as `1996年/06月/20日 18:20`; opens at the current time and keeps up with the clock until changed; range 1900–2100; on screens narrower than 390 px the text shrinks to fit |
+| 日期选择 | A field showing the chosen minute as `1996年/06月/20日 18:20`; a tap opens the date picker below. It starts at the current time and keeps up with the clock until a time is confirmed in the picker; range 1900–2100; on screens narrower than 390 px the text shrinks to fit |
 | 排盘方式 · 定局 · 标记旬空 · 中宫寄宫 | Read-only rows: 转盘 · 拆补法 · 时空 · 寄坤二宫 |
 | 点击起局 | Primary button (teal fill, white text): casts the chart and opens the chart screen |
-| 重置时间 | Secondary button (white, black text): resets the picker to now |
+| 重置时间 | Secondary button (white, black text): resets the field to now |
+
+### Date picker
+
+![Reference date picker (玄天排盘)](docs/reference/date_picker.jpg)
+
+A tap on 日期选择 raises a sheet from the bottom of the screen, over the input screen dimmed and blurred. The app draws the sheet itself and never opens the system's date picker, so it looks and works the same on every iPhone and iPad.
+
+| Element | Behavior |
+| --- | --- |
+| 取消 | Closes the sheet and leaves the field as it was. A tap on the dimmed screen does the same |
+| 公历 · 农历 | The calendar the wheels show, the chosen one filled orange-red. The sheet opens in 公历; switching keeps the same day and time |
+| 确定 | Closes the sheet and puts the wheels' time in the field, always as a 公历 time |
+| Wheels | 年 月 日 时 分, left to right. Seven rows show, fading toward the top and bottom, with the chosen row dark between two hairlines in the middle. A wheel scrolls under the finger and comes to rest on a row; a tap on a row rolls the wheel to it |
+
+- 公历 lists 1900年–2100年, 1月–12月, the days the month has, 0时–23时 and 0分–59分.
+- 农历 lists months and days by the names the chart's 阴历 row uses (正月 … 腊月, 初一 … 三十), with a leap month (闰六月) after its regular month in the years that have one. It stops where 公历 does: 1899年腊月初一 to 2100年腊月初一.
+- A wheel remembers where it was turned to. From 1月31日, turning the month to 2月 shows 28日 or 29日, and on to 3月 shows 31日 again; choosing a day in 2月 settles on that day. The same holds for 三十 in a 29-day month and for a leap month in a year without one.
+- The wheels open on the field's time and hold it while the sheet is up, even if the field was following the clock.
+- Sizes and colors are measured from the reference screenshot, a 428 pt wide iPhone, where 玄天排盘 draws the sheet in points: 34 pt rows, 16 pt text, and 公历 · 农历 sitting 12 pt left of the middle.
+- A phone on its side shows five rows. On an iPad the sheet spans the screen and grows with the rest of the layout, the wheels keeping to the middle; turning the iPad with the sheet up keeps every wheel on its row.
 
 ### Chart screen
 
@@ -55,6 +75,18 @@ Each outer palace is a 5-row × 3-column layout:
 - Behind the text sits the palace's trigram character (巽 离 坤 震 兑 艮 坎 乾), about 70% of the cell height, in a pale 五行 tint (§3).
 - Two-stem slots: wherever 天芮 lands, the star reads 芮禽 and the 天盘 shows two stems; 坤2's 地盘 always shows two. In both, the 中5 stem comes first (R1: 巽4 天盘 庚乙, 坤2 地盘 庚乙). Their 长生 labels are two groups split by a space, in the same order.
 - 中5 shows only the number 5 (bottom-left) and its 地盘 stem (bottom-right): no score, deity, star, door, labels or watermark.
+
+### iPhone and iPad
+
+The layout is drawn once, 390 units wide, and the size of a unit sets how large it shows.
+
+- One unit is never less than 1 px, and never more than 2 px. It grows until the chart screen (390 × 802 units) fills the screen's width or its height.
+- On an iPhone that makes it 1 px, or up to about 1.07 px on the largest ones opened from the home screen. The content is as wide as the screen, and the chart screen is taller than the screen and scrolls.
+- On an upright iPad it makes the unit about 1.25 to 1.66 px. The whole chart shows at once while the 节气 panel is closed, as large as it can, in a column in the middle of the screen. With the panel open the page scrolls.
+- An iPad on its side (wider than tall, at least 900 px wide and 600 px tall) shows the chart screen in two columns: the header card with the 节气 toggle and panel on the left, the grid on the right, the footer under both. That layout is 770 × 524 units, and the unit grows until it fills the width or the height, so the whole chart shows with the 节气 panel open or closed. The input screen keeps its layout, closed up under a shorter teal band, and fits the screen too.
+- Every other window follows the upright rule. A phone on its side, or an iPad sharing its screen with another app, usually comes out at 1 px a unit, in a column up to 480 px wide in the middle, and scrolls where the chart is taller than the window.
+- The height counted leaves out the status bar and the home indicator. In Safari it is the height with Safari's bars showing, so the layout keeps its size as they hide.
+- A double tap is two taps, not a zoom; pinching still zooms. The page doesn't bounce when pulled past its end, and a long press on a button doesn't select its text.
 
 ## 3 · Colors & markers
 
@@ -103,6 +135,7 @@ Text that the screenshots don't show:
 | --- | --- |
 | Chart screen heading, for screen readers only | 排盘结果 |
 | Back arrow's label, for screen readers only | 返回 |
+| The date picker's name and its wheels' names, for screen readers only | 日期选择 · 年 月 日 时 分 |
 | 节气 toggle while the panel is open | 点击隐藏节气 |
 | 节气 panel labels | 当前节气 · 下一节气 · 元 · 符头 |
 
@@ -315,6 +348,7 @@ Tests to write:
 - One parametrized test per case: `castChart(case.input)` deep-equals the case's `header`, `jieqi`, `derived`, `center` and `palaces`.
 - Invariants over every hour of a year (8,760 charts): each star, door and deity appears once in the outer palaces; the 天盘 stems are a permutation of the 地盘 stems; every 甲 hour is 伏吟; scores fall in {100, 50, 25, 12.5, 6.25}. The reference implementation passes all of these for 2026.
 - UI: R1–R6 render the same text as the screenshots in `docs/reference/`, and every label fits its cell at 390 px wide.
+- Date picker: every day from 1900 to 2100 goes to 农历 and back and is on the wheels; any turning of the wheels and switching of calendars gives a real minute from 1900 to 2100; the wheels' labels fit their columns at 390 px wide.
 
 ## 9 · Open questions
 
@@ -343,7 +377,8 @@ Build a static TypeScript web app, engine first and test-driven, with `qimen-spe
     - `src/engine/calendar.ts` — wraps lunar-typescript (steps 1–3)
     - `src/engine/castChart.ts` — steps 4–12, pure
     - `src/ui/InputScreen.tsx`, `ChartScreen.tsx`, `PalaceCell.tsx`
-    - `tests/golden.test.ts`, `tests/invariants.test.ts`
+    - `src/ui/DateSheet.tsx`, `wheels.ts` — the date picker's sheet, and its five wheels as pure data
+    - `tests/golden.test.ts`, `tests/invariants.test.ts`, `tests/wheels.test.ts`
     - From the kit: `fixtures/golden_charts.json`, `docs/reference/` (screenshots), `tools/reference/` (Python engine)
     - `src/sw.js`, `tools/offline.ts`, `public/` — the offline copy and home-screen install (§11)
 - Order: tables → calendar → `castChart` until R1–R6 pass → D1–D13 → UI checked against the screenshots → open questions as you confirm them.
@@ -352,12 +387,12 @@ Build a static TypeScript web app, engine first and test-driven, with `qimen-spe
 
 ## 11 · Hosting & offline
 
-The app's user is on an iPhone in mainland China. It must open with no network, and never depend on a server staying reachable from there. There is no App Store app, WeChat mini program or ICP filing.
+The app's user is on an iPhone and an iPad in mainland China. It must open with no network, and never depend on a server staying reachable from there. There is no App Store app, WeChat mini program or ICP filing.
 
 - Hosting: GitHub Pages. `.github/workflows/deploy.yml` runs typecheck, tests and build on every push and pull request, and publishes `main` only when they pass.
 - Install: open the site in Safari, then Share → 添加到主屏幕. `public/manifest.webmanifest` and `public/apple-touch-icon.png` give it the name 奇门排盘, the nine-palace icon (drawn by `tools/make-icons.mjs`) and a full-screen window.
 - Offline: the built `sw.js` (`src/sw.js` plus the file list `tools/offline.ts` writes at build time) keeps every built file on the device and answers the app's own requests from that copy, online or not.
-- Updates: every build changes `sw.js`, since its version hashes every file. The phone downloads a new build in the background when it can reach the site, and switches to it on the next launch. If any file fails to download, it keeps the old copy. If the site is blocked, the installed app keeps working at its last version.
+- Updates: every build changes `sw.js`, since its version hashes every file. The phone downloads a new build in the background when it can reach the site, and switches to it on the next launch: the first time it opens after being closed (swiped away, or dropped from memory by iOS), never under a page that is still open. If any file fails to download, it keeps the old copy. If the site is blocked, the installed app keeps working at its last version.
 - The site needs to be reachable from mainland China only for a first install or a reinstall: a new phone, a deleted icon, or iOS clearing the copy.
 
 ## Sources

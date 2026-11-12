@@ -8,8 +8,8 @@ A static web app that reproduces 玄天排盘's hour chart exactly, in 简体中
 - `fixtures/golden_charts.json`: golden charts. R1–R6 come from the reference screenshots and must always pass. D1–D13 are unconfirmed defaults.
 - `docs/reference/`: the 玄天排盘 screenshots the UI must match.
 - `tools/reference/`: the Python reference engine that generated the fixtures. Never hand-edit fixtures; regenerate them (see its README).
-- `src/engine/`: the pure engine. `tables.ts` holds SPEC §6, `calendar.ts` steps 1–3 (lunar-typescript), `castChart.ts` steps 4–12, ported line for line from `tools/reference/engine.py`.
-- `src/ui/`: the two screens, with their 中文 text written where it is shown (SPEC §4). `state.ts` is the pure app reducer. `src/main.tsx` is the only place that reads the clock or registers the service worker.
+- `src/engine/`: the pure engine. `tables.ts` holds SPEC §6, `calendar.ts` steps 1–3 (lunar-typescript) and the 公历 ↔ 农历 conversions the date picker uses, `castChart.ts` steps 4–12, ported line for line from `tools/reference/engine.py`.
+- `src/ui/`: the two screens, with their 中文 text written where it is shown (SPEC §4). `DateSheet.tsx` is the date picker, a sheet of five wheels copied from `docs/reference/date_picker.jpg`; `wheels.ts` is what the wheels list and where they stand, as pure data. `state.ts` is the pure app reducer. `src/main.tsx` is the only place that reads the clock or registers the service worker.
 - `src/sw.js`, `tools/offline.ts`, `public/`: the offline copy and the home-screen install (SPEC §11). `.github/workflows/deploy.yml` tests every push and publishes `main` to GitHub Pages.
 - `tests/`: the Vitest suite. `tests/html.ts` parses `renderToStaticMarkup` output, so UI tests need no DOM.
 

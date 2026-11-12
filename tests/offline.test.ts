@@ -1,17 +1,19 @@
 // SPEC §11: the app installs to the home screen and opens with no network. The service worker runs here in a
 // fake worker scope (fake caches and network), and the real build is checked for a complete offline file list.
-import { mkdtempSync, readdirSync, readFileSync, rmSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, relative } from 'node:path';
 import { runInNewContext } from 'node:vm';
 import { build } from 'vite';
 import { describe, expect, it, vi } from 'vitest';
-import { precacheList, serviceWorkerSource } from '../tools/offline';
+import { precacheList, publicFiles, serviceWorkerSource } from '../tools/offline';
 
 const ROOT = join(import.meta.dirname, '..');
 const TEMPLATE = readFileSync(join(ROOT, 'src/sw.js'), 'utf8');
 const BASE = 'https://example.github.io/qmdj/';
 const FILES = ['./', './assets/index-abc.js', './icon-192.png'];
+/** The cache that holds one version of the copy at BASE. */
+const copy = (version: string, scope = BASE) => `qimen ${scope} ${version}`;
 
 type Init = { method?: string; mode?: string; cache?: string; origin?: string };
 
@@ -74,6 +76,7 @@ function worker(existingCaches: string[] = []) {
   const handlers: Record<string, (e: Event) => void> = {};
   const self = {
     location: new URL('sw.js', BASE),
+    registration: { scope: BASE },
     addEventListener: (type: string, fn: (e: Event) => void) => (handlers[type] = fn),
     skipWaiting: vi.fn(async () => {}),
     clients: { claim: vi.fn(async () => {}) },
@@ -95,29 +98,32 @@ function worker(existingCaches: string[] = []) {
 }
 
 describe('sw.js · the offline copy', () => {
-  it('install downloads every file past the HTTP cache, then takes over', async () => {
+  it('install downloads every file past the HTTP cache, then waits for the next launch', async () => {
     const w = worker();
     await w.fire('install');
     expect(w.net.fetched.map((r) => r.url)).toEqual(FILES.map((f) => new URL(f, BASE).href));
     expect(w.net.fetched.every((r) => r.cache === 'reload')).toBe(true);
-    expect(w.stores.get('qimen-v2')?.size).toBe(FILES.length);
-    expect(w.self.skipWaiting).toHaveBeenCalled();
+    expect(w.stores.get(copy('v2'))?.size).toBe(FILES.length);
+    // Taking over now would let activate delete the files of a page that is still open.
+    expect(w.self.skipWaiting).not.toHaveBeenCalled();
   });
 
   it('a failed download fails the install, so the previous copy stays in charge', async () => {
-    const w = worker(['qimen-v1']);
+    const w = worker([copy('v1')]);
     w.net.failing.add(`${BASE}assets/index-abc.js`);
     await expect(w.fire('install')).rejects.toThrow('network down');
-    expect(w.self.skipWaiting).not.toHaveBeenCalled();
-    expect(w.stores.has('qimen-v1')).toBe(true);
+    expect(w.stores.has(copy('v1'))).toBe(true);
   });
 
-  it('activate deletes older copies of this app only', async () => {
-    const w = worker(['qimen-v1', 'other-app']);
+  it('activate deletes older copies of this app only, not other sites on the same origin', async () => {
+    // Other Pages sites of the same GitHub user, including one in a subfolder of this one.
+    const others = [copy('v1', 'https://example.github.io/qmdj-staging/'), copy('v1', `${BASE}beta/`), 'other-app'];
+    const w = worker([copy('v1'), ...others]);
     await w.fire('install');
     await w.fire('activate');
-    expect([...w.stores.keys()].sort()).toEqual(['other-app', 'qimen-v2']);
-    expect(w.self.clients.claim).toHaveBeenCalled();
+    expect([...w.stores.keys()].sort()).toEqual([copy('v2'), ...others].sort());
+    // Open pages stay with the copy they started on until the next launch.
+    expect(w.self.clients.claim).not.toHaveBeenCalled();
   });
 
   it('with no network, the app and its files come from the copy', async () => {
@@ -143,6 +149,23 @@ describe('sw.js · the offline copy', () => {
     await w.fire('install');
     expect(await w.get('https://other.example/x.js')).toBeUndefined();
     expect(await w.fire('fetch', new FakeRequest(BASE, { method: 'POST' }))).toBeUndefined();
+  });
+});
+
+describe('publicFiles', () => {
+  it('lists subfolders too, skips dotfiles and dot-folders, and copes with no public folder', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'qimen-public-'));
+    try {
+      for (const file of ['icon.png', 'fonts/a.woff2', 'fonts/sub/b.woff2', '.DS_Store', 'fonts/.DS_Store', '.git/x']) {
+        mkdirSync(join(dir, file, '..'), { recursive: true });
+        writeFileSync(join(dir, file), file);
+      }
+      expect(publicFiles(dir)).toEqual(['fonts/a.woff2', 'fonts/sub/b.woff2', 'icon.png']);
+      expect(publicFiles(join(dir, 'missing'))).toEqual([]);
+      expect(publicFiles('')).toEqual([]);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 });
 

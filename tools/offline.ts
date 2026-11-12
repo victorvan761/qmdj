@@ -1,13 +1,26 @@
 // Build step for the offline copy (SPEC §11): writes dist/sw.js from src/sw.js plus the list of files to keep.
 import { createHash } from 'node:crypto';
-import { readdirSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { join, relative, sep } from 'node:path';
 import type { Plugin } from 'vite';
 
 /** The URLs the service worker keeps, relative to it: the page itself as './', then every other built file. */
 export function precacheList(files: readonly string[]): string[] {
   const kept = files.filter((f) => f !== 'index.html' && f !== 'sw.js' && !f.endsWith('.map'));
   return ['./', ...[...kept].sort().map((f) => `./${f}`)];
+}
+
+/**
+ * Every file Vite copies from public/, subfolders included, as sorted '/'-separated paths. Skips dotfiles and
+ * dot-folders (.DS_Store). An unset or missing public folder has none.
+ */
+export function publicFiles(dir: string): string[] {
+  if (!dir || !existsSync(dir)) return [];
+  return readdirSync(dir, { recursive: true, withFileTypes: true })
+    .filter((entry) => entry.isFile())
+    .map((entry) => relative(dir, join(entry.parentPath, entry.name)).split(sep).join('/'))
+    .filter((path) => !path.split('/').some((part) => part.startsWith('.')))
+    .sort();
 }
 
 /** src/sw.js with its two inputs declared in front. */
@@ -36,11 +49,7 @@ export function offline(): Plugin {
         files.push(name);
         hash.update(name).update(out.type === 'chunk' ? out.code : out.source);
       }
-      const publicFiles = readdirSync(publicDir, { withFileTypes: true })
-        .filter((entry) => entry.isFile() && !entry.name.startsWith('.'))
-        .map((entry) => entry.name)
-        .sort();
-      for (const name of publicFiles) {
+      for (const name of publicFiles(publicDir)) {
         files.push(name);
         hash.update(name).update(readFileSync(join(publicDir, name)));
       }

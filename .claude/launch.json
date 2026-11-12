@@ -4,8 +4,17 @@
     {
       "name": "qmdj-dev",
       "runtimeExecutable": "/Users/vhe/.local/node/bin/npm",
-      "runtimeArgs": ["run", "dev", "--", "--port", "5180", "--strictPort"],
+      "runtimeArgs": ["run", "dev", "--", "--port", "5180", "--strictPort", "--host"],
       "port": 5180,
+      "env": {
+        "PATH": "/Users/vhe/.local/node/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+      }
+    },
+    {
+      "name": "qmdj-preview",
+      "runtimeExecutable": "/Users/vhe/.local/node/bin/npm",
+      "runtimeArgs": ["run", "preview", "--", "--port", "5181", "--strictPort"],
+      "port": 5181,
       "env": {
         "PATH": "/Users/vhe/.local/node/bin:/usr/bin:/bin:/usr/sbin:/sbin"
       }

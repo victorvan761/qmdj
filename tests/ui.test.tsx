@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 import fixtures from '../fixtures/golden_charts.json';
 import { TRIGRAM, castChart, parseInput, type PalaceNo } from '../src/engine';
 import { ChartScreen } from '../src/ui/ChartScreen';
+import { DateSheet } from '../src/ui/DateSheet';
 import { InputScreen } from '../src/ui/InputScreen';
 import { field, find, findAll, hasClass, parseHtml, text, textRuns, type El } from './html';
 
@@ -136,14 +137,44 @@ describe('input screen', () => {
     expect(findAll(doc, (e) => e.tag === 'button' && hasClass(e, 'btn')).map(text)).toEqual(['点击起局', '重置时间']);
   });
 
-  it('the picker is a native datetime-local input limited to 1900–2100, minute precision', () => {
-    const input = find(inputScreen('1996-06-20T18:20'), (e) => e.tag === 'input');
-    expect(input.attrs).toMatchObject({
-      type: 'datetime-local', value: '1996-06-20T18:20', min: '1900-01-01T00:00', max: '2100-12-31T23:59', step: '60',
-    });
+  it('the date field is a button for the app’s own wheels: nothing on the screen asks iOS for a picker', () => {
+    const doc = inputScreen('1996-06-20T18:20');
+    const picker = find(doc, (e) => hasClass(e, 'picker'));
+    expect([picker.tag, picker.attrs.type, picker.attrs['aria-haspopup']]).toEqual(['button', 'button', 'dialog']);
+    expect(findAll(doc, (e) => e.tag === 'input' || e.tag === 'select')).toEqual([]);
+    // The wheels stay shut until the field is tapped.
+    expect(findAll(doc, (e) => e.attrs.role === 'dialog')).toEqual([]);
   });
 
   it('the picker text shrinks to fit its box, so a narrow phone shows the whole time', () => {
     expect('data-fit' in field(inputScreen('1996-06-20T18:20'), 'picker').attrs).toBe(true);
+  });
+});
+
+describe('date picker', () => {
+  const sheet = (value: string) => render(<DateSheet value={value} onCancel={noop} onConfirm={noop} />);
+  const onLine = (doc: El) => findAll(doc, (e) => e.attrs['aria-selected'] === 'true').map(text);
+
+  it('is a sheet with 取消, 公历 | 农历 and 确定 over five wheels, as in 玄天排盘', () => {
+    const doc = sheet('2026-11-10T19:17');
+    expect(find(doc, (e) => e.attrs.role === 'dialog').attrs).toMatchObject({ 'aria-modal': 'true', 'aria-label': '日期选择' });
+    expect(findAll(doc, (e) => e.tag === 'button').map(text)).toEqual(['取消', '公历', '农历', '确定']);
+    expect(findAll(doc, (e) => e.attrs.role === 'listbox').map((e) => e.attrs['aria-label'])).toEqual(['年', '月', '日', '时', '分']);
+    expect(findAll(doc, (e) => e.tag === 'input' || e.tag === 'select')).toEqual([]);
+  });
+
+  it('opens in 公历 on the field’s time: 2026年 11月 10日 19时 17分', () => {
+    const doc = sheet('2026-11-10T19:17');
+    expect([field(doc, 'solar').attrs['aria-pressed'], field(doc, 'lunar').attrs['aria-pressed']]).toEqual(['true', 'false']);
+    expect(onLine(doc)).toEqual(['2026年', '11月', '10日', '19时', '17分']);
+  });
+
+  it('lists every year from 1900 to 2100, and the days the month has', () => {
+    const items = (doc: El, wheel: string) =>
+      findAll(find(doc, (e) => e.attrs['data-wheel'] === wheel), (e) => e.attrs.role === 'option').map(text);
+    const years = items(sheet('2026-11-10T19:17'), 'year');
+    expect([years[0], years.at(-1), years.length]).toEqual(['1900年', '2100年', 201]);
+    expect(items(sheet('2026-11-10T19:17'), 'day').at(-1)).toBe('30日');
+    expect(items(sheet('2024-02-10T19:17'), 'day').at(-1)).toBe('29日');
   });
 });

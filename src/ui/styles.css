@@ -1,4 +1,4 @@
-/* 奇门排盘. Color tokens from SPEC §3; sizes measured from docs/reference, scaled to a 390 px wide screen. */
+/* 奇门排盘. Color tokens from SPEC §3; sizes measured from docs/reference on a 390 px wide screen, in units of --u. */
 :root {
   --teal: #22535a;
   --red: #ff0000;
@@ -14,11 +14,21 @@
   --rule: #9a9a9a; /* sampled from the reference grid and table */
   --ink: #000000;
 
+  /* One unit of the layout (SPEC §2): 1px on a phone. On an iPad it grows until the chart screen, 390 × 802 units
+     when held upright, fills the screen's width or its height, so the whole chart shows at once, as large as it
+     can. svh is the height with Safari's bars showing, so nothing jumps as they hide. */
+  --safe-height: calc(100svh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  --u: clamp(1px, min(100vw / 390, var(--safe-height) / 802), 2px);
+  /* How wide the screens' content runs: the 390 units, or up to 480 px while the unit is small. */
+  --column: max(480px, 390 * var(--u));
+
   color-scheme: light;
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC",
     "Source Han Sans SC", "Microsoft YaHei", sans-serif;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
+  /* A double tap is two taps, not a zoom. Pinching still zooms. */
+  touch-action: manipulation;
 }
 
 *,
@@ -32,18 +42,22 @@ body {
   margin: 0;
   background: #ffffff;
   color: var(--ink);
+  /* Opened from the home screen, the page stays put instead of bouncing like a web page. */
+  overscroll-behavior: none;
 }
 
 #root {
-  max-width: 480px;
   min-height: 100vh;
-  margin: 0 auto;
 }
 
 button {
   font: inherit;
   color: inherit;
   cursor: pointer;
+  /* A long press on a button doesn't select its text. */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 
 h1,
@@ -66,48 +80,54 @@ dd {
 .band {
   display: flex;
   align-items: center;
-  min-height: calc(48px + env(safe-area-inset-top));
-  padding: env(safe-area-inset-top) 12px 0;
+  min-height: calc(48 * var(--u) + env(safe-area-inset-top));
+  padding: env(safe-area-inset-top) calc(12 * var(--u)) 0 max(calc(12 * var(--u)), env(safe-area-inset-left));
   background: var(--teal);
 }
 
 .input-screen .band {
-  height: calc(260px + env(safe-area-inset-top));
+  height: calc(260 * var(--u) + env(safe-area-inset-top));
 }
 
 .back {
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
-  margin-left: -8px;
+  width: calc(44 * var(--u));
+  height: calc(44 * var(--u));
+  margin-left: calc(-10 * var(--u));
   padding: 0;
   border: 0;
   background: none;
   color: #ffffff;
 }
 
+.back svg {
+  width: calc(26 * var(--u));
+  height: calc(26 * var(--u));
+}
+
 .card {
-  border-radius: 12px;
+  border-radius: calc(12 * var(--u));
   background: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 calc(2 * var(--u)) calc(8 * var(--u)) rgba(0, 0, 0, 0.16);
 }
 
 /* ── input screen ── */
 .input-main {
   position: relative;
-  margin-top: -156px; /* the card overlaps the band, as in 玄天排盘 */
-  padding: 0 22px 40px;
+  max-width: var(--column);
+  margin: calc(-156 * var(--u)) auto 0; /* the card overlaps the band, as in 玄天排盘 */
+  padding: 0 calc(22 * var(--u)) calc(40 * var(--u) + env(safe-area-inset-bottom));
 }
 
 .input-card {
-  padding: 18px 17px 24px;
+  padding: calc(18 * var(--u)) calc(17 * var(--u)) calc(24 * var(--u));
 }
 
 .title {
-  margin-bottom: 12px;
+  margin-bottom: calc(12 * var(--u));
   color: var(--teal);
-  font-size: 21px;
+  font-size: calc(21 * var(--u));
   font-weight: 800;
   line-height: 1.3;
 }
@@ -116,10 +136,10 @@ dd {
 .fields {
   display: grid;
   grid-template-columns: max-content minmax(0, 1fr);
-  grid-auto-rows: minmax(24px, auto);
+  grid-auto-rows: minmax(calc(24 * var(--u)), auto);
   align-items: center;
-  gap: 5px 1px;
-  font-size: 16px;
+  gap: calc(5 * var(--u)) calc(1 * var(--u));
+  font-size: calc(16 * var(--u));
 }
 
 .field {
@@ -132,21 +152,33 @@ dd {
   white-space: nowrap;
 }
 
+/* The date field: a button that opens the wheels. */
 .picker {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
-  height: 37px;
-  padding: 0 7px 0 7px;
+  gap: calc(6 * var(--u));
+  width: 100%;
+  height: calc(37 * var(--u));
+  padding: 0 calc(7 * var(--u));
   border: 1px solid #c9c9c9;
-  border-radius: 7px;
-  font-size: 15.5px;
+  border-radius: calc(7 * var(--u));
+  background: #ffffff;
+  font-size: calc(15.5 * var(--u));
   font-variant-numeric: tabular-nums;
+  text-align: left;
+}
+
+/* A finger-sized target around the field, which the reference draws 37 units tall. */
+.picker::after {
+  content: "";
+  position: absolute;
+  inset: calc(-5 * var(--u)) 0;
 }
 
 .picker-text {
+  min-width: 0;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -154,23 +186,12 @@ dd {
 
 .calendar-icon {
   flex: none;
+  width: calc(22 * var(--u));
+  height: calc(22 * var(--u));
   color: #333333;
 }
 
-.picker input {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  opacity: 0;
-  font-size: 16px; /* 16 px keeps iOS from zooming in on focus */
-  cursor: pointer;
-}
-
-.picker:focus-within {
+.picker:focus-visible {
   outline: 2px solid var(--teal);
   outline-offset: 2px;
 }
@@ -178,37 +199,257 @@ dd {
 .btn {
   display: block;
   width: 100%;
-  height: 50px;
+  height: calc(50 * var(--u));
   border: 0;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
-  font-size: 17px;
+  border-radius: calc(10 * var(--u));
+  box-shadow: 0 calc(2 * var(--u)) calc(6 * var(--u)) rgba(0, 0, 0, 0.18);
+  font-size: calc(17 * var(--u));
   font-weight: 700;
 }
 
-.btn:active {
+.btn:active,
+.picker:active {
   filter: brightness(0.94);
 }
 
 .btn.primary {
-  margin-top: 105px;
+  margin-top: calc(105 * var(--u));
   background: var(--teal);
   color: #ffffff;
 }
 
 .btn.secondary {
-  margin-top: 37px;
+  margin-top: calc(37 * var(--u));
   background: #ffffff;
   color: #000000;
 }
 
+/* ── the date picker: a sheet of five wheels. Sizes and colors are measured from docs/reference/date_picker.jpg,
+   a 428 pt wide iPhone, where 玄天排盘 draws the sheet in points: one unit here is one point there. ── */
+.sheet-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /* Nothing behind the sheet scrolls or zooms. */
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.sheet-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(calc(3 * var(--u)));
+  backdrop-filter: blur(calc(3 * var(--u)));
+  animation: sheet-dim 0.2s ease-out;
+}
+
+.sheet {
+  position: relative;
+  padding-bottom: calc(11 * var(--u) + env(safe-area-inset-bottom));
+  background: #ffffff;
+  outline: none;
+  animation: sheet-rise 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes sheet-dim {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes sheet-rise {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet,
+  .sheet-backdrop {
+    animation: none;
+  }
+}
+
+/* 取消 · 公历 农历 · 确定. On a wide screen the bar's hairline runs edge to edge; its buttons stay over the wheels. */
+.sheet-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: calc(57 * var(--u));
+  padding: 0 max(0px, (100% - var(--column)) / 2);
+  border-bottom: 1px solid #d2d2d2;
+}
+
+/* 取消 starts 9 units from the left edge. */
+.sheet-action {
+  width: calc(56 * var(--u));
+  height: 100%;
+  padding: 0 calc(9 * var(--u));
+  border: 0;
+  background: none;
+  color: #2271c3;
+  font-size: calc(16 * var(--u));
+  font-weight: 500;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* 确定 ends 15 units from the right edge, and its button is the wider one: 公历 and 农历 sit 12 units left of the
+   middle, as 玄天排盘 draws them. */
+.sheet-action.confirm {
+  width: calc(80 * var(--u));
+  padding-right: calc(15 * var(--u));
+  text-align: right;
+}
+
+.kinds {
+  display: flex;
+  gap: calc(18 * var(--u));
+}
+
+.kind {
+  width: calc(73.5 * var(--u));
+  height: calc(36.5 * var(--u));
+  padding: 0;
+  border: calc(1.5 * var(--u)) solid #3a3a3a;
+  border-radius: calc(18.25 * var(--u));
+  background: #ffffff;
+  color: #272727;
+  font-size: calc(16 * var(--u));
+}
+
+.kind[aria-pressed="true"] {
+  border-color: #ed491f;
+  background: #ed491f;
+  color: #ffffff;
+}
+
+.sheet-action:active,
+.kind:active {
+  opacity: 0.6;
+}
+
+.sheet-action:focus-visible,
+.kind:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: -2px;
+}
+
+/* 年 月 日 时 分: the year's column is wider, as its text is. Like the bar, the wheels keep to the middle of a
+   wide screen while the selection line runs edge to edge. */
+.wheels {
+  --row: calc(34 * var(--u));
+  --rows: 7;
+  --side: max(0px, (100% - var(--column)) / 2);
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.44fr repeat(4, minmax(0, 1fr));
+  height: calc(var(--rows) * var(--row));
+  margin-top: calc(2 * var(--u));
+  padding: 0 calc(var(--side) + 3 * var(--u)) 0 var(--side);
+}
+
+/* A phone on its side has room for five rows. */
+@media (max-height: 340px) {
+  .wheels {
+    --rows: 5;
+  }
+}
+
+/* The rows fade toward the top and the bottom; the selection line, in the middle, is clear. */
+.wheels::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.92),
+    rgba(255, 255, 255, 0.46) 21%,
+    rgba(255, 255, 255, 0.2) 36%,
+    rgba(255, 255, 255, 0) calc(50% - var(--row) / 2),
+    rgba(255, 255, 255, 0) calc(50% + var(--row) / 2),
+    rgba(255, 255, 255, 0.2) 64%,
+    rgba(255, 255, 255, 0.46) 79%,
+    rgba(255, 255, 255, 0.92)
+  );
+  pointer-events: none;
+}
+
+/* The selection line: two hairlines around the middle row. */
+.wheels::after {
+  content: "";
+  position: absolute;
+  top: calc(50% - var(--row) / 2);
+  right: 0;
+  left: 0;
+  z-index: 1;
+  height: var(--row);
+  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+  pointer-events: none;
+}
+
+/* A wheel scrolls under the finger and comes to rest with a row on the selection line. */
+.wheel {
+  min-width: 0;
+  height: 100%;
+  overflow: hidden auto;
+  overscroll-behavior: contain;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+  touch-action: pan-y;
+  outline: none;
+}
+
+.wheel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Room for the first and the last row to reach the middle. */
+.wheel::before,
+.wheel::after {
+  content: "";
+  display: block;
+  height: calc((var(--rows) - 1) / 2 * var(--row));
+}
+
+.wheel-item {
+  height: var(--row);
+  overflow: hidden;
+  scroll-snap-align: center;
+  color: #999999;
+  font-size: calc(16 * var(--u));
+  line-height: var(--row);
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.wheel-item[aria-selected="true"] {
+  color: #222222;
+  font-weight: 600;
+}
+
+.wheel:focus-visible {
+  background: rgba(34, 83, 90, 0.08);
+}
+
 /* ── chart screen: header card ── */
 .chart-main {
-  padding: 10px 7px 28px;
+  max-width: var(--column);
+  margin: 0 auto;
+  padding: calc(10 * var(--u)) calc(7 * var(--u)) calc(28 * var(--u) + env(safe-area-inset-bottom));
 }
 
 .info-card {
-  padding: 6px 6px 14px;
+  padding: calc(6 * var(--u)) calc(6 * var(--u)) calc(14 * var(--u));
 }
 
 .info {
@@ -216,13 +457,13 @@ dd {
   border-collapse: collapse;
   table-layout: fixed;
   text-align: center;
-  font-size: 14px;
+  font-size: calc(14 * var(--u));
 }
 
 .info th,
 .info td {
-  height: 27px;
-  padding: 0 4px;
+  height: calc(27 * var(--u));
+  padding: 0 calc(4 * var(--u));
   border: 1px solid var(--rule);
 }
 
@@ -236,21 +477,21 @@ dd {
 }
 
 .info .pillar td {
-  font-size: 16px;
+  font-size: calc(16 * var(--u));
   font-weight: 800;
 }
 
 .summary {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 9px 10px;
-  margin: 12px 4px 0;
-  font-size: 14px;
+  gap: calc(9 * var(--u)) calc(10 * var(--u));
+  margin: calc(12 * var(--u)) calc(4 * var(--u)) 0;
+  font-size: calc(14 * var(--u));
 }
 
 .pair {
   display: flex;
-  gap: 2px;
+  gap: calc(2 * var(--u));
   min-width: 0;
 }
 
@@ -272,28 +513,28 @@ dd {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin: 16px auto 12px;
-  padding: 4px 8px;
+  gap: calc(12 * var(--u));
+  margin: calc(16 * var(--u)) auto calc(12 * var(--u));
+  padding: calc(4 * var(--u)) calc(8 * var(--u));
   border: 0;
   background: none;
   color: #222222;
-  font-size: 15px;
+  font-size: calc(15 * var(--u));
 }
 
 .terms-toggle svg {
-  width: 17px;
-  height: 17px;
+  width: calc(17 * var(--u));
+  height: calc(17 * var(--u));
 }
 
 .terms {
   display: grid;
-  gap: 6px;
-  margin: 0 8px 14px;
-  padding: 10px 12px;
+  gap: calc(6 * var(--u));
+  margin: 0 calc(8 * var(--u)) calc(14 * var(--u));
+  padding: calc(10 * var(--u)) calc(12 * var(--u));
   border: 1px solid #dddddd;
-  border-radius: 8px;
-  font-size: 13.5px;
+  border-radius: calc(8 * var(--u));
+  font-size: calc(13.5 * var(--u));
 }
 
 /* ── the nine palaces ── */
@@ -447,9 +688,57 @@ dd {
 }
 
 .disclaimer {
-  margin: 18px 8px 0;
+  margin: calc(18 * var(--u)) calc(8 * var(--u)) 0;
   color: var(--footer-gray);
-  font-size: 12.5px;
+  font-size: calc(12.5 * var(--u));
   line-height: 1.5;
   text-align: center;
+}
+
+/* ── an iPad on its side (SPEC §2): the header card beside the grid, 770 × 524 units, so the chart still shows whole ── */
+@media (orientation: landscape) and (min-width: 900px) and (min-height: 600px) {
+  :root {
+    --u: clamp(1px, min(100vw / 770, var(--safe-height) / 524), 2px);
+  }
+
+  /* The input screen, drawn for an upright phone, is closed up to fit the shorter screen. */
+  .input-screen .band {
+    height: calc(150 * var(--u) + env(safe-area-inset-top));
+  }
+
+  .input-main {
+    margin-top: calc(-92 * var(--u));
+    padding-bottom: calc(20 * var(--u) + env(safe-area-inset-bottom));
+  }
+
+  .btn.primary {
+    margin-top: calc(36 * var(--u));
+  }
+
+  .btn.secondary {
+    margin-top: calc(22 * var(--u));
+  }
+
+  .chart-main {
+    display: grid;
+    grid-template-columns: calc(320 * var(--u)) calc(420 * var(--u));
+    justify-content: center;
+    align-items: start;
+    column-gap: calc(14 * var(--u));
+    max-width: none;
+    padding-bottom: calc(10 * var(--u) + env(safe-area-inset-bottom));
+  }
+
+  .terms-toggle {
+    margin: calc(14 * var(--u)) auto calc(10 * var(--u));
+  }
+
+  .terms {
+    margin-bottom: 0;
+  }
+
+  .disclaimer {
+    grid-column: 1 / -1;
+    margin-top: calc(8 * var(--u));
+  }
 }
