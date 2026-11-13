@@ -1,4 +1,4 @@
-"""Write fixtures/golden_charts.json from the reference engine.
+"""Write golden_charts.json, next to this file, from the reference engine.
 
 R* cases: the six 玄天排盘 screenshots (engine output is identical to the transcription; verify.py proves it).
 D* cases: edge cases computed with the spec's default rules, not yet confirmed in 玄天排盘.
@@ -79,7 +79,6 @@ out = {
     },
     "cases": cases,
 }
-OUT = Path(__file__).resolve().parents[2] / "fixtures" / "golden_charts.json"
-OUT.parent.mkdir(exist_ok=True)
+OUT = Path(__file__).resolve().parent / "golden_charts.json"
 OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
 print(f"wrote {len(cases)} cases")

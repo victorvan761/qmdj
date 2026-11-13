@@ -1,15 +1,8 @@
 // The date picker (SPEC §2): a sheet of five wheels rising from the bottom, as in 玄天排盘. The app draws it itself,
 // so it looks and works the same on every iPhone and iPad, whatever iOS does with its own pickers.
+// wheels.ts decides what the wheels list and where they stand; this file draws them and follows the finger.
 import { memo, useCallback, useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent, type MouseEvent } from 'react';
 import { draftValue, openDraft, switchKind, turn, wheels, type CalendarKind, type Wheel, type WheelUnit } from './wheels';
-
-export interface DateSheetProps {
-  /** The time the wheels open on, 'YYYY-MM-DDTHH:mm' */
-  value: string;
-  onCancel(): void;
-  /** 确定, with the time the wheels show */
-  onConfirm(value: string): void;
-}
 
 const KINDS: readonly (readonly [CalendarKind, string])[] = [['solar', '公历'], ['lunar', '农历']];
 
@@ -146,7 +139,17 @@ const WheelColumn = memo(function WheelColumn({ unit, name, items, index, onTurn
   );
 });
 
-export function DateSheet({ value, onCancel, onConfirm }: DateSheetProps) {
+export interface DatePickerProps {
+  /** The time the wheels open on, 'YYYY-MM-DDTHH:mm' */
+  value: string;
+  /** 取消, or a tap on the dimmed screen */
+  onCancel(): void;
+  /** 确定, with the time the wheels show, always in 公历 */
+  onConfirm(value: string): void;
+}
+
+export function DatePicker({ value, onCancel, onConfirm }: DatePickerProps) {
+  // The wheels hold the time they opened on, even if the field goes on following the clock behind them.
   const [draft, setDraft] = useState(() => openDraft(value));
   const sheet = useRef<HTMLDivElement>(null);
   const onTurn = useCallback((unit: WheelUnit, to: number) => setDraft((d) => turn(d, unit, to)), []);
@@ -174,7 +177,12 @@ export function DateSheet({ value, onCancel, onConfirm }: DateSheetProps) {
               </button>
             ))}
           </div>
-          <button type="button" className="sheet-action confirm" data-k="confirm" onClick={() => onConfirm(draftValue(draft))}>
+          <button
+            type="button"
+            className="sheet-action confirm"
+            data-k="confirm"
+            onClick={() => onConfirm(draftValue(draft))}
+          >
             确定
           </button>
         </div>

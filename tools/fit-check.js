@@ -50,7 +50,7 @@ function checkCell(id, cell, problems) {
   });
 }
 
-/** The field's text shrinks to fit (fit.ts), so the whole time shows, at 10 px or more. */
+/** The field's text shrinks to fit (InputScreen.tsx), so the whole time shows, at 10 px or more. */
 function checkPicker(id, problems) {
   const el = document.querySelector('.picker-text');
   const size = parseFloat(getComputedStyle(el).fontSize);
@@ -108,7 +108,7 @@ async function pick(id, input, problems) {
 }
 
 export async function fitCheck() {
-  const { cases } = await (await fetch('/fixtures/golden_charts.json')).json();
+  const { cases } = await (await fetch('/reference/golden_charts.json')).json();
   const problems = [];
   document.querySelector('[data-k="cancel"]')?.click();
   document.querySelector('.back')?.click();

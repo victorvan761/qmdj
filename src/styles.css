@@ -1,4 +1,4 @@
-/* 奇门排盘. Color tokens from SPEC §3; sizes measured from docs/reference on a 390 px wide screen, in units of --u. */
+/* 奇门排盘. Color tokens from SPEC §3; sizes measured from reference/screenshots on a 390 px wide screen, in units of --u. */
 :root {
   --teal: #22535a;
   --red: #ff0000;
@@ -64,6 +64,15 @@ h1,
 dl,
 dd {
   margin: 0;
+}
+
+/* The icons (back arrow, calendar, ⌄⌄): 2 px lines with round ends, in the text's color. */
+.icon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* Read by screen readers, not shown */
@@ -224,7 +233,7 @@ dd {
   color: #000000;
 }
 
-/* ── the date picker: a sheet of five wheels. Sizes and colors are measured from docs/reference/date_picker.jpg,
+/* ── the date picker: a sheet of five wheels. Sizes and colors are measured from reference/screenshots/date_picker.jpg,
    a 428 pt wide iPhone, where 玄天排盘 draws the sheet in points: one unit here is one point there. ── */
 .sheet-layer {
   position: fixed;
