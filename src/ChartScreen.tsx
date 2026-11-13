@@ -4,15 +4,10 @@ import {
   GRID, PALACE, type Chart, type EarthStem, type HeavenStem, type Palace, type PalaceNo, type Stem, type WuXing,
 } from './engine';
 
-/** How the icons are drawn: 2 px lines with round ends. */
-const stroke = {
-  fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round',
-} as const;
-
 function BackIcon() {
   return (
-    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false">
-      <path d="M15 4 7 12l8 8" {...stroke} />
+    <svg className="icon" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false">
+      <path d="M15 4 7 12l8 8" />
     </svg>
   );
 }
@@ -20,9 +15,9 @@ function BackIcon() {
 /** ⌄⌄ pointing down (collapsed) or up (expanded). */
 function DoubleChevron({ up }: { up: boolean }) {
   return (
-    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"
+    <svg className="icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"
       style={up ? { transform: 'rotate(180deg)' } : undefined}>
-      <path d="m5 6 7 6 7-6M5 12l7 6 7-6" {...stroke} />
+      <path d="m5 6 7 6 7-6M5 12l7 6 7-6" />
     </svg>
   );
 }

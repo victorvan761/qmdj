@@ -1,6 +1,7 @@
 // The engine (SPEC §8): the golden charts field for field, the tables, the open-question settings, and
 // invariants over every hour of a year.
-import { describe, expect, it } from 'vitest';
+import { Lunar } from 'lunar-typescript';
+import { describe, expect, it, vi } from 'vitest';
 import golden from '../reference/golden_charts.json';
 import {
   BRANCHES, CHANG_SHENG, DEFAULTS, GODS, HORSE, JI_XING, JU, KE, PALACE, QIYI, RING, RU_MU, SIXTY, STAGES, STEMS, XUN,
@@ -46,6 +47,10 @@ describe('D1–D13: default rules, not yet confirmed in 玄天排盘', () => {
 // ── Open questions ───────────────────────────────────────────────────────────────────────────────────────────
 // Each setting flips one default to the "Otherwise it means" column of SPEC §9, so answering Q1–Q3 in 玄天排盘
 // is a one-line change to DEFAULTS (plus regenerating the golden charts).
+
+it('DEFAULTS is frozen, so nothing can change the settings of every chart cast after it', () => {
+  expect(Object.isFrozen(DEFAULTS)).toBe(true);
+});
 
 describe('Q1 · when the day changes at night (2026-11-05 23:30)', () => {
   it('default 23:00: 日柱 甲申, 阴遁8局', () => {
@@ -112,6 +117,22 @@ describe('reading a time', () => {
       expect(() => castChart({ ...real, ...bad }), JSON.stringify(bad)).toThrow(RangeError);
     }
   });
+
+  it.each(['getPrevJieQi', 'getNextJieQi'] as const)(
+    'castChart names the 节气 when lunar-typescript gives one it does not know (%s)',
+    (method) => {
+      const real = Lunar.prototype[method];
+      const spy = vi.spyOn(Lunar.prototype, method).mockImplementation(function (this: Lunar, wholeDay?: boolean) {
+        const term = real.call(this, wholeDay);
+        return Object.assign(Object.create(term), { getName: () => 'DONG_ZHI' });
+      });
+      try {
+        expect(() => cast('2026-11-04T08:00')).toThrow('unexpected 节气 name from lunar-typescript: DONG_ZHI');
+      } finally {
+        spy.mockRestore();
+      }
+    },
+  );
 });
 
 // ── Tables (SPEC §6) ─────────────────────────────────────────────────────────────────────────────────────────

@@ -381,7 +381,7 @@ The app was built twice. The second build (v2, November 2026) is a rebuild from 
     - `tests/engine.test.ts`, `tests/wheels.test.ts`, `tests/ui.test.tsx`, `tests/offline.test.ts`
     - From the kit, in `reference/`: `golden_charts.json`, `screenshots/` and the Python engine
     - `src/sw.js`, `vite.config.ts`, `public/` — the offline copy and home-screen install (§11)
-- Order: tables → calendar → `castChart` until R1–R6 pass → D1–D13 → UI checked against the screenshots → open questions as you confirm them.
+- Order: tables → `castChart` (steps 1–3, then 4–12) until R1–R6 pass → D1–D13 → UI checked against the screenshots → open questions as you confirm them.
 - Coming from the qimen-kit draft: keep its stack and test harness, take this spec's settings as the defaults, and leave 双语 mode, 置闰/茅山 and the time-zone input out of v1.
 - To regenerate fixtures after a Q answer: `pip install lunar_python==1.4.8`, flip the matching parameter in `reference/engine.py`, then run `verify.py` and `gen_fixtures.py`.
 

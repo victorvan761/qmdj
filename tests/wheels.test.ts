@@ -30,6 +30,12 @@ describe('公历 wheels', () => {
     expect([texts(draft, 'minute')[0], texts(draft, 'minute').at(-1)]).toEqual(['0分', '59分']);
   });
 
+  it('refuse to open on a time that is not a real minute from 1900 to 2100', () => {
+    for (const bad of ['not a date', '2026-02-30T10:00', '2101-01-01T00:00', '']) {
+      expect(() => openDraft(bad), bad).toThrow(RangeError);
+    }
+  });
+
   it('turning a wheel changes that part only', () => {
     expect(draftValue(turn(draft, 'year', 1996))).toBe('1996-11-10T19:17');
     expect(draftValue(turn(draft, 'month', 6))).toBe('2026-06-10T19:17');

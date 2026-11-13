@@ -168,15 +168,18 @@ function stamp(dir: string): { VERSION: string; FILES: string[] } {
 }
 
 describe('writeServiceWorker · the build step', () => {
-  /** Runs the build step on a folder holding these files, each file's content being its own path unless given. */
-  function stamped(files: string[], contents: Record<string, string> = {}, sw = WORKER) {
+  /**
+   * Runs the build step on a folder holding these files, as the files the build wrote, each file's content being
+   * its own path unless given. `leftOver` files are in the folder too, but the build didn't write them.
+   */
+  function stamped(files: string[], contents: Record<string, string> = {}, sw = WORKER, leftOver: string[] = []) {
     const dir = mkdtempSync(join(tmpdir(), 'qimen-site-'));
     try {
-      for (const file of files) {
+      for (const file of [...files, ...leftOver]) {
         mkdirSync(join(dir, file, '..'), { recursive: true });
         writeFileSync(join(dir, file), contents[file] ?? file);
       }
-      writeServiceWorker(dir, sw);
+      writeServiceWorker(dir, sw, files);
       return { ...stamp(dir), sw: readFileSync(join(dir, 'sw.js'), 'utf8') };
     } finally {
       rmSync(dir, { recursive: true, force: true });
@@ -195,6 +198,11 @@ describe('writeServiceWorker · the build step', () => {
     expect(stamped([...SITE, ...extras]).FILES).toEqual(stamped(SITE).FILES);
   });
 
+  it('leaves out files an earlier build left in the folder, from the list and from the version', () => {
+    const leftOver = ['assets/index-old.js', 'old-icon.png'];
+    expect(stamped(SITE, {}, WORKER, leftOver)).toEqual(stamped(SITE));
+  });
+
   it('gives the same version for the same site, and a new one when the page, any file or the worker changes', () => {
     const version = stamped(SITE).VERSION;
     expect(version).toMatch(/^[0-9a-f]{12}$/);
@@ -203,6 +211,12 @@ describe('writeServiceWorker · the build step', () => {
     expect(stamped(SITE, { 'fonts/sub/b.woff2': 'a new font' }).VERSION).not.toBe(version);
     expect(stamped([...SITE, 'new.png']).VERSION).not.toBe(version);
     expect(stamped(SITE, {}, `${WORKER}\n// changed`).VERSION).not.toBe(version);
+  });
+
+  it('gives a new version when a file moves between names and contents that run together the same', () => {
+    const page = { 'index.html': 'page' };
+    expect(stamped(['a', 'index.html'], { ...page, a: 'bc' }).VERSION)
+      .not.toBe(stamped(['ab', 'index.html'], { ...page, ab: 'c' }).VERSION);
   });
 
   it('refuses a site with no page', () => {
@@ -245,11 +259,16 @@ describe('home-screen install', () => {
 describe('the built site', () => {
   it('sw.js keeps every built file except itself, and installs them all', { timeout: 60_000 }, async () => {
     const outDir = mkdtempSync(join(tmpdir(), 'qimen-build-'));
+    // A file from an earlier build, in a folder the build doesn't empty first: the copy must not keep it.
+    const leftOver = 'assets/index-old.js';
+    mkdirSync(join(outDir, 'assets'));
+    writeFileSync(join(outDir, leftOver), 'an earlier build');
     try {
-      await build({ root: ROOT, logLevel: 'silent', build: { outDir, emptyOutDir: true } });
+      await build({ root: ROOT, logLevel: 'silent', build: { outDir, emptyOutDir: false } });
       const { VERSION, FILES: kept } = stamp(outDir);
       expect(VERSION).toMatch(/^[0-9a-f]{12}$/);
-      const expected = filesIn(outDir).filter((f) => f !== 'sw.js' && f !== 'index.html').map((f) => `./${f}`);
+      const built = filesIn(outDir).filter((f) => f !== leftOver);
+      const expected = built.filter((f) => f !== 'sw.js' && f !== 'index.html').map((f) => `./${f}`);
       expect([...kept].sort()).toEqual(['./', ...expected].sort());
       // The page, its script and stylesheet, the manifest and the three icons.
       expect(kept).toHaveLength(7);

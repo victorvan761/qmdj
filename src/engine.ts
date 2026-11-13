@@ -29,7 +29,7 @@ export interface Settings {
   termSwitch: 'exact' | 'day';
 }
 
-export const DEFAULTS: Readonly<Settings> = { ziHour: '23:00', termSwitch: 'exact' };
+export const DEFAULTS: Readonly<Settings> = Object.freeze({ ziHour: '23:00', termSwitch: 'exact' });
 
 export interface EarthStem {
   stem: Stem;
@@ -278,6 +278,15 @@ export function stageAt(stem: Stem, branch: string): number {
   return mod(yang ? to - from : from - to, 12);
 }
 
+/** The 24 节气, as the 局 table names them. */
+const JIEQI: readonly string[] = [...Object.keys(JU.阳), ...Object.keys(JU.阴)];
+
+/** A 节气 name from lunar-typescript, checked against the 局 table's. */
+function jieQiName(name: string): string {
+  if (!JIEQI.includes(name)) throw new Error(`unexpected 节气 name from lunar-typescript: ${name}`);
+  return name;
+}
+
 export function castChart(input: ChartInput, settings: Settings = DEFAULTS): Chart {
   if (!isRealMinute(input)) {
     throw new RangeError(`not a real minute from ${MIN_YEAR} to ${MAX_YEAR}: ${JSON.stringify(input)}`);
@@ -303,13 +312,15 @@ export function castChart(input: ChartInput, settings: Settings = DEFAULTS): Cha
   //    on or before the 日柱, and its branch gives the 元.
   const term = lunar.getPrevJieQi(wholeDay);
   const nextTerm = lunar.getNextJieQi(wholeDay);
+  const termName = jieQiName(term.getName());
+  const nextName = jieQiName(nextTerm.getName());
   const dayIndex = SIXTY.indexOf(pillars.day);
   const fuTou = SIXTY[dayIndex - (dayIndex % 5)];
   const yuan = YUAN.findIndex((y) => y.branches.includes(fuTou[1]));
 
   // 4. 局 (拆补法): 阴 or 阳 and a number, from the 节气 and the 元.
-  const dun = term.getName() in JU.阳 ? '阳' : '阴';
-  const ju = JU[dun][term.getName()][yuan];
+  const dun = termName in JU.阳 ? '阳' : '阴';
+  const ju = JU[dun][termName][yuan];
   // 阳遁 counts up through the palaces and goes clockwise round the ring; 阴遁 counts down and goes
   // counterclockwise.
   const dir = dun === '阳' ? 1 : -1;
@@ -389,9 +400,9 @@ export function castChart(input: ChartInput, settings: Settings = DEFAULTS): Cha
       juShi: '转盘-拆补-寄坤二宫',
     },
     jieqi: {
-      current: term.getName(),
+      current: termName,
       currentStart: term.getSolar().toYmdHms(),
-      next: nextTerm.getName(),
+      next: nextName,
       nextStart: nextTerm.getSolar().toYmdHms(),
       yuan: YUAN[yuan].name,
       fuTou,

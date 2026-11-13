@@ -174,7 +174,11 @@ function solarTime(draft: Draft): ChartInput {
 // ── Opening, turning, switching, reading ─────────────────────────────────────────────────────────────────────
 
 /** The wheels for a time written 'YYYY-MM-DDTHH:mm', which must be a real minute from 1900 to 2100. They open in 公历. */
-export const openDraft = (value: string): Draft => ({ kind: 'solar', ...parseInput(value)! });
+export function openDraft(value: string): Draft {
+  const time = parseInput(value);
+  if (!time) throw new RangeError(`the wheels can't open on ${JSON.stringify(value)}: not a real minute from 1900 to 2100`);
+  return { kind: 'solar', ...time };
+}
 
 /** One wheel turned to a value from its list. */
 export function turn(draft: Draft, unit: WheelUnit, value: number): Draft {

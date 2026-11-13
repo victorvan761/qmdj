@@ -60,7 +60,7 @@ vite.config.ts          build settings, and the step that writes dist/sw.js
 
 **The screens** only draw what the engine returns. There are two, plus the date picker, which the app draws itself as five scrolling wheels so that it looks and works the same on every iPhone and iPad. What the wheels list and where they stand is plain data in [src/wheels.ts](src/wheels.ts), so it can be tested without a browser. The layout is drawn once, 390 units wide, and one CSS variable sets the size of a unit, which is how the same screens fit a phone, an upright iPad and an iPad on its side (SPEC §2).
 
-**The offline copy** is a service worker, [src/sw.js](src/sw.js). The build puts two lines in front of it: the list of every built file, and a version that hashes them all. On the device it downloads those files once and then answers the app's requests from that copy. A new build downloads in the background and takes over the next time the app is opened; if any file fails to download, the old copy stays in use (SPEC §11).
+**The offline copy** is a service worker, [src/sw.js](src/sw.js). The build puts two lines in front of it: the list of every file that build wrote, and a version that hashes them all. On the device it downloads those files once and then answers the app's requests from that copy. A new build downloads in the background and takes over the next time the app is opened; if any file fails to download, the old copy stays in use (SPEC §11).
 
 ## How it is kept correct
 
