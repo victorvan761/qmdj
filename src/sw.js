@@ -1,4 +1,4 @@
-// The offline copy of the app (SPEC §11). The build prepends VERSION and FILES (tools/offline.ts) and serves
+// The offline copy of the app (SPEC §11). The build puts VERSION and FILES in front (vite.config.ts) and serves
 // this as sw.js. Every request for the app's own files is answered from the copy, so the app opens with no
 // network. A new build installs in the background and waits: it takes over on the next launch, once no open
 // page still uses the old copy, so a running page never loses files from under it.

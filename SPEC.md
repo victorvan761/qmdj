@@ -12,7 +12,7 @@ The app reproduces 玄天排盘's hour chart (时家奇门) exactly — 转盘, 
 | Chart screen | Header card (阳历, 阴历, 四柱, 选局, 旬首, 值符, 值使, 局式), collapsible 节气 panel, 3×3 palace grid with every color and marker, disclaimer footer |
 | Offline | Installs to the iPhone or iPad home screen and opens with no network (§11) |
 
-Out of scope for v1: 飞盘, 置闰 or 茅山 定局, 真太阳时 or a time-zone input, 日空 marking, other 寄宫 rules, saved charts, interpretation text and a second language. The engine still takes each fixed setting as a parameter, so any of these can be added later without rework.
+Out of scope for v1: 飞盘, 置闰 or 茅山 定局, 真太阳时 or a time-zone input, 日空 marking, other 寄宫 rules, saved charts, interpretation text and a second language. The engine has the four fixed settings built in; adding one of these later means adding a setting to `castChart` (§7).
 
 ## 2 · Screens
 
@@ -20,7 +20,7 @@ Two screens, mobile-first (designed at 390 px wide), copying 玄天排盘's layo
 
 ### Input screen
 
-![Reference input screen (玄天排盘)](docs/reference/input_screen.png)
+![Reference input screen (玄天排盘)](reference/screenshots/input_screen.png)
 
 | Element | Behavior |
 | --- | --- |
@@ -32,7 +32,7 @@ Two screens, mobile-first (designed at 390 px wide), copying 玄天排盘's layo
 
 ### Date picker
 
-![Reference date picker (玄天排盘)](docs/reference/date_picker.jpg)
+![Reference date picker (玄天排盘)](reference/screenshots/date_picker.jpg)
 
 A tap on 日期选择 raises a sheet from the bottom of the screen, over the input screen dimmed and blurred. The app draws the sheet itself and never opens the system's date picker, so it looks and works the same on every iPhone and iPad.
 
@@ -52,7 +52,7 @@ A tap on 日期选择 raises a sheet from the bottom of the screen, over the inp
 
 ### Chart screen
 
-![Reference chart R1 (玄天排盘, 1996-06-20 18:16)](docs/reference/R1_1996-06-20_1816.jpg)
+![Reference chart R1 (玄天排盘, 1996-06-20 18:16)](reference/screenshots/R1_1996-06-20_1816.jpg)
 
 - Back arrow returns to the input screen with the entered time kept, as does the browser's or system's back. Forward, or a reload on the chart screen, shows the chart again.
 - Header card: a bordered table with rows 阳历 (`YYYY-MM-DD HH:mm:ss`, seconds always 00) and 阴历 (`丙子年 五月初五`), then a 4-column 年 / 月 / 日 / 时 table (stems row, branches row). Under it, label–value pairs in two columns: 选局 · 旬首, 值符 · 值使, then 局式 `转盘-拆补-寄坤二宫` on its own line.
@@ -317,11 +317,11 @@ interface Chart {
 }
 ```
 
-`castChart(input, settings = DEFAULTS)` takes the four fixed settings plus the two calendar conventions (子时 day change, 节气 switch) as an object, so Q1–Q3 can flip a default without touching the steps.
+`castChart(input, settings = DEFAULTS)` takes the two calendar conventions (子时 day change, 节气 switch) as an object, so Q1–Q3 can flip a default without touching the steps. The four fixed settings have one value each and are built in.
 
 ## 8 · Acceptance tests
 
-`fixtures/golden_charts.json` holds 19 cases: R1–R6 are your six screenshots and must match field for field; D1–D13 are edge cases computed with the default rules, not yet confirmed in 玄天排盘.
+`reference/golden_charts.json` holds 19 cases: R1–R6 are your six screenshots and must match field for field; D1–D13 are edge cases computed with the default rules, not yet confirmed in 玄天排盘.
 
 | ID | Input (Beijing time) | What it pins down | Confirmed |
 | --- | --- | --- | --- |
@@ -347,7 +347,7 @@ Tests to write:
 
 - One parametrized test per case: `castChart(case.input)` deep-equals the case's `header`, `jieqi`, `derived`, `center` and `palaces`.
 - Invariants over every hour of a year (8,760 charts): each star, door and deity appears once in the outer palaces; the 天盘 stems are a permutation of the 地盘 stems; every 甲 hour is 伏吟; scores fall in {100, 50, 25, 12.5, 6.25}. The reference implementation passes all of these for 2026.
-- UI: R1–R6 render the same text as the screenshots in `docs/reference/`, and every label fits its cell at 390 px wide.
+- UI: R1–R6 render the same text as the screenshots in `reference/screenshots/`, and every label fits its cell at 390 px wide.
 - Date picker: every day from 1900 to 2100 goes to 农历 and back and is on the wheels; any turning of the wheels and switching of calendars gives a real minute from 1900 to 2100; the wheels' labels fit their columns at 390 px wide.
 
 ## 9 · Open questions
@@ -368,22 +368,22 @@ Nine behaviors can't be settled from the six screenshots. Enter each input in �
 
 ## 10 · Build notes for Claude Code
 
-Build a static TypeScript web app, engine first and test-driven, with `qimen-spec-kit.zip` (fixtures, screenshots, reference engine) unzipped at the repo root as the contract.
+Build a static TypeScript web app, engine first and test-driven, with `qimen-spec-kit.zip` (fixtures, screenshots, reference engine) as the contract. The kit lives in `reference/`.
+
+The app was built twice. The second build (v2, November 2026) is a rebuild from scratch that behaves and looks exactly as the first did, with simpler code; the layout below is its layout. "v1" elsewhere in this spec means the feature set, which v2 keeps.
 
 - Stack: TypeScript (strict), React, Vite, Vitest — the stack picked for the earlier qimen-kit draft. Static site, no backend, mobile-first.
 - Calendar: `lunar-typescript` 1.8.6 (6tail, MIT). It returns the same 四柱, 节气 times and 阴历 as the fixture generator on all 19 cases.
 - Layout:
-    - `src/engine/tables.ts` — every constant in §6
-    - `src/engine/calendar.ts` — wraps lunar-typescript (steps 1–3)
-    - `src/engine/castChart.ts` — steps 4–12, pure
-    - `src/ui/InputScreen.tsx`, `ChartScreen.tsx`, `PalaceCell.tsx`
-    - `src/ui/DateSheet.tsx`, `wheels.ts` — the date picker's sheet, and its five wheels as pure data
-    - `tests/golden.test.ts`, `tests/invariants.test.ts`, `tests/wheels.test.ts`
-    - From the kit: `fixtures/golden_charts.json`, `docs/reference/` (screenshots), `tools/reference/` (Python engine)
-    - `src/sw.js`, `tools/offline.ts`, `public/` — the offline copy and home-screen install (§11)
+    - `src/engine.ts` — the data model (§7), every constant in §6, and `castChart`: steps 1–3 through lunar-typescript, steps 4–12 as lookups, all pure
+    - `src/wheels.ts`, `src/DatePicker.tsx` — the date picker's five wheels as pure data, and the sheet that draws them
+    - `src/App.tsx`, `src/InputScreen.tsx`, `src/ChartScreen.tsx`, `src/styles.css` — the app's state and its two screens
+    - `tests/engine.test.ts`, `tests/wheels.test.ts`, `tests/ui.test.tsx`, `tests/offline.test.ts`
+    - From the kit, in `reference/`: `golden_charts.json`, `screenshots/` and the Python engine
+    - `src/sw.js`, `vite.config.ts`, `public/` — the offline copy and home-screen install (§11)
 - Order: tables → calendar → `castChart` until R1–R6 pass → D1–D13 → UI checked against the screenshots → open questions as you confirm them.
 - Coming from the qimen-kit draft: keep its stack and test harness, take this spec's settings as the defaults, and leave 双语 mode, 置闰/茅山 and the time-zone input out of v1.
-- To regenerate fixtures after a Q answer: `pip install lunar_python==1.4.8`, flip the matching parameter in `tools/reference/engine.py`, then run `verify.py` and `gen_fixtures.py`.
+- To regenerate fixtures after a Q answer: `pip install lunar_python==1.4.8`, flip the matching parameter in `reference/engine.py`, then run `verify.py` and `gen_fixtures.py`.
 
 ## 11 · Hosting & offline
 
@@ -391,7 +391,7 @@ The app's user is on an iPhone and an iPad in mainland China. It must open with 
 
 - Hosting: GitHub Pages. `.github/workflows/deploy.yml` runs typecheck, tests and build on every push and pull request, and publishes `main` only when they pass.
 - Install: open the site in Safari, then Share → 添加到主屏幕. `public/manifest.webmanifest` and `public/apple-touch-icon.png` give it the name 奇门排盘, the nine-palace icon (drawn by `tools/make-icons.mjs`) and a full-screen window.
-- Offline: the built `sw.js` (`src/sw.js` plus the file list `tools/offline.ts` writes at build time) keeps every built file on the device and answers the app's own requests from that copy, online or not.
+- Offline: the built `sw.js` (`src/sw.js` plus the file list `vite.config.ts` writes at build time) keeps every built file on the device and answers the app's own requests from that copy, online or not.
 - Updates: every build changes `sw.js`, since its version hashes every file. The phone downloads a new build in the background when it can reach the site, and switches to it on the next launch: the first time it opens after being closed (swiped away, or dropped from memory by iOS), never under a page that is still open. If any file fails to download, it keeps the old copy. If the site is blocked, the installed app keeps working at its last version.
 - The site needs to be reachable from mainland China only for a first install or a reinstall: a new phone, a deleted icon, or iOS clearing the copy.
 

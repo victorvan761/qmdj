@@ -1,9 +1,10 @@
 // The date picker's wheels (SPEC §2): what each lists in 公历 and 农历, and that every turn gives a real time.
 import { describe, expect, it } from 'vitest';
-import fixtures from '../fixtures/golden_charts.json';
-import { daysInMonth, lunarMonths, lunarToSolar, solarToLunar } from '../src/engine';
-import { readInput } from '../src/ui/state';
-import { draftValue, openDraft, switchKind, turn, wheels, type Draft, type WheelUnit } from '../src/ui/wheels';
+import golden from '../reference/golden_charts.json';
+import { daysInMonth, parseInput } from '../src/engine';
+import {
+  draftValue, lunarMonths, lunarToSolar, openDraft, solarToLunar, switchKind, turn, wheels, type Draft, type WheelUnit,
+} from '../src/wheels';
 
 /** What the selection line reads, left to right. */
 const reads = (draft: Draft) => wheels(draft).map((w) => w.items[w.index].text).join(' ');
@@ -13,7 +14,7 @@ const lunar = (value: string) => switchKind(openDraft(value), 'lunar');
 describe('公历 wheels', () => {
   const draft = openDraft('2026-11-10T19:17');
 
-  it('open on the picker value, as in 玄天排盘: 2026年 11月 10日 19时 17分', () => {
+  it('open on the field’s time, as in 玄天排盘: 2026年 11月 10日 19时 17分', () => {
     expect(wheels(draft).map((w) => w.name)).toEqual(['年', '月', '日', '时', '分']);
     expect(reads(draft)).toBe('2026年 11月 10日 19时 17分');
     expect(draftValue(draft)).toBe('2026-11-10T19:17');
@@ -93,7 +94,7 @@ describe('农历 wheels', () => {
   });
 
   it('switching back to 公历 gives the same day, for every golden case', () => {
-    for (const c of fixtures.cases) {
+    for (const c of golden.cases) {
       const there = lunar(c.input);
       expect(reads(there).split(' ').slice(1, 3).join(''), c.id).toBe(c.header.lunar.split(' ')[1]);
       expect(draftValue(there), c.id).toBe(c.input);
@@ -175,7 +176,7 @@ describe('any turning of the wheels', () => {
       }
       const at = `step ${step}: ${JSON.stringify(draft)}`;
       for (const wheel of wheels(draft)) expect(wheel.items[wheel.index], at).toBeDefined();
-      expect(readInput(draftValue(draft)), at).not.toBeNull();
+      expect(parseInput(draftValue(draft)), at).not.toBeNull();
     }
   });
 });

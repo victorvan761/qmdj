@@ -1,9 +1,8 @@
-// The only place that touches the clock and the service worker.
+// Where the app starts, and the only place that touches the clock and the service worker.
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { App } from './ui/App';
-import { clockInput, initialState } from './ui/state';
-import './ui/styles.css';
+import { App, clockInput, initialState } from './App';
+import './styles.css';
 
 /**
  * The device clock's wall time to the minute, held to 1900–2100. The engine reads it as Beijing time, unconverted

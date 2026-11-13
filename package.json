@@ -1,7 +1,7 @@
 {
   "name": "qmdj",
   "private": true,
-  "version": "0.1.0",
+  "version": "2.0.0",
   "description": "奇门排盘 · Qi Men Chart: 玄天排盘's hour chart in 简体中文 (static web app)",
   "type": "module",
   "scripts": {
