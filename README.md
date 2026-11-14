@@ -4,7 +4,7 @@ A small web app that casts a 奇门遁甲 hour chart (时家奇门 · 转盘 · 
 
 Live at <https://victorvan761.github.io/qmdj/>.
 
-This is **v2**: the app rebuilt from scratch against the same spec. It behaves and looks exactly as v1 did. Only the code is simpler: one engine file, one file per screen, 43 files where there were 60.
+This is **v2**: the app rebuilt from scratch against the same spec. It behaves and looks exactly as v1 did. Only the code is simpler: one engine file, one file per screen, 46 files where there were 60.
 
 ## Using it
 
@@ -45,13 +45,15 @@ src/
   styles.css            every style, measured from the screenshots
   main.tsx              starts the app
   sw.js                 the service worker that keeps the offline copy
-tests/                  the test suite: engine, wheels, screens, offline copy
+tests/                  the test suite: engine, wheels, screens, offline copy, security settings
 tools/
   fit-check.js          checks in a real browser that every label fits its cell
   make-icons.mjs        draws the home-screen icons in public/
 public/                 the icons and the web app manifest
 vite.config.ts          build settings, and the step that writes dist/sw.js
+.npmrc                  what npm may install: no install scripts, no release under 7 days old
 .github/workflows/      tests every push and publishes main to GitHub Pages
+.github/dependabot.yml  proposes dependency updates as pull requests, once a month
 ```
 
 ## How it works
@@ -91,3 +93,12 @@ Nine behaviors can't be settled from the six screenshots (SPEC §9). Each has a 
 ## Publishing
 
 Every push and pull request runs the typecheck, the tests and the build on GitHub Actions. A push to `main` that passes is published to GitHub Pages. An installed copy downloads a new build in the background when it is opened with a network, and switches to it the next time it is opened.
+
+Whatever reaches `main` reaches every installed copy, so the way there is guarded:
+
+- **`main`** takes changes only as pull requests whose `build` check passed. It can't be pushed to directly, force-pushed or deleted.
+- **The workflow** runs only GitHub's own actions, each pinned to a commit, because a tag can be moved to other code.
+- **npm** never runs a dependency's install scripts and never chooses a release under 7 days old ([.npmrc](.npmrc)), so a hijacked package has time to be caught before it is installed.
+- **Dependabot** proposes updates once a month as pull requests. A merged update to a package can change the build, and then it reaches installed copies like any other change.
+
+The first two are settings of the repository on GitHub. The tests check the rest, and that the dev server listens on this machine only.

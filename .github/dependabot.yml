@@ -1,0 +1,33 @@
+# Dependabot proposes updates as pull requests, once a month. Each runs the tests like any other pull request
+# (deploy.yml), and nothing ships until it is merged.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    # A release must be 8 days old before it is proposed: a day more than .npmrc asks for, so npm can't refuse a
+    # release Dependabot proposes.
+    cooldown:
+      default-days: 8
+    # At most two pull requests: what ships in the app (react, lunar-typescript), and the tools that build it.
+    groups:
+      app:
+        dependency-type: production
+      tools:
+        dependency-type: development
+    ignore:
+      # Its major version follows the Node the project runs on (package.json "engines", deploy.yml).
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+
+  # The workflow's actions are pinned to commits (deploy.yml). This keeps the pins current.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 8
+    groups:
+      actions:
+        patterns: ["*"]
