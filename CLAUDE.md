@@ -13,7 +13,8 @@ A static web app that reproduces 玄天排盘's hour chart exactly, in 简体中
 - `src/wheels.ts`: what the date picker's five wheels list and where they stand, as pure data, with the 公历 ↔ 农历 conversions they need. `src/DatePicker.tsx` draws them, copied from `reference/screenshots/date_picker.jpg`.
 - `src/App.tsx`: the pure app reducer, and the browser glue (history, clock, focus). `src/InputScreen.tsx` and `src/ChartScreen.tsx` are the two screens, with their 中文 text written where it is shown (SPEC §4). `src/styles.css` holds every style. `src/main.tsx` is the only place that reads the clock or registers the service worker.
 - `src/sw.js`, `vite.config.ts`, `public/`: the offline copy and the home-screen install (SPEC §11). `vite.config.ts` writes `dist/sw.js` at build time. `.github/workflows/deploy.yml` tests every push and publishes `main` to GitHub Pages.
-- `tests/`: the Vitest suite, one file per area. `tests/html.ts` parses `renderToStaticMarkup` output, so UI tests need no DOM.
+- `.npmrc`, `.github/dependabot.yml`: the dependency rules. npm never runs a dependency's install scripts and never chooses a release under 7 days old. Dependabot proposes updates as pull requests, once a month.
+- `tests/`: the Vitest suite, one file per area. `tests/html.ts` parses `renderToStaticMarkup` output, so UI tests need no DOM. `tests/hardening.test.ts` checks the security rules that live in files: the workflow's pins, `.npmrc`, and that the dev server listens on this machine only.
 - `tools/`: `fit-check.js` (below) and `make-icons.mjs`.
 
 ## How to work here
@@ -22,15 +23,17 @@ A static web app that reproduces 玄天排盘's hour chart exactly, in 简体中
 - Keep the engine pure: no clock reads, no DOM, no React. Its values are the Chinese terms the chart shows.
 - Run the full test suite before calling anything done. After a change to a screen or to `src/styles.css`, also run the label-fit check (below) at 390 and 375 px wide: the suite runs in Node and can't see layout.
 - A change to `src/sw.js` or to the step that writes it reaches installed phones without anyone watching. Keep such changes small, and try the result with `npm run preview`.
+- `main` takes changes only as pull requests whose `build` check passed, and a merge ships to installed phones. Workflows may use only GitHub's own actions (`actions/*`, `github/*`), each pinned to a commit SHA with its version in a comment. Both are settings of the repository on GitHub, not files.
+- To install a release under 7 days old on purpose, pass `--min-release-age=0`. Without it, asking for one by its exact version fails, or for vite never finishes.
 - When an open question in SPEC §9 is answered, update SPEC.md, flip the setting, and regenerate the golden charts. For Q1–Q3 the setting is `DEFAULTS` in `src/engine.ts` and the matching parameter of `chart()` in `reference/engine.py`.
 
 ## Commands
 
 Node 24 lives at `~/.local/node/bin`, which isn't on the PATH. Run `export PATH="$HOME/.local/node/bin:$PATH"` first.
 
-- `npm test`: the whole Vitest suite (engine, golden charts, 8,760-hour invariants, wheels, UI, offline copy).
+- `npm test`: the whole Vitest suite (engine, golden charts, 8,760-hour invariants, wheels, UI, offline copy, security settings).
 - `npm run typecheck`: strict TypeScript over `src`, `tests` and `vite.config.ts`.
-- `npm run dev`: dev server, also `qmdj-dev` in `.claude/launch.json` (port 5180). If the page keeps showing old code after an edit, restart the server and open a fresh tab.
+- `npm run dev`: dev server, also `qmdj-dev` in `.claude/launch.json` (port 5180). It listens on this machine only. To open it from a real phone on the same Wi-Fi, run `npm run dev -- --host` for that session. If the page keeps showing old code after an edit, restart the server and open a fresh tab.
 - `npm run build`: static site in `dist/` (relative paths, no network requests beyond its own files).
 - `npm run preview`: serves `dist/`. The only local way to try the offline copy: the dev server has no service worker.
 - `node tools/make-icons.mjs`: redraws the home-screen icons in `public/`.
